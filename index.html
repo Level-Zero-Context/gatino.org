@@ -174,20 +174,18 @@
     html.js .marke-buehne.geschichte .loch{opacity:1}
     html.js .marke-buehne.logo-an .loch{opacity:0}
     .loch-stern{position:absolute;left:50%;top:27%;width:20%;transform:translate(-50%,-50%)}
-    /* die wandelnde Katze: Position/Größe steuert JS je Phase */
-    .story-katze{
-      position:absolute;transform:translate(-50%,-100%);height:auto;
-      opacity:0;display:none;
+    /* die wandelnde Katze: läuft auf Bodenhöhe über den ganzen Bildschirm
+       zum Loch — groß und detailiert (Tinte mit Grau-Wash) */
+    .wandkatze{
+      position:fixed;left:0;top:0;z-index:150;pointer-events:none;
+      opacity:0;transition:opacity .5s ease;
     }
-    html.js .story-katze{display:block}
-    html.js .marke-buehne.geschichte .story-katze{opacity:1}
-    html.js .marke-buehne.logo-an .story-katze{opacity:0}
-    html.js .marke-buehne.laeuft .story-katze{transition:left 2.4s linear}
-    html.js .marke-buehne.sitzt  .story-katze{transition:left .4s ease}
-    html.js .marke-buehne.sprung .story-katze{transition:left .8s cubic-bezier(.45,-.15,.6,1), top .8s cubic-bezier(.2,.5,.45,1), width .8s ease}
-    html.js .marke-buehne.im-loch .story-katze,
-    html.js .marke-buehne.dreht   .story-katze,
-    html.js .marke-buehne.frontal .story-katze{transition:left .35s ease, width .35s ease}
+    .wandkatze.aktiv{opacity:1}
+    .wandkatze img{
+      width:100%;height:auto;display:block;mix-blend-mode:multiply;
+      -webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 50%, #000 50%, transparent 92%);
+      mask-image:radial-gradient(ellipse 72% 72% at 50% 50%, #000 50%, transparent 92%);
+    }
     /* kleine Katze + Blase neben MUSIC & ART (Endzustand) */
     .miau-ecke{
       position:absolute;left:calc(100% - 8px);top:72%;
@@ -348,6 +346,10 @@
     <img class="cursor-logo" src="assets/logo/gatinos_emblem.png" alt="">
   </div>
 
+  <div class="wandkatze" id="wandkatze" aria-hidden="true">
+    <img id="wandkatze-bild" src="assets/cat/wand-1.png" alt="">
+  </div>
+
   <!-- ============ Katzen-Dialog: öffnet nur über „Benachrichtigen“ ============ -->
   <div class="katze" id="katze" role="dialog" aria-modal="true" aria-label="Shop notification">
     <div class="katzen-karte">
@@ -377,7 +379,6 @@
         <div class="loch" aria-hidden="true">
           <svg class="loch-stern" viewBox="0 0 100 100"><path d="M50 2 L57 43 L98 50 L57 57 L50 98 L43 57 L2 50 L43 43 Z" fill="#333d4a"/></svg>
         </div>
-        <img class="story-katze" id="story-katze" src="assets/cat/sil-1.png" alt="" aria-hidden="true">
         <div class="marke">
           <img src="assets/logo/gatinos_light_alpha.png" alt="Gatinos Selection — Music &amp; Art" width="800" height="800">
         </div>
@@ -465,91 +466,106 @@
     }
     requestAnimationFrame(rahmen);
 
-    /* — Logo-Geschichte: die Silhouette läuft herein, sitzt vor dem Loch mit
-         dem Stern, springt hinein, dreht sich, schaut heraus — und wird zum
-         schwarzen Logo. Ohne JS oder bei reduzierter Bewegung: direkt der
-         Endzustand. — */
+    /* — Logo-Geschichte: die große detailierte Katze kommt von außerhalb des
+         linken Bildschirmrands, läuft auf Bodenhöhe über den ganzen Screen,
+         setzt sich vor dem Loch, springt hinein (ihr Kopf passt gerade so
+         hindurch), schaut heraus — und wird zum schwarzen Logo. — */
     var buehne = document.querySelector("#marke-buehne");
-    var katze = document.querySelector("#story-katze");
-    if(buehne && katze){
+    var loch = document.querySelector(".loch");
+    var wandkatze = document.querySelector("#wandkatze");
+    var wandbild = document.querySelector("#wandkatze-bild");
+    if(buehne && loch && wandkatze && wandbild){
       if(reduziert){
         buehne.classList.add("geschichte", "logo-an", "ecke-da");
       }else{
         var PFAD = "assets/cat/";
-        var posen = ["sil-1","sil-2","sil-3","sil-4","sil-5","sil-6","sil-7","sil-8","sil-9"];
-        posen.forEach(function(n){ var v = new Image(); v.src = PFAD + n + ".png"; });
+        var lauffolge = ["wand-1","wand-2","wand-3","wand-4"];
+        lauffolge.forEach(function(n){ var v = new Image(); v.src = PFAD + n + ".png"; });
+        ["sitz","sprung","ruecken","dreh","front"].forEach(function(n){
+          var v = new Image(); v.src = PFAD + n + ".png";
+        });
 
-        var setze = function(pose, links, oben, breite, ubergang){
-          katze.src = PFAD + pose + ".png";
-          if(ubergang){ buehne.classList.add(ubergang); }
-          katze.style.left = links + "%";
-          katze.style.top = oben + "%";
-          katze.style.width = breite + "%";
+        var setzeBild = function(pose){ wandbild.src = PFAD + pose + ".png"; };
+
+        /* Zustände: verstecke die Marke bis zur Verwandlung */
+        var lochZentrum = function(){
+          var r = loch.getBoundingClientRect();
+          return { x: r.left + r.width / 2, y: r.top + r.height / 2, d: r.width };
+        };
+        var z = lochZentrum();
+        var breite = Math.min(innerWidth * (innerWidth < 760 ? 0.5 : 0.24), 310);
+        var hoehe = breite * 1.35;                    /* Panels sind Hochformat */
+        var bodenY = Math.min(z.y + Math.min(innerHeight * 0.36, 330), innerHeight * 0.74);
+        var sitzX = z.x - breite * 0.42;              /* sitzt unterhalb-links vom Loch */
+
+        var stelle = function(pose, x, y, b, dauerMs, easing){
+          setzeBild(pose);
+          wandkatze.style.width = b + "px";
+          wandkatze.style.transition = dauerMs
+            ? "left " + (dauerMs/1000) + "s " + easing + ", top " + (dauerMs/1000) + "s " + easing + ", width " + (dauerMs/1000) + "s ease"
+            : "none";
+          wandkatze.style.left = (x - b/2) + "px";
+          wandkatze.style.top = (y - b*1.35) + "px";
         };
 
-        /* 1) reinkommen — groß wie der Katzenkopf im Logo */
+        /* 1) reinkommen: von außerhalb des linken Rands bis unters Loch */
         setTimeout(function(){
-          buehne.classList.add("geschichte", "laeuft");
-          katze.style.left = "-16%";
-          katze.style.top = "51%";
-          katze.style.width = "30%";
-          void katze.offsetWidth;
-          katze.style.left = "7%";
-        }, 250);
+          buehne.classList.add("geschichte");
+          wandkatze.classList.add("aktiv");
+          stelle("wand-1", -breite/2 - 60, bodenY, breite, 0, "linear");
+          void wandkatze.offsetWidth;
+          stelle("wand-1", sitzX, bodenY, breite, 4300, "linear");
+        }, 300);
 
-        /* Laufzyklus: 3 Fußstellungen als Ping-Pong (A → B → C → B) */
-        var lauffolge = ["sil-1","sil-2","sil-3","sil-2"];
+        /* Laufzyklus: 6 Fußstellungen */
         var laufFrame = 0;
         var laufwerk = setInterval(function(){
-          if(!buehne.classList.contains("laeuft")){ clearInterval(laufwerk); return; }
+          if(buehne.classList.contains("sitzt")){ return; }
           laufFrame = (laufFrame + 1) % lauffolge.length;
-          katze.src = PFAD + lauffolge[laufFrame] + ".png";
-        }, 210);
+          setzeBild(lauffolge[laufFrame]);
+        }, 185);
+        setTimeout(function(){ clearInterval(laufwerk); }, 4600);
 
         /* 2) sitzen und zum Stern hochschauen */
         setTimeout(function(){
-          buehne.classList.remove("laeuft");
           buehne.classList.add("sitzt");
-          setze("sil-5", 7, 51, 28, null);
-        }, 2700);
+          setzeBild("sitz", sitzX, bodenY, breite * 0.9, 0, "linear");
+        }, 4600);
 
-        /* 3) Sprung ins Loch */
+        /* 3) Sprung — hinauf ins Loch, Kopf gerade so passend */
         setTimeout(function(){
-          buehne.classList.remove("sitzt");
           buehne.classList.add("sprung");
-          setze("sil-6", 50, 41, 26, "sprung");
-        }, 3600);
+          setzeBild("sprung", z.x, z.y + z.d * 0.35, z.d * 2.4, 950, "cubic-bezier(.3,.4,.4,1)");
+        }, 6000);
 
         /* 4) im Loch, von hinten */
         setTimeout(function(){
-          buehne.classList.remove("sprung");
-          buehne.classList.add("im-loch");
-          setze("sil-7", 50, 41, 19, null);
-        }, 4500);
+          buehne.classList.add("ruecken");
+          setzeBild("ruecken", z.x, z.y + z.d * 0.25, z.d * 1.5, 300, "ease");
+        }, 7000);
 
         /* 5) die Drehung */
         setTimeout(function(){
-          buehne.classList.remove("im-loch");
-          buehne.classList.add("dreht");
-          setze("sil-8", 50, 41, 19, null);
-        }, 5400);
+          buehne.classList.add("drehung");
+          setzeBild("dreh", z.x, z.y + z.d * 0.25, z.d * 1.5, 0, "linear");
+        }, 7900);
 
         /* 6) frontal, den Stern anschauen */
         setTimeout(function(){
-          buehne.classList.remove("dreht");
           buehne.classList.add("frontal");
-          setze("sil-9", 50, 41, 19, null);
-        }, 6200);
+          setzeBild("front", z.x, z.y + z.d * 0.25, z.d * 1.5, 0, "linear");
+        }, 8700);
 
         /* 7) Verwandlung: nur noch das schwarze Logo */
         setTimeout(function(){
           buehne.classList.add("logo-an");
-        }, 7400);
+          wandkatze.classList.remove("aktiv");
+        }, 9700);
 
         /* 8) die kleine Katze mit der Blase neben MUSIC & ART */
         setTimeout(function(){
           buehne.classList.add("ecke-da");
-        }, 8600);
+        }, 10800);
       }
     }
 

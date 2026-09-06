@@ -174,12 +174,15 @@
       font-family:var(--serif);font-style:italic;
       font-size:clamp(.8rem,1.7vw,.95rem);line-height:1;
       color:var(--tinte);white-space:nowrap;
-      opacity:0;transform:scale(.4) translateY(10px);
-      animation:aufplopp .9s 1.7s cubic-bezier(.2,.9,.25,1.2) both;
+      /* ohne JS sichtbar; mit JS poppt sie nach 1,2 s auf (siehe Script) */
     }
-    @keyframes aufplopp{to{opacity:1;transform:none}}
+    html.js .blase{
+      opacity:0;transform:scale(.4) translateY(10px);
+      transition:opacity .7s cubic-bezier(.2,.9,.25,1.2), transform .7s cubic-bezier(.2,.9,.25,1.2);
+    }
+    html.js .blase.da{opacity:1;transform:none}
     .mini-katze{
-      width:clamp(40px,5vw,54px);height:auto;display:block;
+      width:clamp(44px,5.5vw,60px);height:auto;display:block;
       filter:drop-shadow(0 3px 8px rgba(28,24,19,.18));
       animation:katzewippen 5.5s ease-in-out 3s infinite;
       transform-origin:50% 90%;
@@ -348,13 +351,7 @@
         </div>
         <div class="miau-ecke" aria-hidden="true">
           <span class="blase">and love</span>
-          <svg class="mini-katze" viewBox="0 0 100 100">
-            <circle cx="50" cy="30" r="13" fill="#1c1813"/>
-            <path d="M41 22 L37 7 L50 17 Z" fill="#1c1813"/>
-            <path d="M59 22 L63 7 L50 17 Z" fill="#1c1813"/>
-            <path d="M42 42 c-12 4 -20 15 -21 27 c-.6 6 3 11 10 11 h30 c7 0 10 -5 9 -11 c-2 -13 -10 -24 -19 -27 Z" fill="#1c1813"/>
-            <path d="M70 79 c9 0 13 -5 12 -12 c-.6 -5 -5 -8 -10 -7" stroke="#1c1813" stroke-width="7" fill="none" stroke-linecap="round"/>
-          </svg>
+          <img class="mini-katze" src="assets/cat/katze-sitzend.png" alt="">
         </div>
       </div>
 
@@ -388,6 +385,7 @@
     var reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var fein = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
     var wurzel = document.documentElement;
+    wurzel.classList.add("js");
     wurzel.classList.add(reduziert ? "reduziert" : "nicht-REDUZIERT");
 
     /* — Cursor: Emblem folgt der Maus, Maske legt die Illustrationen frei — */
@@ -434,6 +432,10 @@
       requestAnimationFrame(rahmen);
     }
     requestAnimationFrame(rahmen);
+
+    /* die „and love“-Blase poppt kurz nach dem Laden auf (JS-Timer statt CSS-Delay) */
+    var blase = document.querySelector(".blase");
+    if(blase){ setTimeout(function(){ blase.classList.add("da"); }, 1200); }
 
     /* — Katzen-Dialog: öffnet nur über „Benachrichtigen“, miaut beim Öffnen — */
     var vorhang = document.querySelector("#katze");

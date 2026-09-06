@@ -186,14 +186,30 @@
       to{opacity:1;transform:translateX(-50%) translateY(0)}
     }
     .blick-bild{
-      position:absolute;left:50%;bottom:-14%;width:118%;
+      position:absolute;left:50%;bottom:-18%;width:168%;
       transform:translateX(-50%);opacity:0;
       mix-blend-mode:multiply;
     }
-    .blick-bild.blick--eng{width:134%;bottom:-8%}
-    .blick-bild.blick--sitz{width:128%;bottom:-13%}
     .blick-bild.sichtbar{opacity:1}
-    .blick-bild.sichtbar{opacity:1}
+    /* die Vorder-Ebene: der Kopf quillt plastisch über den Ring hinaus */
+    .loch-vorn{
+      position:absolute;left:50%;top:36.4%;transform:translate(-50%,-50%);
+      width:27.6%;aspect-ratio:1;pointer-events:none;
+      opacity:0;transition:opacity .3s ease;display:none;
+      z-index:3;
+    }
+    html.js .loch-vorn{display:block}
+    html.js .marke-buehne.vorn .loch-vorn{opacity:1}
+    .loch-vorn img{
+      position:absolute;left:50%;bottom:-8%;width:118%;
+      transform:translateX(-50%);
+      height:auto;display:block;opacity:0;
+      mix-blend-mode:multiply;
+      filter:drop-shadow(0 12px 20px rgba(28,24,19,.38));
+    }
+    .loch-vorn img.vorn-quetsch{width:146%;bottom:-9%;transition:opacity .3s ease}
+    .loch-vorn img.sichtbar{opacity:1}
+    html.js .marke-buehne.quetscht .vorn-quetsch{opacity:1}
     html.js .loch{display:block}
     html.js .marke-buehne.geschichte .loch{opacity:1}
     html.js .marke-buehne.logo-an .loch{opacity:0}
@@ -402,13 +418,15 @@
 
       <div class="marke-buehne" id="marke-buehne">
         <div class="loch-blick" aria-hidden="true">
-          <img class="blick-bild blick--sitz" src="assets/cat/ruecken.png" alt="" loading="eager">
-          <img class="blick-bild blick--eng" src="assets/cat/quetsch.jpg" alt="" loading="eager">
-          <img class="blick-bild" src="assets/cat/dreh.png" alt="" loading="eager">
-          <img class="blick-bild" src="assets/cat/front.png" alt="" loading="eager">
+          <img class="blick-bild sichtbar" src="assets/cat/ruecken.png" alt="" loading="eager">
         </div>
         <div class="loch" aria-hidden="true">
           <svg class="loch-stern" viewBox="0 0 100 100"><path d="M50 2 L57 43 L98 50 L57 57 L50 98 L43 57 L2 50 L43 43 Z" fill="#333d4a"/></svg>
+        </div>
+        <div class="loch-vorn" aria-hidden="true">
+          <img class="vorn-quetsch" src="assets/cat/quetsch.png" alt="" loading="eager">
+          <img class="vorn-dreh"  src="assets/cat/dreh.png"  alt="" loading="eager">
+          <img class="vorn-front" src="assets/cat/front.png" alt="" loading="eager">
         </div>
         <div class="marke">
           <img src="assets/logo/gatinos_light_alpha.png" alt="Gatinos Selection — Music &amp; Art" width="800" height="800">
@@ -540,11 +558,18 @@
         };
 
         /* die drei Posen im kreisrunden Ausschnitt */
-        var blickBilder = [].slice.call(document.querySelectorAll(".blick-bild"));
+        var rueckenBild = document.querySelector(".loch-blick .blick-bild");
+        var quetschBild = document.querySelector(".vorn-quetsch");
+        var drehBild    = document.querySelector(".vorn-dreh");
+        var frontBild   = document.querySelector(".vorn-front");
         var blickPose = function(i){
-          for(var b = 0; b < blickBilder.length; b++){
-            blickBilder[b].classList.toggle("sichtbar", b === i);
-          }
+          /* 0 = Rücken (im Clip), 1 = Quetsch (vorn, plastisch), 2 = Drehung, 3 = Front */
+          buehne.classList.toggle("blick", i === 0);
+          buehne.classList.toggle("vorn", i !== 0);
+          rueckenBild.classList.toggle("sichtbar", i === 0);
+          quetschBild.classList.toggle("sichtbar", i === 1);
+          drehBild.classList.toggle("sichtbar", i === 2);
+          frontBild.classList.toggle("sichtbar", i === 3);
         };
 
         /* 1) reinkommen: von außerhalb des linken Rands bis unters Loch */

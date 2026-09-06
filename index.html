@@ -16,15 +16,16 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <style>
     :root{
-      --papier:#f3eee2;         /* warmes, helles Papier */
-      --tinte:#1c1813;          /* warme Tinte */
+      --papier:#f3eee2;
+      --tinte:#1c1813;
       --weich:rgba(28,24,19,.62);
       --grau:rgba(28,24,19,.4);
       --hairline:rgba(28,24,19,.12);
-      --smaragd:#0e8a68;        /* interaktives Smaragdgrün */
-      --smaragd-leucht:#10b981; /* Cursor-Glanz */
+      --smaragd:#0e8a68;
+      --smaragd-leucht:#10b981;
       --smaragd-tief:#0a5b45;
-      --glas:rgba(251,247,238,.52);
+      --glas:rgba(251,247,238,.55);
+      --glas-stark:rgba(251,247,238,.72);
       --glas-linie:rgba(255,255,255,.66);
       --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
       --mono:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
@@ -39,55 +40,88 @@
     }
     .visuell-verborgen{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-    /* ============ Reveal-Bühne: Illustrationen unterm Papier ============ */
+    /* ============ Reveal-Bühne: dichtes Illustrationsgewühl unterm Papier ============ */
     .buehne{position:fixed;inset:0;z-index:0;pointer-events:none}
-    .buehnen-kunst{
+    /* blasse Grundsicht: das Papier ist immer voller Zeichnungen */
+    .buehnen-kunst.basis{opacity:.16}
+    /* scharfe Ebene: nur im Smaragd-Licht am Cursor */
+    .buehnen-kunst.scharf{
       position:absolute;inset:0;
       --mx:50vw; --my:42vh;
-      -webkit-mask-image:radial-gradient(circle 320px at var(--mx) var(--my), #000 0%, rgba(0,0,0,.5) 46%, transparent 76%);
-      mask-image:radial-gradient(circle 320px at var(--mx) var(--my), #000 0%, rgba(0,0,0,.5) 46%, transparent 76%);
+      -webkit-mask-image:radial-gradient(circle 330px at var(--mx) var(--my), #000 0%, rgba(0,0,0,.5) 46%, transparent 78%);
+      mask-image:radial-gradient(circle 330px at var(--mx) var(--my), #000 0%, rgba(0,0,0,.5) 46%, transparent 78%);
     }
-    .pa{position:absolute;opacity:.92;mix-blend-mode:multiply;height:auto;rotate:var(--neig,0deg);animation:schweben var(--dauer,18s) ease-in-out infinite}
-    .pa-1{width:clamp(180px,20vw,320px);right:3vw;top:9vh;--neig:5deg;--dauer:17s}
-    .pa-2{width:clamp(160px,17vw,270px);left:5vw;top:15vh;--neig:-7deg;--dauer:21s}
-    .pa-3{width:clamp(150px,16vw,250px);left:7vw;bottom:9vh;--neig:4deg;--dauer:19s}
-    .pa-4{width:clamp(150px,15vw,240px);right:9vw;bottom:11vh;--neig:-5deg;--dauer:23s}
-    .pa-5{width:clamp(170px,18vw,280px);left:37vw;top:56vh;--neig:3deg;--dauer:25s}
-    .pa-6{width:clamp(130px,13vw,210px);right:31vw;top:5vh;--neig:8deg;--dauer:18s}
-    @keyframes schweben{0%,100%{translate:0 0}50%{translate:0 -14px}}
+    .pa{position:absolute;opacity:.95;mix-blend-mode:multiply;height:auto;rotate:var(--neig,0deg);animation:schweben var(--dauer,18s) ease-in-out infinite}
+    .pa-1 {width:clamp(170px,19vw,300px);right:1vw;  top:4vh;   --neig:5deg;  --dauer:17s}
+    .pa-2 {width:clamp(150px,16vw,260px);left:2vw;   top:6vh;   --neig:-7deg; --dauer:21s}
+    .pa-3 {width:clamp(140px,15vw,240px);left:1vw;   top:44vh;  --neig:4deg;  --dauer:19s}
+    .pa-4 {width:clamp(140px,14vw,230px);right:4vw;  top:42vh;  --neig:-4deg; --dauer:23s}
+    .pa-5 {width:clamp(160px,17vw,270px);left:20vw;  bottom:3vh;--neig:3deg;  --dauer:25s}
+    .pa-6 {width:clamp(130px,13vw,210px);right:22vw; bottom:6vh;--neig:8deg;  --dauer:18s}
+    .pa-7 {width:clamp(150px,16vw,250px);left:28vw;  top:1vh;   --neig:-3deg; --dauer:22s}
+    .pa-8 {width:clamp(120px,12vw,200px);right:28vw; top:24vh;  --neig:6deg;  --dauer:20s}
+    .pa-9 {width:clamp(120px,12vw,190px);right:12vw; bottom:1vh;--neig:-6deg; --dauer:24s}
+    .pa-10{width:clamp(120px,12vw,190px);left:11vw;  bottom:20vh;--neig:6deg; --dauer:26s}
+    .pa-11{width:clamp(140px,14vw,220px);left:42vw;  top:36vh;  --neig:-5deg; --dauer:28s}
+    .pa-12{width:clamp(130px,13vw,210px);right:38vw; top:62vh; --neig:5deg;  --dauer:20s}
+    .pa-13{width:clamp(120px,12vw,190px);left:2vw;   top:70vh;  --neig:-8deg; --dauer:22s}
+    .pa-14{width:clamp(150px,15vw,240px);right:1vw;  top:70vh;  --neig:7deg;  --dauer:19s}
+    @keyframes schweben{0%,100%{translate:0 0}50%{translate:0 -16px}}
     .glanz{
       position:absolute;left:0;top:0;width:560px;height:560px;border-radius:50%;
-      background:radial-gradient(circle, rgba(16,185,129,.17) 0%, rgba(16,185,129,.07) 42%, transparent 70%);
+      background:radial-gradient(circle, rgba(16,185,129,.16) 0%, rgba(16,185,129,.06) 42%, transparent 70%);
     }
     .korn{
       position:absolute;inset:0;opacity:.05;mix-blend-mode:multiply;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
     }
 
-    /* ============ Emerald-Cursor ============ */
+    /* ============ Cursor: das runde Gatinos-Emblem ============ */
     .cursor{position:fixed;inset:0;z-index:220;pointer-events:none}
-    .ring{
-      position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;
-      border:2px solid rgba(16,185,129,.85);
-      box-shadow:0 0 18px rgba(16,185,129,.35), inset 0 0 10px rgba(16,185,129,.12);
-    }
-    .punkt{
-      position:absolute;left:0;top:0;width:6px;height:6px;border-radius:50%;
-      background:var(--smaragd-leucht);
+    .cursor-logo{
+      position:absolute;left:0;top:0;width:40px;height:40px;
+      filter:drop-shadow(0 0 10px rgba(16,185,129,.5)) drop-shadow(0 2px 6px rgba(28,24,19,.18));
+      transition:opacity .3s ease;
     }
     @media (pointer:fine){
       html.nicht-REDUZIERT body, html.nicht-REDUZIERT a, html.nicht-REDUZIERT button{cursor:none}
     }
-    @media (pointer:coarse){
-      .ring,.punkt{display:none}
+    @media (pointer:coarse){ .cursor{display:none} }
+    html.reduziert .cursor{display:none}
+
+    /* ============ Katzen-Vorhang: schwarze Katze, mittig, im Glas ============ */
+    .katze{
+      position:fixed;inset:0;z-index:210;display:grid;place-items:center;
+      pointer-events:none;opacity:0;transition:opacity .5s ease;
     }
-    html.reduziert .ring, html.reduziert .punkt{display:none}
+    .katze.an{opacity:1}
+    .katzen-karte{
+      position:relative;width:min(56vmin,440px);aspect-ratio:1;border-radius:50%;
+      overflow:hidden;
+      background:var(--glas);border:1px solid var(--glas-linie);
+      -webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);
+      box-shadow:0 24px 80px rgba(28,24,19,.18), inset 0 0 60px rgba(255,255,255,.25);
+      transform:scale(.72);transition:transform .55s cubic-bezier(.2,.9,.25,1.2);
+    }
+    .katze.an .katzen-karte{transform:scale(1)}
+    .katze-bild{
+      position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+      mix-blend-mode:multiply;opacity:0;
+    }
+    .katze-bild.sichtbar{opacity:1}
 
     /* ============ Inhalt ============ */
     .seite{
       position:relative;z-index:1;min-height:100svh;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
       text-align:center;padding:24px;
+    }
+    .glas-karte{
+      padding:clamp(2rem,5vw,3.2rem) clamp(1.5rem,6vw,4rem);
+      border-radius:30px;
+      background:var(--glas);border:1px solid var(--glas-linie);
+      -webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);
+      box-shadow:0 18px 60px rgba(28,24,19,.12);
     }
     .marke img{width:clamp(150px,19vw,225px);height:auto;display:block;margin:0 auto}
     .linie{width:52px;height:1px;background:var(--hairline);margin:30px auto 22px;position:relative}
@@ -103,7 +137,7 @@
     .status{
       display:inline-flex;align-items:center;gap:.5em;
       margin-top:30px;padding:10px 20px;border-radius:9999px;
-      background:var(--glas);border:1px solid var(--glas-linie);
+      background:var(--glas-stark);border:1px solid var(--glas-linie);
       -webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
       box-shadow:0 6px 24px rgba(28,24,19,.07);
       font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-indent:.3em;
@@ -115,7 +149,7 @@
     .btn{
       font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-indent:.22em;text-transform:uppercase;
       text-decoration:none;padding:14px 26px;border-radius:14px;
-      background:var(--glas);border:1px solid var(--glas-linie);
+      background:var(--glas-stark);border:1px solid var(--glas-linie);
       -webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
       box-shadow:0 6px 24px rgba(28,24,19,.07);
       color:var(--tinte);
@@ -127,9 +161,29 @@
       background:rgba(14,138,104,.13);border-color:rgba(14,138,104,.4);color:var(--smaragd-tief);
     }
     .btn--smaragd:hover{background:rgba(14,138,104,.2);border-color:rgba(14,138,104,.6)}
-    .btn--leise{border-color:transparent;box-shadow:none;background:rgba(251,247,238,.32);color:var(--grau)}
+    .btn--leise{border-color:transparent;box-shadow:none;background:rgba(251,247,238,.4);color:var(--grau)}
     .btn--leise:hover{color:var(--tinte);border-color:var(--hairline)}
     .hinweis{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--grau)}
+
+    .benachrichtigen{
+      display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:stretch;
+    }
+    .mail-feld{
+      font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+      padding:14px 18px;border-radius:14px;width:min(250px,80vw);
+      background:var(--glas-stark);border:1px solid var(--glas-linie);color:var(--tinte);
+      box-shadow:0 6px 24px rgba(28,24,19,.07);outline:none;
+      -webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
+      transition:border-color .25s ease,box-shadow .25s ease;
+    }
+    .mail-feld::placeholder{color:var(--grau)}
+    .mail-feld:focus{border-color:rgba(14,138,104,.6);box-shadow:0 6px 24px rgba(16,185,129,.16)}
+    .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+    .form-status{
+      margin:14px auto 0;min-height:1.2em;max-width:40ch;
+      font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--smaragd-tief);
+    }
+    .form-status.fehler{color:#8a3a26}
 
     .buehnen-hinweis{
       display:inline-flex;align-items:center;gap:.6em;
@@ -153,16 +207,18 @@
     .fusz a:hover{color:var(--tinte)}
 
     @media (max-width:700px){
-      .pa-1{right:-6vw}
-      .pa-2{left:-7vw}
-      .pa-5{left:24vw}
-      .pa-6{right:6vw}
+      .pa-1{right:-7vw}
+      .pa-2{left:-8vw}
+      .pa-5{left:22vw}
+      .pa-6{right:8vw}
+      .pa-8,.pa-12{display:none}
       .glanz{width:420px;height:420px}
     }
     @media (max-width:560px){
       .fusz{gap:12px;font-size:10px}
       .spruch{max-width:26ch}
       .buehnen-hinweis{max-width:30ch}
+      .glas-karte{margin:0 2px}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -174,47 +230,89 @@
 </head>
 <body>
 
-  <!-- ============ Reveal-Bühne: der Cursor bringt die Illustrationen
-       unter dem Papier zum Vorschein; ohne Maus wandert das Licht von selbst. ============ -->
+  <!-- ============ Reveal-Bühne: der Cursor (das Gatinos-Emblem) legt die
+       Illustrationen frei, die dicht unter dem Papier liegen ============ -->
   <div class="buehne" aria-hidden="true">
-    <div class="buehnen-kunst">
-      <img class="pa pa-1" src="assets/web/stricher-orig-1.jpg" alt="" loading="eager">
-      <img class="pa pa-2" src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
-      <img class="pa pa-3" src="assets/web/kauz-sanft-2.jpg" alt="" loading="eager">
-      <img class="pa pa-4" src="assets/web/herz-sanft-2.jpg" alt="" loading="eager">
-      <img class="pa pa-5" src="assets/web/stromlinien-sanft-1.jpg" alt="" loading="eager">
-      <img class="pa pa-6" src="assets/web/kamera-sanft-1.jpg" alt="" loading="eager">
+    <div class="buehnen-kunst basis">
+      <img class="pa pa-1"  src="assets/web/stricher-orig-1.jpg"    alt="" loading="eager">
+      <img class="pa pa-2"  src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
+      <img class="pa pa-3"  src="assets/web/kauz-sanft-2.jpg"       alt="" loading="eager">
+      <img class="pa pa-4"  src="assets/web/herz-sanft-2.jpg"       alt="" loading="eager">
+      <img class="pa pa-5"  src="assets/web/stromlinien-sanft-1.jpg" alt="" loading="eager">
+      <img class="pa pa-6"  src="assets/web/kamera-sanft-1.jpg"     alt="" loading="eager">
+      <img class="pa pa-7"  src="assets/web/stricher-orig-2.jpg"    alt="" loading="eager">
+      <img class="pa pa-8"  src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
+      <img class="pa pa-9"  src="assets/web/kauz-sanft-2.jpg"       alt="" loading="eager">
+      <img class="pa pa-10" src="assets/web/herz-sanft-2.jpg"       alt="" loading="eager">
+      <img class="pa pa-11" src="assets/web/stricher-orig-1.jpg"    alt="" loading="eager">
+      <img class="pa pa-12" src="assets/web/stromlinien-sanft-1.jpg" alt="" loading="eager">
+      <img class="pa pa-13" src="assets/web/kamera-sanft-1.jpg"     alt="" loading="eager">
+      <img class="pa pa-14" src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
+    </div>
+    <div class="buehnen-kunst scharf">
+      <img class="pa pa-1"  src="assets/web/stricher-orig-1.jpg"    alt="" loading="eager">
+      <img class="pa pa-2"  src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
+      <img class="pa pa-3"  src="assets/web/kauz-sanft-2.jpg"       alt="" loading="eager">
+      <img class="pa pa-4"  src="assets/web/herz-sanft-2.jpg"       alt="" loading="eager">
+      <img class="pa pa-5"  src="assets/web/stromlinien-sanft-1.jpg" alt="" loading="eager">
+      <img class="pa pa-6"  src="assets/web/kamera-sanft-1.jpg"     alt="" loading="eager">
+      <img class="pa pa-7"  src="assets/web/stricher-orig-2.jpg"    alt="" loading="eager">
+      <img class="pa pa-8"  src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
+      <img class="pa pa-9"  src="assets/web/kauz-sanft-2.jpg"       alt="" loading="eager">
+      <img class="pa pa-10" src="assets/web/herz-sanft-2.jpg"       alt="" loading="eager">
+      <img class="pa pa-11" src="assets/web/stricher-orig-1.jpg"    alt="" loading="eager">
+      <img class="pa pa-12" src="assets/web/stromlinien-sanft-1.jpg" alt="" loading="eager">
+      <img class="pa pa-13" src="assets/web/kamera-sanft-1.jpg"     alt="" loading="eager">
+      <img class="pa pa-14" src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
     </div>
     <div class="glanz"></div>
     <div class="korn"></div>
   </div>
+
   <div class="cursor" aria-hidden="true">
-    <div class="ring"></div>
-    <div class="punkt"></div>
+    <img class="cursor-logo" src="assets/logo/gatinos_emblem.png" alt="">
+  </div>
+
+  <!-- ============ Katzen-Vorhang: erscheint bei Klick oder nach einer Weile ============ -->
+  <div class="katze" aria-hidden="true">
+    <div class="katzen-karte">
+      <img class="katze-bild sichtbar" src="assets/cat/katze-zu.jpg"   alt="" loading="eager">
+      <img class="katze-bild"          src="assets/cat/katze-halb.jpg" alt="" loading="eager">
+      <img class="katze-bild"          src="assets/cat/katze-auf.jpg"  alt="" loading="eager">
+    </div>
   </div>
 
   <!-- ============ Marke ============ -->
   <main class="seite">
-    <h1 class="visuell-verborgen">Gatinos Selection — Music &amp; Art</h1>
+    <div class="glas-karte">
+      <h1 class="visuell-verborgen">Gatinos Selection — Music &amp; Art</h1>
 
-    <div class="marke">
-      <img src="assets/logo/gatinos_light_alpha.png" alt="Gatinos Selection — Music &amp; Art" width="800" height="800">
+      <div class="marke">
+        <img src="assets/logo/gatinos_light_alpha.png" alt="Gatinos Selection — Music &amp; Art" width="800" height="800">
+      </div>
+
+      <div class="linie" role="presentation"></div>
+      <p class="kicker">Art Edition 01</p>
+
+      <p class="spruch">Zwölf Tinten-Zeichnungen — als Motivdruck auf Shirts.</p>
+
+      <p class="status">Der Shop öffnet in Kürze<span class="caret"></span></p>
+
+      <div class="aktionen">
+        <form class="benachrichtigen" id="benachrichtigen" action="/api/notify" method="POST" novalidate>
+          <label class="visuell-verborgen" for="mail">E-Mail-Adresse</label>
+          <input class="mail-feld" id="mail" name="email" type="email" inputmode="email"
+                 autocomplete="email" placeholder="deine@mail.de" required>
+          <input class="hp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn--smaragd" type="submit">Benachrichtigen</button>
+        </form>
+        <a class="btn btn--leise" href="mailto:contact@gatino.org">Kontakt</a>
+      </div>
+      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      <p class="hinweis">Einmal benachrichtigt, wenn der Shop öffnet — kein Spam, jederzeit abbestellbar.</p>
     </div>
 
-    <div class="linie" role="presentation"></div>
-    <p class="kicker">Art Edition 01</p>
-
-    <p class="spruch">Zwölf Tinten-Zeichnungen — als Motivdruck auf Shirts.</p>
-
-    <p class="status">Der Shop öffnet in Kürze<span class="caret"></span></p>
-
-    <div class="aktionen">
-      <a class="btn btn--smaragd" href="mailto:contact@gatino.org?subject=Art%20Edition%2001%20—%20Benachrichtigung">Benachrichtigen</a>
-      <a class="btn btn--leise" href="mailto:contact@gatino.org">Kontakt</a>
-    </div>
-    <p class="hinweis">eine Mail, eine Antwort, kein Abo</p>
-
-    <p class="buehnen-hinweis"><span class="blink-punkt"></span>Beweg die Maus über die Seite — unter dem Papier warten Illustrationen.</p>
+    <p class="buehnen-hinweis"><span class="blink-punkt"></span>Beweg die Maus über die Seite — unter dem Papier warten Illustrationen. Ein Klick lässt die Katze miauen.</p>
   </main>
 
   <footer class="fusz">
@@ -232,13 +330,13 @@
     var wurzel = document.documentElement;
     wurzel.classList.add(reduziert ? "reduziert" : "nicht-REDUZIERT");
 
-    var kunst = document.querySelector(".buehnen-kunst");
+    var kunst = document.querySelector(".buehnen-kunst.scharf");
     var glanz = document.querySelector(".glanz");
-    var ring  = document.querySelector(".ring");
-    var punkt = document.querySelector(".punkt");
+    var logo  = document.querySelector(".cursor-logo");
     var hinweis = document.querySelector(".buehnen-hinweis");
-    if(!kunst || !glanz || !ring || !punkt){ return; }
+    if(!kunst || !glanz || !logo){ return; }
 
+    /* — Cursor: Emblem folgt der Maus, Glanz + Maske legen Illustrationen frei — */
     var zielX = innerWidth / 2, zielY = innerHeight * 0.42;
     var curX = zielX, curY = zielY;
     var hatMaus = false, skala = 1, zielSkala = 1;
@@ -253,12 +351,11 @@
 
     if(fein){
       document.addEventListener("pointerover", function(e){
-        zielSkala = (e.target.closest && e.target.closest("a, button")) ? 1.7 : 1;
+        zielSkala = (e.target.closest && e.target.closest("a, button")) ? 1.4 : 1;
       });
     }
 
     function rahmen(now){
-      /* ohne Maus wandert das Licht sanft von selbst (nicht bei reduzierter Bewegung) */
       if(!hatMaus && !reduziert){
         var t = now / 1000;
         zielX = innerWidth  * (0.5 + 0.3 * Math.sin(t * 0.32));
@@ -273,11 +370,96 @@
       kunst.style.setProperty("--mx", curX + "px");
       kunst.style.setProperty("--my", curY + "px");
       glanz.style.transform = "translate3d(" + (curX - halb) + "px," + (curY - halb) + "px,0)";
-      ring.style.transform  = "translate3d(" + (curX - 18 * skala) + "px," + (curY - 18 * skala) + "px,0) scale(" + skala + ")";
-      punkt.style.transform = "translate3d(" + (curX - 3) + "px," + (curY - 3) + "px,0)";
+      logo.style.transform  = "translate3d(" + (curX - 20 * skala) + "px," + (curY - 20 * skala) + "px,0) scale(" + skala + ")";
       requestAnimationFrame(rahmen);
     }
     requestAnimationFrame(rahmen);
+
+    /* — Katze: Klick (oder eine Weile Stillstand) lässt sie mittig miauen — */
+    var vorhang = document.querySelector(".katze");
+    var bilder  = [].slice.call(document.querySelectorAll(".katze-bild"));
+    if(!vorhang || bilder.length < 3){ return; }
+
+    var katzeAktiv = false;
+    function katzeZeigen(){
+      if(katzeAktiv){ return; }
+      katzeAktiv = true;
+      vorhang.classList.add("an");
+      /* Maul-Flow: zu → halb → auf → halb → auf → zu, dann verblasst der Vorhang */
+      var folge = [[0,650],[1,150],[2,260],[1,150],[2,260],[0,650]];
+      var i = 0;
+      function schritt(){
+        if(i >= folge.length){
+          setTimeout(function(){
+            vorhang.classList.remove("an");
+            katzeAktiv = false;
+          }, 350);
+          return;
+        }
+        for(var b = 0; b < bilder.length; b++){
+          bilder[b].classList.toggle("sichtbar", b === folge[i][0]);
+        }
+        var dauer = folge[i][1];
+        i++;
+        setTimeout(schritt, dauer);
+      }
+      schritt();
+    }
+
+    addEventListener("pointerdown", function(){ katzeZeigen(); }, { passive:true });
+
+    var letzteAktivitaet = Date.now();
+    addEventListener("pointermove", function(){ letzteAktivitaet = Date.now(); }, { passive:true });
+    setInterval(function(){
+      if(Date.now() - letzteAktivitaet > 22000){ katzeZeigen(); letzteAktivitaet = Date.now(); }
+    }, 6000);
+  })();
+
+  /* ============ Benachrichtigen: Formular → /api/notify → Brevo ============ */
+  (function(){
+    "use strict";
+    var form = document.getElementById("benachrichtigen");
+    var statusEl = document.getElementById("form-status");
+    if(!form || !statusEl){ return; }
+
+    function zeige(text, fehler){
+      statusEl.textContent = text;
+      statusEl.classList.toggle("fehler", !!fehler);
+    }
+
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var mail = form.email.value.trim();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)){
+        zeige("Bitte gib eine gültige E-Mail-Adresse ein.", true);
+        form.email.focus();
+        return;
+      }
+      var btn = form.querySelector("button");
+      btn.disabled = true;
+      zeige("Wird gesendet …");
+      fetch(form.action, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email: mail, hp: form.hp.value })
+      }).then(function(r){
+        return r.json().catch(function(){ return {}; }).then(function(d){ return { status: r.status, data: d }; });
+      }).then(function(res){
+        if(res.status === 200 && res.data && res.data.ok){
+          form.style.display = "none";
+          zeige("Danke! Wir mailen dir, sobald der Shop öffnet.");
+        } else if(res.data && res.data.error === "config"){
+          zeige("Der Anmelde-Dienst wird gerade eingerichtet — schreib uns in der Zwischenzeit gern an contact@gatino.org.", true);
+          btn.disabled = false;
+        } else {
+          zeige("Das hat nicht geklappt — probier es gleich nochmal oder schreib an contact@gatino.org.", true);
+          btn.disabled = false;
+        }
+      }).catch(function(){
+        zeige("Keine Verbindung — probier es gleich nochmal.", true);
+        btn.disabled = false;
+      });
+    });
   })();
   </script>
 </body>

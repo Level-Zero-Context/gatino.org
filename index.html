@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>GATINOS SELECTION — Music &amp; Art. Der Shop öffnet in Kürze.</title>
+  <title>GATINOS SELECTION — Music &amp; Art. The shop opens soon.</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content">
-  <meta name="description" content="Gatinos Selection — Music &amp; Art. Art Edition 01: zwölf Tinten-Zeichnungen als Motivdruck auf Shirts. Der Shop öffnet in Kürze.">
+  <meta name="description" content="Gatinos Selection — Music &amp; Art. Art Edition 01: twelve ink drawings printed on shirts. The shop opens soon.">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#f3eee2">
   <link rel="canonical" href="https://gatino.org/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="GATINOS SELECTION — Music &amp; Art">
-  <meta property="og:description" content="Art Edition 01 — zwölf Tinten-Zeichnungen als Motivdruck auf Shirts. Der Shop öffnet in Kürze.">
+  <meta property="og:description" content="Art Edition 01 — twelve ink drawings printed on shirts. The shop opens soon.">
   <meta property="og:url" content="https://gatino.org/">
   <meta property="og:image" content="https://gatino.org/assets/web/stricher-orig-1.jpg">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -160,6 +160,31 @@
       box-shadow:0 18px 60px rgba(28,24,19,.1);
     }
     .marke img{width:clamp(150px,19vw,225px);height:auto;display:block;margin:0 auto}
+    .marke-zeile{display:flex;align-items:flex-end;justify-content:center}
+    .marke-zeile .marke{flex:none}
+    .miau-ecke{
+      display:flex;flex-direction:column;align-items:center;gap:3px;
+      margin:0 0 .35rem -.35rem;flex:none;
+    }
+    .blase{
+      padding:7px 14px;border-radius:16px 16px 16px 5px;
+      background:rgba(251,247,238,.85);
+      -webkit-backdrop-filter:blur(10px) saturate(1.3);backdrop-filter:blur(10px) saturate(1.3);
+      box-shadow:0 6px 20px rgba(28,24,19,.1);
+      font-family:var(--serif);font-style:italic;
+      font-size:clamp(.8rem,1.7vw,.95rem);line-height:1;
+      color:var(--tinte);white-space:nowrap;
+      opacity:0;transform:scale(.4) translateY(10px);
+      animation:aufplopp .9s 1.7s cubic-bezier(.2,.9,.25,1.2) both;
+    }
+    @keyframes aufplopp{to{opacity:1;transform:none}}
+    .mini-katze{
+      width:clamp(40px,5vw,54px);height:auto;display:block;
+      filter:drop-shadow(0 3px 8px rgba(28,24,19,.18));
+      animation:katzewippen 5.5s ease-in-out 3s infinite;
+      transform-origin:50% 90%;
+    }
+    @keyframes katzewippen{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-2.5deg)}}
     .linie{width:52px;height:1px;background:var(--hairline);margin:30px auto 22px;position:relative}
     .linie::after{content:"";position:absolute;left:50%;top:-2.5px;width:6px;height:6px;transform:translateX(-50%) rotate(45deg);background:var(--smaragd)}
     .kicker{
@@ -293,22 +318,22 @@
   </div>
 
   <!-- ============ Katzen-Dialog: öffnet nur über „Benachrichtigen“ ============ -->
-  <div class="katze" id="katze" role="dialog" aria-modal="true" aria-label="Shop-Benachrichtigung">
+  <div class="katze" id="katze" role="dialog" aria-modal="true" aria-label="Shop notification">
     <div class="katzen-karte">
       <div class="katzen-runder" aria-hidden="true">
         <img class="katze-bild sichtbar" src="assets/cat/katze-zu.jpg"   alt="" loading="eager">
         <img class="katze-bild"          src="assets/cat/katze-halb.jpg" alt="" loading="eager">
         <img class="katze-bild"          src="assets/cat/katze-auf.jpg"  alt="" loading="eager">
       </div>
-      <h2>Der Shop öffnet in Kürze.</h2>
-      <p class="zwischentext">Trag deine Mail ein — wir schreiben dir genau einmal, wenn die Art Edition 01 online ist.</p>
+      <h2>The shop opens soon.</h2>
+      <p class="zwischentext">Drop your email — we'll write exactly once, when Art Edition 01 goes online.</p>
       <form class="notify-form" id="notify-form" novalidate>
-        <input class="mail" id="notify-mail" type="email" name="email" placeholder="deine@mail.de" autocomplete="email" required>
+        <input class="mail" id="notify-mail" type="email" name="email" placeholder="you@mail.com" autocomplete="email" required>
         <input class="hp" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button class="btn btn--smaragd" type="submit">Eintragen</button>
+        <button class="btn btn--smaragd" type="submit">Sign up</button>
       </form>
       <p class="katze-status" id="notify-status" role="status"></p>
-      <button class="katze-schliessen" type="button" id="katze-zu">Schließen</button>
+      <button class="katze-schliessen" type="button" id="katze-zu">Close</button>
     </div>
   </div>
 
@@ -317,32 +342,44 @@
     <div class="glas-karte">
       <h1 class="visuell-verborgen">Gatinos Selection — Music &amp; Art</h1>
 
-      <div class="marke">
-        <img src="assets/logo/gatinos_light_alpha.png" alt="Gatinos Selection — Music &amp; Art" width="800" height="800">
+      <div class="marke-zeile">
+        <div class="marke">
+          <img src="assets/logo/gatinos_light_alpha.png" alt="Gatinos Selection — Music &amp; Art" width="800" height="800">
+        </div>
+        <div class="miau-ecke" aria-hidden="true">
+          <span class="blase">and love</span>
+          <svg class="mini-katze" viewBox="0 0 100 100">
+            <circle cx="50" cy="30" r="13" fill="#1c1813"/>
+            <path d="M41 22 L37 7 L50 17 Z" fill="#1c1813"/>
+            <path d="M59 22 L63 7 L50 17 Z" fill="#1c1813"/>
+            <path d="M42 42 c-12 4 -20 15 -21 27 c-.6 6 3 11 10 11 h30 c7 0 10 -5 9 -11 c-2 -13 -10 -24 -19 -27 Z" fill="#1c1813"/>
+            <path d="M70 79 c9 0 13 -5 12 -12 c-.6 -5 -5 -8 -10 -7" stroke="#1c1813" stroke-width="7" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
       </div>
 
       <div class="linie" role="presentation"></div>
       <p class="kicker">Art Edition 01</p>
 
-      <p class="spruch">Zwölf Tinten-Zeichnungen — als Motivdruck auf Shirts.</p>
+      <p class="spruch">Twelve ink drawings — printed on shirts.</p>
 
-      <p class="status">Der Shop öffnet in Kürze<span class="caret"></span></p>
+      <p class="status">The shop opens soon<span class="caret"></span></p>
 
       <div class="aktionen">
-        <button class="btn btn--smaragd" id="benachrichtigen" type="button">Benachrichtigen</button>
-        <a class="btn btn--leise" href="mailto:contact@gatino.org">Kontakt</a>
+        <button class="btn btn--smaragd" id="benachrichtigen" type="button">Notify me</button>
+        <a class="btn btn--leise" href="mailto:contact@gatino.org">Contact</a>
       </div>
-      <p class="hinweis">eine Mail, eine Antwort, kein Abo</p>
+      <p class="hinweis">one email, one reply, no subscription</p>
     </div>
 
-    <p class="buehnen-hinweis"><span class="blink-punkt"></span>Beweg die Maus über die Seite — unter dem Papier warten Illustrationen.</p>
+    <p class="buehnen-hinweis"><span class="blink-punkt"></span>Move your mouse across the page — illustrations are waiting beneath the paper.</p>
   </main>
 
   <footer class="fusz">
     <span>© 2026 Gatinos Selection</span>
-    <a href="imprint.html">Impressum</a>
-    <a href="privacy.html">Datenschutz</a>
-    <span>Keine Cookies, kein Tracking</span>
+    <a href="imprint.html">Imprint</a>
+    <a href="privacy.html">Privacy</a>
+    <span>No cookies, no tracking</span>
   </footer>
 
   <script>
@@ -437,7 +474,7 @@
       try{ gemerkt = localStorage.getItem("gatinos-notify") || ""; }catch(e){}
       if(gemerkt){
         mailfeld.value = gemerkt;
-        status("✓ schon auf der Liste: " + gemerkt, "ok");
+        status("✓ already on the list: " + gemerkt, "ok");
       }else{
         status("");
       }
@@ -475,13 +512,13 @@
       var hp = formular.querySelector(".hp").value;
       var mail = mailfeld.value.trim();
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail) || mail.length > 254){
-        status("Hmm — das sieht nicht nach einer Mail-Adresse aus.", "fehler");
+        status("Hmm — that doesn't look like an email address.", "fehler");
         miau();
         return;
       }
       var taste = formular.querySelector("button[type=submit]");
       taste.disabled = true;
-      status("Trage dich ein …");
+      status("Signing you up …");
       fetch("/api/notify", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -492,18 +529,18 @@
         taste.disabled = false;
         if(d && d.ok){
           try{ localStorage.setItem("gatinos-notify", mail); }catch(e){}
-          status("✓ eingetragen: " + mail + " — bis bald!", "ok");
+          status("✓ signed up: " + mail + " — see you soon!", "ok");
           miau();
         }else if(d && (d.error === "email" || d.error === "invalid")){
-          status("Hmm — das sieht nicht nach einer Mail-Adresse aus.", "fehler");
+          status("Hmm — that doesn't look like an email address.", "fehler");
         }else if(d && d.error === "config"){
-          status("Der Verteiler ist noch nicht verkabelt — schreib an contact@gatino.org", "fehler");
+          status("The mailing list isn't wired up yet — write to contact@gatino.org", "fehler");
         }else{
-          status("Das hat nicht geklappt — probier es gleich nochmal.", "fehler");
+          status("That didn't work — try again in a moment.", "fehler");
         }
       }).catch(function(){
         taste.disabled = false;
-        status("Keine Verbindung — probier es gleich nochmal.", "fehler");
+        status("No connection — try again in a moment.", "fehler");
       });
     });
   })();

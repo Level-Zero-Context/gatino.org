@@ -169,10 +169,31 @@
       width:27.6%;aspect-ratio:1;border-radius:50%;
       border:3px solid #333d4a;
       opacity:0;transition:opacity .7s ease;display:none;
+      z-index:2;
     }
+    /* der kreisrunde Ausschnitt: nach dem Sprung ist die Katze nur hier drin sichtbar */
+    .loch-blick{
+      position:absolute;left:50%;top:36.4%;transform:translate(-50%,-50%);
+      width:27.6%;aspect-ratio:1;border-radius:50%;overflow:hidden;
+      opacity:0;transition:opacity .35s ease;display:none;
+      z-index:1;
+    }
+    html.js .loch-blick{display:block}
+    html.js .marke-buehne.blick .loch-blick{opacity:1}
+    html.js .marke-buehne.fall .blick-bild{animation:reinfallen .6s cubic-bezier(.25,.6,.4,1) backwards}
+    @keyframes reinfallen{
+      from{opacity:0;transform:translateX(-50%) translateY(-42%)}
+      to{opacity:1;transform:translateX(-50%) translateY(0)}
+    }
+    .blick-bild{
+      position:absolute;left:50%;bottom:-6%;width:118%;
+      transform:translateX(-50%);opacity:0;
+    }
+    .blick-bild.sichtbar{opacity:1}
     html.js .loch{display:block}
     html.js .marke-buehne.geschichte .loch{opacity:1}
     html.js .marke-buehne.logo-an .loch{opacity:0}
+    html.js .marke-buehne.logo-an .loch-blick{opacity:0}
     .loch-stern{position:absolute;left:50%;top:27%;width:20%;transform:translate(-50%,-50%)}
     /* die wandelnde Katze: läuft auf Bodenhöhe über den ganzen Bildschirm
        zum Loch — groß und detailiert (Tinte mit Grau-Wash) */
@@ -376,6 +397,11 @@
       <h1 class="visuell-verborgen">Gatinos Selection — Music &amp; Art</h1>
 
       <div class="marke-buehne" id="marke-buehne">
+        <div class="loch-blick" aria-hidden="true">
+          <img class="blick-bild sichtbar" src="assets/cat/ruecken.png" alt="" loading="eager">
+          <img class="blick-bild" src="assets/cat/dreh.png" alt="" loading="eager">
+          <img class="blick-bild" src="assets/cat/front.png" alt="" loading="eager">
+        </div>
         <div class="loch" aria-hidden="true">
           <svg class="loch-stern" viewBox="0 0 100 100"><path d="M50 2 L57 43 L98 50 L57 57 L50 98 L43 57 L2 50 L43 43 Z" fill="#333d4a"/></svg>
         </div>
@@ -508,6 +534,14 @@
           wandkatze.style.top = (y - b*1.35) + "px";
         };
 
+        /* die drei Posen im kreisrunden Ausschnitt */
+        var blickBilder = [].slice.call(document.querySelectorAll(".blick-bild"));
+        var blickPose = function(i){
+          for(var b = 0; b < blickBilder.length; b++){
+            blickBilder[b].classList.toggle("sichtbar", b === i);
+          }
+        };
+
         /* 1) reinkommen: von außerhalb des linken Rands bis unters Loch */
         setTimeout(function(){
           buehne.classList.add("geschichte");
@@ -538,22 +572,25 @@
           setzeBild("sprung", z.x, z.y + z.d * 0.35, z.d * 2.4, 950, "cubic-bezier(.3,.4,.4,1)");
         }, 6000);
 
-        /* 4) im Loch, von hinten */
+        /* 4) durchgesprungen — die Katze ist nur noch im kreisrunden Ausschnitt
+             des Logos sichtbar, fällt hinein und schaut zurück */
         setTimeout(function(){
-          buehne.classList.add("ruecken");
-          setzeBild("ruecken", z.x, z.y + z.d * 0.25, z.d * 1.5, 300, "ease");
+          buehne.classList.remove("sprung");
+          buehne.classList.add("ruecken", "blick", "fall");
+          wandkatze.classList.remove("aktiv");
+          blickPose(0);
         }, 7000);
 
-        /* 5) die Drehung */
+        /* 5) die Drehung im Ausschnitt */
         setTimeout(function(){
           buehne.classList.add("drehung");
-          setzeBild("dreh", z.x, z.y + z.d * 0.25, z.d * 1.5, 0, "linear");
+          blickPose(1);
         }, 7900);
 
         /* 6) frontal, den Stern anschauen */
         setTimeout(function(){
           buehne.classList.add("frontal");
-          setzeBild("front", z.x, z.y + z.d * 0.25, z.d * 1.5, 0, "linear");
+          blickPose(2);
         }, 8700);
 
         /* 7) Verwandlung: nur noch das schwarze Logo */
@@ -579,7 +616,6 @@
     var bilder = [].slice.call(document.querySelectorAll(".katze-bild"));
     if(!vorhang || !oeffner || bilder.length < 3){ return; }
 
-    var katzeAktiv = false;
     function miau(){
       if(reduziert){ return; }
       var folge = [[0,600],[1,150],[2,260],[1,150],[2,260],[0,600]];

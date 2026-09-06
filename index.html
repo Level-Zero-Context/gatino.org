@@ -186,11 +186,13 @@
       to{opacity:1;transform:translateX(-50%) translateY(0)}
     }
     .blick-bild{
-      position:absolute;left:50%;bottom:-6%;width:118%;
+      position:absolute;left:50%;bottom:-14%;width:118%;
       transform:translateX(-50%);opacity:0;
       mix-blend-mode:multiply;
     }
-    .blick-bild.blick--eng{width:134%;bottom:-2%}
+    .blick-bild.blick--eng{width:134%;bottom:-8%}
+    .blick-bild.blick--sitz{width:128%;bottom:-13%}
+    .blick-bild.sichtbar{opacity:1}
     .blick-bild.sichtbar{opacity:1}
     html.js .loch{display:block}
     html.js .marke-buehne.geschichte .loch{opacity:1}
@@ -400,7 +402,7 @@
 
       <div class="marke-buehne" id="marke-buehne">
         <div class="loch-blick" aria-hidden="true">
-          <img class="blick-bild sichtbar" src="assets/cat/ruecken.png" alt="" loading="eager">
+          <img class="blick-bild blick--sitz" src="assets/cat/ruecken.png" alt="" loading="eager">
           <img class="blick-bild blick--eng" src="assets/cat/quetsch.jpg" alt="" loading="eager">
           <img class="blick-bild" src="assets/cat/dreh.png" alt="" loading="eager">
           <img class="blick-bild" src="assets/cat/front.png" alt="" loading="eager">
@@ -576,7 +578,7 @@
         }, 6000);
 
         /* 4) durchgesprungen — die Katze ist nur noch im kreisrunden Ausschnitt
-             des Logos sichtbar, fällt hinein und schaut zurück */
+             des Logos sichtbar (Rückenansicht, wie durch ein Katzentürchen) */
         setTimeout(function(){
           buehne.classList.remove("sprung");
           buehne.classList.add("ruecken", "blick", "fall");
@@ -588,7 +590,7 @@
         setTimeout(function(){
           buehne.classList.add("quetscht");
           blickPose(1);
-        }, 8000);
+        }, 8100);
 
         /* 6) durchgekommen — die Drehung im Ausschnitt */
         setTimeout(function(){

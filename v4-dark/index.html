@@ -1,0 +1,1069 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GATINOS SELECTION — Art Edition 01 · „20 Tage Warten auf Camilla“</title>
+<meta name="description" content="Art Edition 01: Neun Tintenzeichnungen aus „20 Tage Warten auf Camilla“ als Motivdruck auf Unisex-Shirts. Kuratiert, nummeriert, in stiller Auflage. Demo-Shop.">
+<style>
+/* ============================================================
+   GATINOS SELECTION — v4 „Schwarzes Samt-Theater“
+   Richtung: Resend (Samt-Schwarz + Violett-Neon) ×
+             Linear (Hairlines, Präzision) × ORYZO (Darkroom-Editorial)
+   ============================================================ */
+:root{
+  /* Samt-Schwarztöne (nie #000) */
+  --velvet-0:#070709;      /* tiefste Ebene: Footer, Overlays */
+  --velvet-1:#0b0b0e;      /* Seitengrund */
+  --velvet-2:#101014;      /* Karten / Flächen */
+  --velvet-3:#16161c;      /* raised / hover */
+  /* Haarlinien */
+  --hair:rgba(233,228,248,.09);
+  --hair-strong:rgba(233,228,248,.16);
+  /* Typo */
+  --text-hi:#f3f0e9;       /* warmes Off-White, wie Bühnenlicht */
+  --text-mid:#b6b1a6;
+  --text-low:#7e796f;
+  /* EIN Akzent: Violett-Neon, sparsam */
+  --violet:#9d86ff;
+  --violet-soft:#c3b6ff;
+  --violet-deep:#5743c9;
+  --violet-glow:rgba(122,95,255,.16);
+  /* Shirt-Farben */
+  --shirt-natur:#eae4d6;
+  --shirt-sand:#d2bd97;
+  --shirt-schwarz:#191920;
+  /* Form */
+  --r-card:12px;
+  --r-ui:8px;
+  --r-small:5px;
+  --font-serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --container:1180px;
+  --sect:clamp(76px,10vw,132px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+body{
+  background:var(--velvet-1);
+  color:var(--text-mid);
+  font-family:var(--font-sans);
+  font-size:16px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:var(--violet-deep);color:var(--text-hi)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+h1,h2,h3{color:var(--text-hi);font-family:var(--font-serif);font-weight:500;line-height:1.14;letter-spacing:.01em}
+.container{max-width:var(--container);margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+.eyebrow{
+  font-family:var(--font-sans);font-size:11px;font-weight:600;
+  letter-spacing:.32em;text-transform:uppercase;color:var(--violet);
+}
+.eyebrow::before{content:"";display:inline-block;width:26px;height:1px;background:var(--violet);vertical-align:middle;margin-right:12px;opacity:.7}
+.star{color:var(--violet);font-size:.85em}
+.skip{
+  position:absolute;left:-999px;top:0;z-index:200;
+  background:var(--velvet-3);color:var(--text-hi);padding:10px 18px;border:1px solid var(--hair-strong);
+}
+.skip:focus{left:12px;top:12px}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:var(--r-small)}
+
+/* ---------- Haarlinien oben + Laufband ---------- */
+.topline{height:2px;background:linear-gradient(90deg,transparent,rgba(157,134,255,.55) 30%,rgba(157,134,255,.55) 70%,transparent)}
+.announce{
+  border-bottom:1px solid var(--hair);
+  text-align:center;padding:9px 16px;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-low);
+}
+.announce b{color:var(--text-mid);font-weight:500}
+.announce .demo{color:var(--violet);border:1px solid var(--hair-strong);border-radius:99px;padding:2px 10px;margin-left:10px;letter-spacing:.18em}
+
+/* ---------- Kopf ---------- */
+.site-head{
+  position:sticky;top:0;z-index:60;
+  background:rgba(11,11,14,.82);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--hair);
+}
+.site-head .container{display:flex;align-items:center;gap:28px;height:76px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand-emblem{
+  width:52px;height:52px;flex:0 0 auto;overflow:hidden;border-radius:50%;
+  background:#050506;border:1px solid var(--hair);
+}
+.brand-emblem img{
+  width:100%;height:100%;object-fit:cover;object-position:50.5% 35%;
+  transform:scale(1.9);transform-origin:50.5% 35%;
+}
+.brand-word{display:flex;flex-direction:column;line-height:1}
+.bw1{font-size:17px;letter-spacing:.44em;color:var(--text-hi);font-weight:500;text-transform:uppercase}
+.bw2{font-size:9.5px;letter-spacing:.52em;color:var(--text-low);text-transform:uppercase;margin-top:5px}
+.bw3{font-family:var(--font-serif);font-style:italic;font-size:11.5px;color:var(--violet-soft);margin-top:5px;letter-spacing:.06em}
+.head-nav{display:flex;gap:26px;margin-left:auto}
+.head-nav a{
+  font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-low);
+  text-decoration:none;transition:color .2s;
+}
+.head-nav a:hover{color:var(--text-hi)}
+.cart-btn{
+  display:flex;align-items:center;gap:10px;
+  border:1px solid var(--hair-strong);border-radius:99px;
+  padding:9px 18px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-hi);
+  transition:border-color .2s,background .2s;
+}
+.cart-btn:hover{border-color:var(--violet);background:var(--violet-glow)}
+.cart-count{
+  min-width:20px;height:20px;border-radius:99px;background:var(--violet-deep);color:#fff;
+  font-size:11px;font-weight:600;letter-spacing:0;display:inline-flex;align-items:center;justify-content:center;padding:0 6px;
+}
+@media (max-width:820px){.head-nav{display:none}}
+
+/* ---------- Hero: die Bühne ---------- */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--hair)}
+.hero::before{ /* Samtschein */
+  content:"";position:absolute;inset:-20% -10% auto auto;width:60vw;height:60vw;
+  background:radial-gradient(closest-side,var(--violet-glow),transparent 70%);
+  pointer-events:none;
+}
+.hero .container{
+  position:relative;display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(32px,5vw,72px);
+  align-items:center;padding-top:clamp(64px,8vw,110px);padding-bottom:clamp(64px,8vw,110px);
+}
+.hero h1{font-size:clamp(38px,4.6vw,62px);margin:22px 0 20px;letter-spacing:.005em}
+.hero h1 em{font-style:italic;color:var(--violet-soft)}
+.hero .lede{max-width:52ch;font-size:clamp(15.5px,1.35vw,17.5px);color:var(--text-mid)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  border-radius:var(--r-ui);padding:14px 26px;
+  font-size:12.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;transition:background .2s,border-color .2s,color .2s,transform .2s;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--violet-deep);color:#fff}
+.btn-primary:hover{background:#664fe0}
+.btn-ghost{border:1px solid var(--hair-strong);color:var(--text-hi)}
+.btn-ghost:hover{border-color:var(--violet);color:var(--violet-soft)}
+.hero-note{margin-top:30px;font-size:12.5px;color:var(--text-low);letter-spacing:.06em}
+.hero-stage{position:relative}
+.hero-stage figure{position:relative;margin:0}
+.hero-stage img{
+  width:100%;height:auto;
+  border:1px solid var(--hair-strong);border-radius:var(--r-card);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.9),0 0 120px -40px var(--violet-glow);
+}
+.hero-stage figure::after{ /* weicher Samtübergang unten */
+  content:"";position:absolute;left:-8%;right:-8%;bottom:-1px;height:20%;
+  background:linear-gradient(180deg,transparent,var(--velvet-1));pointer-events:none;border-radius:50% 50% 0 0/100% 100% 0 0;
+}
+.hero-stage figcaption{
+  margin-top:14px;text-align:right;font-size:12px;color:var(--text-low);letter-spacing:.14em;text-transform:uppercase;
+}
+@media (max-width:900px){
+  .hero .container{grid-template-columns:1fr}
+  .hero-stage{max-width:520px}
+}
+
+/* ---------- Geschichte ---------- */
+.story{border-bottom:1px solid var(--hair)}
+.story .container{
+  display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,80px);
+  padding-top:var(--sect);padding-bottom:var(--sect);
+}
+.story h2{font-size:clamp(26px,3vw,38px);margin-top:20px}
+.story .quote{
+  font-family:var(--font-serif);font-style:italic;font-size:clamp(19px,2vw,24px);
+  color:var(--text-hi);line-height:1.5;
+}
+.story .quote small{display:block;font-family:var(--font-sans);font-style:normal;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--text-low);margin-top:18px}
+.story .cols p+p{margin-top:1em}
+.story .cols{font-size:15.5px;max-width:62ch}
+@media (max-width:900px){.story .container{grid-template-columns:1fr}}
+
+/* ---------- Sortiment ---------- */
+.grid-sec .container{padding-top:var(--sect);padding-bottom:var(--sect)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(36px,4vw,56px)}
+.sec-head h2{font-size:clamp(28px,3.2vw,42px);margin-top:18px}
+.sec-head p{max-width:44ch;font-size:14.5px}
+.grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,28px);
+}
+@media (max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.grid{grid-template-columns:1fr}}
+.card{
+  background:var(--velvet-2);
+  border:1px solid var(--hair);border-radius:var(--r-card);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+}
+.card:hover{border-color:var(--hair-strong);transform:translateY(-3px);box-shadow:0 24px 50px -30px rgba(0,0,0,.85)}
+.card-stage{
+  position:relative;padding:clamp(20px,2.4vw,30px) clamp(20px,2.4vw,30px) 0;
+  background:
+    radial-gradient(120% 90% at 50% 0%,rgba(157,134,255,.05),transparent 60%),
+    var(--velvet-2);
+}
+.card-stage .shirt{width:min(76%,225px);margin:0 auto}
+.card-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card-body .eyebrow{font-size:10px;letter-spacing:.3em}
+.card-body .eyebrow::before{width:18px;margin-right:10px}
+.card-body h3{font-size:21px}
+.card-body .storyline{font-size:13.5px;color:var(--text-low);min-height:2.6em}
+.swatches{display:flex;gap:10px;align-items:center;margin-top:2px}
+.swatch{
+  width:22px;height:22px;border-radius:50%;border:1px solid var(--hair-strong);
+  position:relative;transition:transform .15s;padding:0;
+}
+.swatch:hover{transform:scale(1.12)}
+.swatch[aria-checked="true"]{box-shadow:0 0 0 2px var(--velvet-2),0 0 0 3.5px var(--violet)}
+.swatch[aria-disabled="true"]{opacity:.28;cursor:not-allowed}
+.swatch[aria-disabled="true"]:hover{transform:none}
+.swatch-hint{font-size:11px;color:var(--text-low);letter-spacing:.08em;margin-left:4px}
+.card-foot{
+  margin-top:auto;padding-top:14px;border-top:1px solid var(--hair);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.price{font-family:var(--font-serif);font-size:20px;color:var(--text-hi)}
+.btn-small{padding:10px 18px;font-size:11px;border-radius:var(--r-small)}
+
+/* ---------- Shirt-Darstellung ---------- */
+.shirt{position:relative;isolation:isolate;filter:drop-shadow(0 18px 26px rgba(0,0,0,.55))}
+.shirt svg{display:block;width:100%;height:auto}
+.print{
+  position:absolute;left:35%;top:26%;width:30%;height:auto;
+  mix-blend-mode:multiply;
+}
+
+/* ---------- Atmosphäre: Die Glocke ---------- */
+.atmo{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);position:relative;overflow:hidden;background:var(--velvet-0)}
+.atmo .container{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,80px);align-items:center;
+  padding-top:var(--sect);padding-bottom:var(--sect);
+}
+.atmo figure{order:2;position:relative;margin:0}
+.atmo img{
+  width:min(100%,480px);margin:0 auto;height:auto;
+  border:1px solid var(--hair-strong);border-radius:var(--r-card);
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.95);
+}
+.atmo h2{font-size:clamp(26px,3vw,38px);margin-top:20px;max-width:20ch}
+.atmo p{max-width:50ch;margin-top:16px}
+.atmo .editions{margin-top:28px;display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--hair);border-radius:var(--r-ui);overflow:hidden}
+.atmo .editions div{padding:16px 22px;flex:1 1 150px}
+.atmo .editions div+div{border-left:1px solid var(--hair)}
+.atmo .editions b{display:block;color:var(--text-hi);font-weight:600;font-size:15px}
+.atmo .editions span{font-size:11.5px;color:var(--text-low);letter-spacing:.14em;text-transform:uppercase}
+@media (max-width:900px){
+  .atmo .container{grid-template-columns:1fr}
+  .atmo figure{order:0}
+}
+
+/* ---------- Edition ---------- */
+.edition .container{padding-top:var(--sect);padding-bottom:var(--sect)}
+.edition-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px);margin-top:clamp(32px,4vw,52px)}
+.edition-grid article{border-top:1px solid var(--hair-strong);padding-top:22px}
+.edition-grid .no{font-family:var(--font-serif);font-size:15px;color:var(--violet);letter-spacing:.08em}
+.edition-grid h3{font-size:19px;margin:10px 0 8px}
+.edition-grid p{font-size:14px}
+@media (max-width:820px){.edition-grid{grid-template-columns:1fr}}
+
+/* ---------- Footer ---------- */
+.site-foot{background:var(--velvet-0);border-top:1px solid var(--hair)}
+.site-foot .container{padding-top:64px;padding-bottom:40px}
+.foot-grid{display:grid;grid-template-columns:1.3fr .7fr .7fr .9fr;gap:36px}
+.foot-grid h4{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--text-low);margin-bottom:16px;font-weight:600}
+.foot-grid ul{list-style:none}
+.foot-grid li+li{margin-top:10px}
+.foot-grid a{font-size:13.5px;color:var(--text-mid);text-decoration:none}
+.foot-grid a:hover{color:var(--violet-soft)}
+.foot-brand .bw1{font-size:15px}
+.foot-teaser{
+  margin-top:40px;padding:18px 22px;border:1px solid var(--hair);border-radius:var(--r-ui);
+  display:flex;gap:14px;align-items:baseline;font-size:13px;color:var(--text-low);
+}
+.foot-teaser b{color:var(--violet-soft);font-weight:500;letter-spacing:.08em;white-space:nowrap}
+.foot-legal{
+  margin-top:40px;padding-top:22px;border-top:1px solid var(--hair);
+  display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;
+  font-size:12px;color:var(--text-low);letter-spacing:.08em;
+}
+@media (max-width:820px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.foot-grid{grid-template-columns:1fr}}
+
+/* ---------- Overlays: Drawer + Modale ---------- */
+.overlay{
+  position:fixed;inset:0;z-index:90;background:rgba(4,4,6,.66);
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.overlay.open{opacity:1;pointer-events:auto}
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;z-index:100;
+  width:min(430px,100%);background:var(--velvet-2);
+  border-left:1px solid var(--hair-strong);
+  transform:translateX(102%);visibility:hidden;
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),visibility 0s .3s;
+  display:flex;flex-direction:column;
+}
+.drawer.open{transform:none;visibility:visible;transition:transform .3s cubic-bezier(.2,.7,.2,1),visibility 0s}
+.drawer-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 26px;border-bottom:1px solid var(--hair);
+}
+.drawer-head h2{font-size:20px}
+.icon-btn{
+  width:38px;height:38px;border:1px solid var(--hair);border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--text-mid);transition:border-color .2s,color .2s;
+}
+.icon-btn:hover{border-color:var(--violet);color:var(--text-hi)}
+.drawer-items{flex:1;overflow-y:auto;padding:10px 26px}
+.cart-empty{padding:48px 0;text-align:center;color:var(--text-low)}
+.cart-empty .glyph{font-size:26px;color:var(--violet);display:block;margin-bottom:14px}
+.cart-line{
+  display:grid;grid-template-columns:64px 1fr auto;gap:16px;align-items:center;
+  padding:18px 0;border-bottom:1px solid var(--hair);
+}
+.cart-thumb{
+  width:64px;height:74px;border-radius:var(--r-small);position:relative;isolation:isolate;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  border:1px solid var(--hair);
+}
+.cart-thumb img{width:74%;mix-blend-mode:multiply}
+.cart-line h4{font-size:14.5px;color:var(--text-hi);font-weight:500;font-family:var(--font-serif)}
+.cart-line .meta{font-size:12px;color:var(--text-low);margin-top:3px;letter-spacing:.06em}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--hair);border-radius:99px;margin-top:8px}
+.qty button{width:28px;height:28px;font-size:14px;color:var(--text-mid)}
+.qty button:hover{color:var(--violet-soft)}
+.qty output{min-width:26px;text-align:center;font-size:13px;color:var(--text-hi)}
+.line-price{font-family:var(--font-serif);font-size:16px;color:var(--text-hi)}
+.line-remove{display:block;margin-top:8px;font-size:11px;color:var(--text-low);letter-spacing:.1em;text-transform:uppercase}
+.line-remove:hover{color:#d98a8a}
+.drawer-foot{padding:22px 26px 26px;border-top:1px solid var(--hair)}
+.sum-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px}
+.sum-row.total{font-size:17px;color:var(--text-hi);margin:14px 0 18px;font-family:var(--font-serif)}
+.sum-row.total b{font-size:22px;font-weight:500}
+.drawer-foot .demo-hint{font-size:11.5px;color:var(--text-low);text-align:center;margin-top:12px;letter-spacing:.08em}
+.btn-block{width:100%;justify-content:center}
+
+/* Modale */
+.modal{
+  position:fixed;inset:0;z-index:110;display:flex;align-items:center;justify-content:center;
+  padding:20px;opacity:0;pointer-events:none;visibility:hidden;
+  transition:opacity .25s,visibility 0s .25s;
+}
+.modal.open{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .25s,visibility 0s}
+.modal-panel{
+  width:min(960px,100%);max-height:calc(100vh - 40px);overflow-y:auto;
+  background:var(--velvet-2);border:1px solid var(--hair-strong);border-radius:var(--r-card);
+  box-shadow:0 60px 140px -40px rgba(0,0,0,.95);
+  transform:translateY(12px);transition:transform .3s cubic-bezier(.2,.7,.2,1);
+}
+.modal.open .modal-panel{transform:none}
+.modal-panel.narrow{width:min(620px,100%)}
+.modal-head{
+  position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;
+  padding:18px 26px;background:rgba(16,16,20,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--hair);
+}
+.modal-head .eyebrow{font-size:10px}
+.modal-head .eyebrow::before{display:none}
+.pd{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.pd-stage{
+  padding:clamp(28px,4vw,48px);
+  background:
+    radial-gradient(110% 80% at 50% 0%,rgba(157,134,255,.06),transparent 60%),
+    var(--velvet-1);
+  display:flex;align-items:center;justify-content:center;
+  border-right:1px solid var(--hair);
+}
+.pd-stage .shirt{width:min(100%,340px)}
+.pd-info{padding:clamp(26px,3.4vw,40px)}
+.pd-info h2{font-size:clamp(24px,2.6vw,32px);margin:12px 0 8px}
+.pd-story{font-size:14px;color:var(--text-mid)}
+.pd-poem{
+  font-family:var(--font-serif);font-style:italic;font-size:16px;color:var(--text-hi);
+  border-left:2px solid var(--violet-deep);padding:4px 0 4px 16px;margin:18px 0;
+}
+.pd-price{font-family:var(--font-serif);font-size:26px;color:var(--text-hi);margin:14px 0 4px}
+.pd-price small{font-family:var(--font-sans);font-size:11.5px;color:var(--text-low);letter-spacing:.12em;text-transform:uppercase;margin-left:10px}
+.opt-label{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--text-low);margin:20px 0 10px;display:block}
+.opt-label .val{color:var(--text-hi);letter-spacing:.1em;text-transform:none;font-size:12px;margin-left:8px}
+.sizes{display:flex;gap:8px;flex-wrap:wrap}
+.size-pill{
+  min-width:46px;padding:10px 12px;text-align:center;
+  border:1px solid var(--hair-strong);border-radius:var(--r-small);
+  font-size:13px;letter-spacing:.08em;color:var(--text-mid);
+  transition:border-color .15s,color .15s,background .15s;
+}
+.size-pill:hover{border-color:var(--violet);color:var(--text-hi)}
+.size-pill[aria-pressed="true"]{background:var(--violet-deep);border-color:var(--violet-deep);color:#fff}
+.size-err{display:none;font-size:12.5px;color:#e0a3a3;margin-top:10px}
+.size-err.show{display:block}
+.pd-actions{margin-top:26px}
+.pd-edition{margin-top:18px;font-size:12px;color:var(--text-low);letter-spacing:.06em;line-height:1.7}
+@media (max-width:780px){
+  .pd{grid-template-columns:1fr}
+  .pd-stage{border-right:0;border-bottom:1px solid var(--hair)}
+}
+
+/* Checkout */
+.co-body{padding:26px}
+.co-note{
+  font-size:12.5px;color:var(--violet-soft);border:1px solid var(--hair-strong);
+  background:rgba(87,67,201,.08);border-radius:var(--r-ui);padding:12px 16px;margin-bottom:22px;
+  letter-spacing:.04em;
+}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-low);margin-bottom:7px}
+.field input{
+  width:100%;background:var(--velvet-1);border:1px solid var(--hair-strong);border-radius:var(--r-small);
+  color:var(--text-hi);padding:12px 14px;font:inherit;font-size:14.5px;
+}
+.field input:focus{outline:2px solid var(--violet);outline-offset:0;border-color:var(--violet)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){.field-row{grid-template-columns:1fr}}
+.co-sum{border:1px solid var(--hair);border-radius:var(--r-ui);padding:18px 20px;margin:8px 0 22px}
+.co-sum .sum-row{font-size:13.5px}
+.co-success{text-align:center;padding:34px 26px 40px}
+.co-success .glyph{font-size:34px;color:var(--violet)}
+.co-success h2{margin:18px 0 10px}
+.co-success .orderno{
+  font-family:var(--font-serif);font-size:20px;color:var(--violet-soft);letter-spacing:.1em;margin:8px 0 16px;
+}
+.co-success p{font-size:14px;max-width:46ch;margin:0 auto}
+
+/* Toast */
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);z-index:130;
+  background:var(--velvet-3);border:1px solid var(--hair-strong);border-radius:99px;
+  padding:12px 22px;font-size:13px;color:var(--text-hi);letter-spacing:.04em;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;
+  box-shadow:0 20px 50px -20px rgba(0,0,0,.9);
+  display:flex;gap:10px;align-items:center;max-width:calc(100vw - 32px);
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast .star{color:var(--violet)}
+body.locked{overflow:hidden}
+</style>
+</head>
+<body>
+<a class="skip" href="#motive">Zum Sortiment springen</a>
+<div class="topline" aria-hidden="true"></div>
+<p class="announce"><b>Art Edition 01</b> · „20 Tage Warten auf Camilla“ · Neun Motive in stiller Auflage <span class="demo">Demo-Shop</span></p>
+
+<header class="site-head">
+  <div class="container">
+    <a class="brand" href="#top" aria-label="Gatinos Selection — Music &amp; Art, zum Anfang">
+      <span class="brand-emblem" aria-hidden="true"><img src="../assets/logo/gatinos_draft.png" alt=""></span>
+      <span class="brand-word">
+        <span class="bw1">Gatinos</span>
+        <span class="bw2">Selection</span>
+        <span class="bw3">Music &amp; Art</span>
+      </span>
+    </a>
+    <nav class="head-nav" aria-label="Hauptnavigation">
+      <a href="#motive">Motive</a>
+      <a href="#geschichte">Geschichte</a>
+      <a href="#edition">Edition</a>
+    </nav>
+    <button class="cart-btn" id="cartOpen" aria-haspopup="dialog">
+      Korb <span class="cart-count" id="cartCount" aria-label="Artikel im Korb">0</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Bühne -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Art Edition 01 — Zwanzig Tage Warten auf Camilla</p>
+        <h1 id="hero-title">Bilder, die das <em>Warten</em> tragen.</h1>
+        <p class="lede">
+          Neun Tintenzeichnungen aus dem Buch „20 Tage Warten auf Camilla“ — gedruckt auf schwere
+          Unisex-Shirts. Kuratiert, nummeriert, in stiller Auflage. Kein dropsches Rauschen:
+          ein kleiner Saal, neun Bilder, Licht aus.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#motive">Die neun Motive</a>
+          <a class="btn btn-ghost" href="#geschichte">Zur Geschichte</a>
+        </div>
+        <p class="hero-note">Unisex-Schnitt · S–XXL · Naturweiß, Sand oder Schwarz · <span class="star">✶</span> nummerierte Auflage</p>
+      </div>
+      <div class="hero-stage">
+        <figure>
+          <img src="../assets/web/stromlinien-dram-1.jpg" alt="Nachtlicht: Weiße Wolke über einem schwarzen Gebirgstal, ein Fluss aus Licht — Tuschezeichnung, weiß auf Schwarz" width="692" height="1000">
+          <figcaption>Studie Nr. 05 — „Nachtlicht“ · Tusche auf Schwarz</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Geschichte -->
+  <section class="story" id="geschichte" aria-labelledby="story-title">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Das Buch</p>
+        <h2 id="story-title">20 Tage Warten auf Camilla</h2>
+        <p class="quote" style="margin-top:26px">
+          „Jeden Tag ein Bild. Zwanzig Tage lang — ein Versprechen in Tinte,
+          bevor sie endlich ankam.“
+          <small>aus dem Vorwort</small>
+        </p>
+      </div>
+      <div class="cols">
+        <p>
+          „20 Tage Warten auf Camilla“ ist ein Buch aus surreal-poetischen Tinten-Illustrationen:
+          ein Segelschiff, das sich in den Himmel abseilt, eine Wolke, die stehen bleibt,
+          eine Glocke, in der ein Auge wohnt. Jedes Bild hält eine kleine Stunde des Wartens fest —
+          nicht als Sehnsucht, sondern als Aufmerksamkeit.
+        </p>
+        <p>
+          Die <strong style="color:var(--text-hi);font-weight:500">Art Edition 01</strong> überträgt
+          neun dieser Zeichnungen erstmals auf Stoff. Gedruckt wird groß und ruhig, wie die Originale
+          stehen: Weiß auf Schwarz für die dunklen Motive, Tiefe der Tusche auf Naturweiß und Sand
+          für die hellen. Jedes Shirt trägt die Nummer seines Motivs — Auflage von 100 Drucken je Bild.
+        </p>
+        <p style="color:var(--text-low)">
+          Gatinos Selection ist die kuratierte Linie des Labels — Music &amp; Art. Diese hier ist die Kunst.
+          Die Musik bleibt noch draußen vor der Tür.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sortiment -->
+  <section class="grid-sec" id="motive" aria-labelledby="grid-title">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">Art Edition 01</p>
+          <h2 id="grid-title">Neun Motive</h2>
+        </div>
+        <p>Jedes Motiv auf dem Shirt deiner Wahl. Farbe und Größe wählst du in der Detailansicht —
+           die dunklen Motive leuchten ausschließlich auf Schwarz.</p>
+      </div>
+      <div class="grid" id="productGrid"><!-- JS --></div>
+    </div>
+  </section>
+
+  <!-- Atmosphäre: Die Glocke -->
+  <section class="atmo" aria-labelledby="atmo-title">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Weiß auf Schwarz</p>
+        <h2 id="atmo-title">Zwei Motive bleiben bei Kerzenlicht.</h2>
+        <p>
+          „Nachtlicht“ und „Die Glocke“ sind als Zeichnungen in der Dunkelheit entstanden —
+          weiße Linie auf schwarzem Grund. Sie erscheinen deshalb ausschließlich auf schwarzen
+          Shirts, gedruckt in deckendem Weiß. Auf Naturweiß oder Sand würden sie ihre Bühne verlieren.
+        </p>
+        <div class="editions">
+          <div><b>100</b><span>Drucke je Motiv</span></div>
+          <div><b>240 g/m²</b><span>schwere Baumwolle</span></div>
+          <div><b>S–XXL</b><span>Unisex-Schnitt</span></div>
+        </div>
+      </div>
+      <figure>
+        <img src="../assets/web/kamera-dram-1.jpg" alt="Die Glocke: Ein Auge im Inneren einer Glocke, sein Lichtstrahl fällt auf ein brennendes Foto — weiße Zeichnung auf Schwarz" width="692" height="1000" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <!-- Edition -->
+  <section class="edition" id="edition" aria-labelledby="ed-title">
+    <div class="container">
+      <p class="eyebrow">Die Selection-Prinzipien</p>
+      <h2 id="ed-title" style="font-size:clamp(26px,3vw,38px);margin-top:18px">Kuratiert, nummeriert, leise.</h2>
+      <div class="edition-grid">
+        <article>
+          <span class="no">I.</span>
+          <h3>Gedruckt, nicht aufgeklebt</h3>
+          <p>Die Tuschezeichnungen werden groß im Brustbereich gedruckt. Helle Motive in tiefer
+             Tuschwirkung auf Naturweiß und Sand, weiße Linie auf Schwarz für die dunklen.</p>
+        </article>
+        <article>
+          <span class="no">II.</span>
+          <h3>Nummerierte Auflage</h3>
+          <p>Jedes Motiv erscheint in einer Auflage von 100 nummerierten Drucken. Danach
+             wird das Bild zurück ins Buch gelegt — es folgt kein Nachdruck.</p>
+        </article>
+        <article>
+          <span class="no">III.</span>
+          <h3>Music folgt später</h3>
+          <p>Gatinos ist Music &amp; Art. Diese Edition gehört der Kunst. Eine Music Edition
+             ist angekündigt — sie wird ihre eigene Bühne bekommen.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="brand-word">
+          <span class="bw1">Gatinos</span>
+          <span class="bw2">Selection</span>
+          <span class="bw3">Music &amp; Art</span>
+        </span>
+        <p style="font-size:13px;margin-top:18px;max-width:34ch">
+          Art Edition 01 — Motive aus „20 Tage Warten auf Camilla“.
+          Ein kleiner Saal für große Bilder.
+        </p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#motive">Alle Motive</a></li>
+          <li><a href="#geschichte">Geschichte</a></li>
+          <li><a href="#edition">Edition</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Service</h4>
+        <ul>
+          <li><a href="#motive">Größen &amp; Passform</a></li>
+          <li><a href="#motive">Versand</a></li>
+          <li><a href="#motive">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Edition</h4>
+        <ul>
+          <li><a href="#motive">Art Edition 01</a></li>
+          <li><a href="#geschichte">Das Buch</a></li>
+          <li><a href="#edition">Prinzipien</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-teaser">
+      <b>Music Edition</b>
+      <span>eine andere Form des Wartens — sie folgt später. Im Shop bleibt es bei Bildern.</span>
+    </p>
+    <div class="foot-legal">
+      <span>© 2026 GATINOS SELECTION — Music &amp; Art · Demo-Shop ohne echte Bestellungen</span>
+      <span>Impressum · Widerruf · Datenschutz — Demo</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Warenkorb-Drawer -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true">
+  <div class="drawer-head">
+    <h2 id="cartTitle">Dein Korb</h2>
+    <button class="icon-btn" id="cartClose" aria-label="Warenkorb schließen">✕</button>
+  </div>
+  <div class="drawer-items" id="cartItems"></div>
+  <div class="drawer-foot" id="cartFoot"></div>
+</aside>
+
+<!-- Produkt-Detail -->
+<div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="pdTitle" aria-hidden="true">
+  <div class="modal-panel" id="pdPanel"></div>
+</div>
+
+<!-- Checkout -->
+<div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="coTitle" aria-hidden="true">
+  <div class="modal-panel narrow" id="coPanel"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ============ Daten ============ */
+const PRODUCTS = [
+  {id:"staub",nr:"01",file:"stricher-orig-1",name:"Sich aus dem Staub gemacht",
+   story:"Ein Segelschiff als Ballon, von winzigen Figuren über ein Seil in den Himmel gezogen.",
+   poem:"Manche machen sich aus dem Staub. Andere halten das Seil.",price:44,dram:false},
+  {id:"tau",nr:"02",file:"stricher-orig-2",name:"Tauziehen",
+   story:"Ein Schiff an straffen Tauen, das von zwei Gruppen gegeneinander gezogen wird.",
+   poem:"Niemand gibt nach. Das Schiff bleibt, wo die Meinungen sich treffen.",price:42,dram:false},
+  {id:"lampe",nr:"03",file:"stromlinien-sanft-3",name:"Wolkenlampe",
+   story:"Eine Lampe in einer Wolke, eine S-förmige Lichtbahn führt aus einem Tunnel.",
+   poem:"Licht findet Wege, die niemand geplant hat.",price:42,dram:false},
+  {id:"beine",nr:"04",file:"stromlinien-sanft-1",name:"Wolke mit Beinen",
+   story:"Eine Wolke auf Stativbeinen, stehend über einer Schneelandschaft.",
+   poem:"Auch das Bleiben ist eine Reise — nur eine langsame.",price:39,dram:false},
+  {id:"nachtlicht",nr:"05",file:"stromlinien-dram-1",name:"Nachtlicht",
+   story:"Weiße Wolke über schwarzem Gebirgstal, ein Fluss aus Licht — gedruckt in Weiß auf Schwarz.",
+   poem:"Für schwarze Shirts und dunkle Tage.",price:42,dram:true},
+  {id:"kauz",nr:"06",file:"kauz-sanft-2",name:"Der Kauz",
+   story:"Eine Eule mit Brille und Buch auf der Psychologie-Statik, ein Halbmond darüber.",
+   poem:"Wer liest, wartet klüger.",price:39,dram:false},
+  {id:"herz",nr:"07",file:"herz-sanft-2",name:"Found my heart",
+   story:"Ein Herz-Medallion in einer geöffneten, gravierten Schublade.",
+   poem:"Es war die ganze Zeit da — nur eingeschlossen.",price:44,dram:false},
+  {id:"moment",nr:"08",file:"kamera-sanft-1",name:"Momentaufnahme",
+   story:"Eine Faltkamera auf dem Tischchen, darunter ein Landschaftsfoto.",
+   poem:"Manche Momente muss man erst auseinanderfalten.",price:39,dram:false},
+  {id:"glocke",nr:"09",file:"kamera-dram-1",name:"Die Glocke",
+   story:"Ein Auge im Inneren einer Glocke, sein Strahl fällt auf ein Foto — weiß auf Schwarz.",
+   poem:"Wenn sie leuchtet, sieht sie zurück.",price:42,dram:true}
+];
+const COLORS = [
+  {id:"natur",name:"Naturweiß",css:"var(--shirt-natur)"},
+  {id:"sand",name:"Sand",css:"var(--shirt-sand)"},
+  {id:"schwarz",name:"Schwarz",css:"var(--shirt-schwarz)"}
+];
+const SIZES = ["S","M","L","XL","XXL"];
+const CART_KEY = "gatinos_v4_dark_cart";
+const eur = n => n.toLocaleString("de-DE",{style:"currency",currency:"EUR"});
+
+/* ============ Shirt-Renderer ============ */
+const TEE_SVG = `
+<svg viewBox="0 0 300 340" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="teeShade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".10"/>
+      <stop offset=".45" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity=".22"/>
+    </linearGradient>
+    <radialGradient id="teeSheen" cx=".5" cy=".18" r=".9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".07"/>
+      <stop offset=".6" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <path id="teeBody" fill="SHIRTCOLOR" stroke="rgba(0,0,0,.35)" stroke-width="1.5" d="
+    M99 38 C112 27 123 21 129 18
+    C136 33 164 33 171 18
+    C177 21 188 27 201 38
+    L261 74 235 128 205 111 205 316
+    C205 324 199 330 191 330
+    L109 330 C101 330 95 324 95 316
+    L95 111 65 128 39 74 Z"/>
+  <path fill="url(#teeShade)" d="M99 38 C112 27 123 21 129 18 C136 33 164 33 171 18 C177 21 188 27 201 38 L261 74 235 128 205 111 205 316 C205 324 199 330 191 330 L109 330 C101 330 95 324 95 316 L95 111 65 128 39 74 Z"/>
+  <path fill="url(#teeSheen)" d="M99 38 C112 27 123 21 129 18 C136 33 164 33 171 18 C177 21 188 27 201 38 L261 74 235 128 205 111 205 316 C205 324 199 330 191 330 L109 330 C101 330 95 324 95 316 L95 111 65 128 39 74 Z"/>
+  <path d="M129 18 C136 33 164 33 171 18 C166 15.5 160 14 150 14 C140 14 134 15.5 129 18 Z"
+        fill="none" stroke="rgba(0,0,0,.45)" stroke-width="2"/>
+  <path d="M129 18 C136 33 164 33 171 18" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+  <path d="M95 300 L205 300" stroke="rgba(0,0,0,.28)" stroke-width="1.4" fill="none"/>
+  <path d="M95 111 L65 128 M205 111 L235 128" stroke="rgba(0,0,0,.3)" stroke-width="1.4" fill="none"/>
+  <path d="M99 38 L109 46 M201 38 L191 46" stroke="rgba(0,0,0,.3)" stroke-width="1.4" fill="none"/>
+</svg>`;
+const CROP = "M95 95 L205 95 L205 320 C205 328 198 334 190 334 L110 334 C102 334 95 328 95 320 Z";
+
+function printProps(product, colorId){
+  if(colorId==="schwarz"){
+    return product.dram
+      ? {blend:"screen", filter:"contrast(1.06) brightness(1.04)"}
+      : {blend:"screen", filter:"invert(1) contrast(1.05) brightness(1.02)"};
+  }
+  return {blend:"multiply", filter:"contrast(1.05)"};
+}
+function shirtHTML(product, colorId, imgClass){
+  const svg = TEE_SVG.replace("SHIRTCOLOR", colorCssHex(colorId));
+  const pp = printProps(product, colorId);
+  return `<div class="shirt">${svg}
+    <img class="print ${imgClass||""}" style="mix-blend-mode:${pp.blend};filter:${pp.filter}"
+         src="../assets/web/${product.file}.jpg" alt=""
+         width="692" height="1000" loading="lazy"></div>`;
+}
+function colorCssHex(id){
+  return id==="natur" ? "#eae4d6" : id==="sand" ? "#d2bd97" : "#191920";
+}
+function swatchHTML(product, selectedId){
+  return COLORS.map(c=>{
+    const disabled = product.dram && c.id!=="schwarz";
+    const title = disabled ? `${c.name} — dieses Motiv gibt es nur auf Schwarz` : c.name;
+    const checked = c.id===selectedId ? "true" : "false";
+    return `<button type="button" class="swatch" role="radio" aria-checked="${checked}"
+      ${disabled?'aria-disabled="true" tabindex="-1"':""}
+      data-color="${c.id}" style="background:${c.css}" title="${title}" aria-label="${title}"></button>`;
+  }).join("") + (product.dram ? `<span class="swatch-hint">nur auf Schwarz</span>` : "");
+}
+
+/* ============ State ============ */
+const cardSel = {};            // productId -> colorId
+let cart = loadCart();
+let lastFocus = null;
+
+function loadCart(){
+  try{ const raw = localStorage.getItem(CART_KEY); const arr = JSON.parse(raw||"[]");
+    return Array.isArray(arr) ? arr.filter(i=>i&&i.id&&i.size&&i.color&&i.qty>0) : [];
+  }catch(e){ return []; }
+}
+function saveCart(){ try{ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }catch(e){} }
+function cartCount(){ return cart.reduce((s,i)=>s+i.qty,0); }
+function cartTotal(){ return cart.reduce((s,i)=>s+i.qty*byId(i.id).price,0); }
+function byId(id){ return PRODUCTS.find(p=>p.id===id); }
+
+/* ============ Grid ============ */
+const grid = document.getElementById("productGrid");
+function renderGrid(){
+  grid.innerHTML = PRODUCTS.map(p=>{
+    const def = p.dram ? "schwarz" : "natur";
+    cardSel[p.id] = cardSel[p.id] || def;
+    return `
+    <article class="card" data-id="${p.id}">
+      <div class="card-stage">${shirtHTML(p, cardSel[p.id])}</div>
+      <div class="card-body">
+        <p class="eyebrow">Nr. ${p.nr} · Art Edition 01</p>
+        <h3>${p.name}</h3>
+        <p class="storyline">${p.story}</p>
+        <div class="swatches" role="radiogroup" aria-label="Shirt-Farbe für ${p.name}">${swatchHTML(p, cardSel[p.id])}</div>
+        <div class="card-foot">
+          <span class="price">${eur(p.price)}</span>
+          <button class="btn btn-ghost btn-small" data-view="${p.id}">Ansehen</button>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
+}
+grid.addEventListener("click", e=>{
+  const sw = e.target.closest(".swatch");
+  if(sw && sw.getAttribute("aria-disabled")!=="true"){
+    const card = sw.closest(".card");
+    const id = card.dataset.id;
+    cardSel[id] = sw.dataset.color;
+    card.querySelector(".swatches").innerHTML = swatchHTML(byId(id), cardSel[id]);
+    const pp = printProps(byId(id), cardSel[id]);
+    const print = card.querySelector(".print");
+    print.style.mixBlendMode = pp.blend;
+    print.style.filter = pp.filter;
+    return;
+  }
+  const btn = e.target.closest("[data-view]");
+  if(btn) openProduct(btn.dataset.view);
+});
+
+/* ============ Produkt-Modal ============ */
+const productModal = document.getElementById("productModal");
+const pdPanel = document.getElementById("pdPanel");
+let pdSel = {color:"natur", size:null};
+
+function openProduct(id){
+  const p = byId(id);
+  pdSel = {color: p.dram ? "schwarz" : (cardSel[id]||"natur"), size:null};
+  lastFocus = document.activeElement;
+  pdPanel.innerHTML = `
+    <div class="modal-head">
+      <p class="eyebrow">Nr. ${p.nr} · Art Edition 01 — „20 Tage Warten auf Camilla“</p>
+      <button class="icon-btn" data-close="productModal" aria-label="Detailansicht schließen">✕</button>
+    </div>
+    <div class="pd">
+      <div class="pd-stage" id="pdStage">${shirtHTML(p, pdSel.color)}</div>
+      <div class="pd-info">
+        <h2 id="pdTitle">${p.name}</h2>
+        <p class="pd-story">${p.story}</p>
+        <p class="pd-poem">„${p.poem}“</p>
+        <p class="pd-price">${eur(p.price)}<small>inkl. MwSt., Versand kostenlos — Demo</small></p>
+        <span class="opt-label">Farbe <span class="val" id="pdColorName">${COLORS.find(c=>c.id===pdSel.color).name}</span></span>
+        <div class="swatches" role="radiogroup" aria-label="Shirt-Farbe wählen" id="pdColors">${swatchHTML(p, pdSel.color)}</div>
+        <span class="opt-label">Größe</span>
+        <div class="sizes" role="group" aria-label="Größe wählen" id="pdSizes">
+          ${SIZES.map(s=>`<button type="button" class="size-pill" aria-pressed="false" data-size="${s}">${s}</button>`).join("")}
+        </div>
+        <p class="size-err" id="pdSizeErr">Bitte eine Größe wählen — die Hemden fallen lang geschnitten aus.</p>
+        <div class="pd-actions">
+          <button class="btn btn-primary btn-block" id="pdAdd">In den Korb — ${eur(p.price)}</button>
+        </div>
+        <p class="pd-edition">
+          <span class="star">✶</span> Nummerierter Druck, Auflage 100 je Motiv · 240 g/m² Bio-Baumwolle, Unisex<br>
+          ${p.dram ? "Dieses Motiv erscheint ausschließlich auf Schwarz — weiße Tusche auf dunklem Grund." : "Tuschdruck in Tiefe — auf Naturweiß und Sand am glaubwürdigsten."}
+        </p>
+      </div>
+    </div>`;
+  openLayer(productModal);
+  document.getElementById("pdColors").addEventListener("click", e=>{
+    const sw = e.target.closest(".swatch");
+    if(!sw || sw.getAttribute("aria-disabled")==="true") return;
+    pdSel.color = sw.dataset.color;
+    document.getElementById("pdColors").innerHTML = swatchHTML(p, pdSel.color);
+    document.getElementById("pdColorName").textContent = COLORS.find(c=>c.id===pdSel.color).name;
+    document.getElementById("pdStage").innerHTML = shirtHTML(p, pdSel.color);
+  });
+  document.getElementById("pdSizes").addEventListener("click", e=>{
+    const pill = e.target.closest(".size-pill"); if(!pill) return;
+    pdSel.size = pill.dataset.size;
+    document.querySelectorAll("#pdSizes .size-pill").forEach(b=>
+      b.setAttribute("aria-pressed", String(b===pill)));
+    document.getElementById("pdSizeErr").classList.remove("show");
+  });
+  document.getElementById("pdAdd").addEventListener("click", ()=>{
+    if(!pdSel.size){ document.getElementById("pdSizeErr").classList.add("show"); return; }
+    addToCart(p.id, pdSel.size, pdSel.color);
+  });
+  pdPanel.querySelector("[data-close]").focus();
+}
+
+/* ============ Warenkorb ============ */
+const drawer = document.getElementById("cartDrawer");
+const overlay = document.getElementById("overlay");
+const itemsEl = document.getElementById("cartItems");
+const footEl = document.getElementById("cartFoot");
+
+function addToCart(id, size, color){
+  const line = cart.find(i=>i.id===id && i.size===size && i.color===color);
+  if(line) line.qty = Math.min(9, line.qty+1);
+  else cart.push({id, size, color, qty:1});
+  saveCart(); renderCart();
+  const p = byId(id);
+  toast(`In den Korb: „${p.name}“ · Größe ${size} · ${COLORS.find(c=>c.id===color).name}`);
+}
+function renderCart(){
+  const n = cartCount();
+  document.getElementById("cartCount").textContent = n;
+  if(!cart.length){
+    itemsEl.innerHTML = `<div class="cart-empty"><span class="glyph">✶</span>
+      Der Saal ist noch leer.<br>Wähle ein Motiv, dann findet alles seinen Platz.</div>`;
+    footEl.innerHTML = `<button class="btn btn-ghost btn-block" data-close="cartDrawer">Weiter stöbern</button>`;
+    return;
+  }
+  itemsEl.innerHTML = cart.map((i,idx)=>{
+    const p = byId(i.id); const c = COLORS.find(c=>c.id===i.color);
+    return `<div class="cart-line">
+      <div class="cart-thumb" style="background:${colorCssHex(i.color)}">
+        <img src="../assets/web/${p.file}.jpg" alt=""
+             style="mix-blend-mode:${i.color==="schwarz" ? (p.dram?"screen":"screen;filter:invert(1)") : "multiply"}">
+      </div>
+      <div>
+        <h4>${p.name}</h4>
+        <p class="meta">Nr. ${p.nr} · Größe ${i.size} · ${c.name}</p>
+        <span class="qty">
+          <button data-qty="-1" data-idx="${idx}" aria-label="Menge verringern">−</button>
+          <output>${i.qty}</output>
+          <button data-qty="1" data-idx="${idx}" aria-label="Menge erhöhen">+</button>
+        </span>
+      </div>
+      <div style="text-align:right">
+        <span class="line-price">${eur(p.price*i.qty)}</span>
+        <button class="line-remove" data-remove="${idx}">Entfernen</button>
+      </div>
+    </div>`;
+  }).join("");
+  footEl.innerHTML = `
+    <div class="sum-row"><span>Zwischensumme</span><span>${eur(cartTotal())}</span></div>
+    <div class="sum-row"><span>Versand</span><span>kostenlos</span></div>
+    <div class="sum-row total"><span>Gesamt</span><b>${eur(cartTotal())}</b></div>
+    <button class="btn btn-primary btn-block" id="toCheckout">Zur Kasse — Demo</button>
+    <p class="demo-hint">Demo-Shop · Es wird nichts bestellt und nichts abgebucht.</p>`;
+}
+itemsEl.addEventListener("click", e=>{
+  const q = e.target.closest("[data-qty]");
+  if(q){
+    const i = cart[+q.dataset.idx];
+    i.qty = Math.max(0, Math.min(9, i.qty + (+q.dataset.qty)));
+    if(i.qty===0) cart.splice(+q.dataset.idx,1);
+    saveCart(); renderCart(); return;
+  }
+  const r = e.target.closest("[data-remove]");
+  if(r){ cart.splice(+r.dataset.remove,1); saveCart(); renderCart(); }
+});
+footEl.addEventListener("click", e=>{
+  if(e.target.closest("#toCheckout")) openCheckout();
+});
+
+/* ============ Checkout ============ */
+const checkoutModal = document.getElementById("checkoutModal");
+const coPanel = document.getElementById("coPanel");
+
+function openCheckout(){
+  closeLayer(drawer);
+  lastFocus = document.activeElement;
+  coPanel.innerHTML = `
+    <div class="modal-head">
+      <p class="eyebrow" id="coTitle">Kasse — Demo</p>
+      <button class="icon-btn" data-close="checkoutModal" aria-label="Kasse schließen">✕</button>
+    </div>
+    <form class="co-body" id="coForm" novalidate>
+      <p class="co-note"><span class="star">✶</span> Demo-Checkout: Es wird keine Zahlung ausgeführt und nichts versendet. Alle Angaben bleiben lokal im Browser.</p>
+      <div class="field-row">
+        <div class="field"><label for="coFn">Vorname</label><input id="coFn" name="fn" autocomplete="given-name" required></div>
+        <div class="field"><label for="coLn">Nachname</label><input id="coLn" name="ln" autocomplete="family-name" required></div>
+      </div>
+      <div class="field"><label for="coMail">E-Mail</label><input id="coMail" name="mail" type="email" autocomplete="email" required placeholder="du@beispiel.de"></div>
+      <div class="field"><label for="coStr">Straße &amp; Nr.</label><input id="coStr" name="str" autocomplete="street-address" required></div>
+      <div class="field-row">
+        <div class="field"><label for="coPlz">PLZ</label><input id="coPlz" name="plz" inputmode="numeric" autocomplete="postal-code" required></div>
+        <div class="field"><label for="coOrt">Ort</label><input id="coOrt" name="ort" autocomplete="address-level1" required></div>
+      </div>
+      <div class="co-sum">
+        ${cart.map(i=>{const p=byId(i.id);return `<div class="sum-row"><span>${i.qty} × ${p.name} · ${i.size} · ${COLORS.find(c=>c.id===i.color).name}</span><span>${eur(p.price*i.qty)}</span></div>`;}).join("")}
+        <div class="sum-row total" style="font-size:15px;margin:10px 0 0"><span>Gesamt</span><span>${eur(cartTotal())}</span></div>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">Bestellung abschließen — Demo</button>
+    </form>`;
+  openLayer(checkoutModal);
+  document.getElementById("coFn").focus();
+  document.getElementById("coForm").addEventListener("submit", e=>{
+    e.preventDefault();
+    const form = e.target;
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+    const no = "GS-2026-" + String(Math.floor(1000 + Math.random()*9000));
+    cart = []; saveCart(); renderCart();
+    coPanel.innerHTML = `
+      <div class="modal-head">
+        <p class="eyebrow">Vorhang — Demo</p>
+        <button class="icon-btn" data-close="checkoutModal" aria-label="Schließen">✕</button>
+      </div>
+      <div class="co-success">
+        <span class="glyph">✶</span>
+        <h2>So, der Saal ist bestellt.</h2>
+        <p class="orderno">Bestellnummer ${no}</p>
+        <p>Danke fürs Mitprobieren. Das war ein <strong>Demo-Checkout</strong> — es wurde nichts bezahlt
+           und nichts versendet. In einem echten Shop würde jetzt die Bestellbestätigung an deine
+           E-Mail-Adresse gehen.</p>
+        <p style="margin-top:22px"><button class="btn btn-ghost" data-close="checkoutModal">Zurück in den Saal</button></p>
+      </div>`;
+  });
+}
+
+/* ============ Layer-Verwaltung ============ */
+function openLayer(el){ el.classList.add("open"); el.setAttribute("aria-hidden","false"); overlay.classList.add("open"); document.body.classList.add("locked"); }
+function closeLayer(el){
+  el.classList.remove("open"); el.setAttribute("aria-hidden","true");
+  if(!document.querySelector(".drawer.open, .modal.open")){ overlay.classList.remove("open"); document.body.classList.remove("locked"); }
+}
+function closeAll(){ closeLayer(drawer); closeLayer(productModal); closeLayer(checkoutModal); }
+
+document.getElementById("cartOpen").addEventListener("click", ()=>{
+  lastFocus = document.activeElement; renderCart(); openLayer(drawer);
+  document.getElementById("cartClose").focus();
+});
+document.getElementById("cartClose").addEventListener("click", ()=>closeLayer(drawer));
+overlay.addEventListener("click", closeAll);
+document.addEventListener("click", e=>{
+  const c = e.target.closest("[data-close]");
+  if(c){ const el = document.getElementById(c.dataset.close); if(el) closeLayer(el); }
+});
+document.addEventListener("keydown", e=>{
+  if(e.key==="Escape"){ closeAll(); return; }
+  if(e.key!=="Tab") return;
+  const open = document.querySelector(".drawer.open, .modal.open");
+  if(!open) return;
+  const f = open.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])');
+  if(!f.length) return;
+  const first = f[0], last = f[f.length-1];
+  if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+});
+
+/* ============ Toast ============ */
+let toastTimer = null;
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.innerHTML = `<span class="star">✶</span><span>${msg}</span>`;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove("show"), 3400);
+}
+
+/* ============ Start ============ */
+renderGrid();
+renderCart();
+</script>
+</body>
+</html>

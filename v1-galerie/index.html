@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GATINOS SELECTION — Music &amp; Art · Art Edition 01</title>
+<meta name="description" content="Art Edition 01 — „20 Tage Warten auf Camilla“. Neun Tinten-Illustrationen als nummerierter Motivdruck auf Unisex-Shirts. Ein Rundgang, kein Laden. (Demo-Shop)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13.5' fill='none' stroke='%231d1d1f' stroke-width='1.5'/%3E%3Cpath d='M10 20c0-5 2.4-9 6-9s6 4 6 9' fill='%231d1d1f'/%3E%3Cpath d='M16 4.6l.9 1.8 1.9.3-1.4 1.4.3 1.9-1.7-.9-1.7.9.3-1.9-1.4-1.4 1.9-.3z' fill='%239e2f24'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#ausstellung">Zum Rundgang springen</a>
+
+<header class="site-head" id="siteHead">
+  <div class="head-inner">
+    <nav class="head-left" aria-label="Hauptnavigation">
+      <a class="head-link" href="#ausstellung">Ausstellung</a>
+    </nav>
+    <a class="brand" href="#top" aria-label="GATINOS SELECTION — Music and Art, zum Anfang">
+      <span class="brand-l1">Gatinos</span>
+      <span class="brand-l2">Selection</span>
+      <span class="brand-sub"><i aria-hidden="true"></i>Music &amp; Art<i aria-hidden="true"></i></span>
+    </a>
+    <div class="head-right">
+      <button id="cartBtn" class="head-link as-btn" aria-haspopup="dialog" aria-controls="cartDrawer">
+        Warenkorb <span id="cartCount" class="count" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ═══ Hero — die leere Halle ═══ -->
+  <section class="hero">
+    <p class="kicker reveal">Art Edition 01 · 20 Tage Warten auf Camilla</p>
+    <h1 class="reveal">Neun Motive,<br>still gehängt.</h1>
+    <p class="hero-sub reveal">
+      Tintenzeichnungen aus dem Buch „20&nbsp;Tage Warten auf Camilla“ —
+      als nummerierter Motivdruck auf Unisex-Shirts.
+      Ein Rundgang durch die Edition, kein Laden.
+    </p>
+    <div class="hero-cta reveal">
+      <a class="btn btn-primary" href="#ausstellung">Rundgang beginnen</a>
+    </div>
+    <div class="thread" aria-hidden="true"></div>
+  </section>
+
+  <!-- ═══ Saal I — die Exponate ═══ -->
+  <section id="ausstellung" class="hall">
+    <div class="sec-head reveal"><span class="sec-label">Saal I · Die Ausstellung · 01–09</span></div>
+    <div id="grid" class="grid"></div>
+  </section>
+
+  <!-- ═══ Saal II — Zur Edition ═══ -->
+  <section class="hall hall-text">
+    <div class="sec-head reveal"><span class="sec-label">Saal II · Zur Edition</span></div>
+    <div class="edition">
+      <p class="edition-lead reveal">
+        „Selection“ heißt: kuratiert, nummeriert, Auflage.
+        Jedes Motiv wurde aus dem Buchprojekt ausgewählt und wird in kleiner
+        Stückzahl aufgetragen — jede Auflage ist rückseitig nummeriert.
+      </p>
+      <p class="reveal">
+        Der erste Drop überträgt neun Illustrationen aus „20&nbsp;Tage Warten auf Camilla“
+        auf drei Shirt-Farben. Geschnitten für alle, Größe S bis XXL.
+        Die Zeichnungen bleiben, was sie sind: leise, präzise, schwarz auf Papier.
+      </p>
+      <ul class="facts reveal">
+        <li>Unisex-Schnitt · S–XXL</li>
+        <li>Naturweiß / Sand / Schwarz</li>
+        <li>Nummerierte Auflage · Art Edition 01</li>
+        <li>Demo-Shop — keine echten Bestellungen, keine Zahlungen</li>
+      </ul>
+      <p class="music-note reveal">Music Edition — in Vorbereitung.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="foot-brand" aria-hidden="true">GATINOS&thinsp;·&thinsp;SELECTION</div>
+  <p class="foot-line">© 2026 Gatinos Selection — Music &amp; Art · Motive aus „20 Tage Warten auf Camilla“ · Demo-Shop ohne echte Zahlungen</p>
+</footer>
+
+<!-- ═══ Overlays ═══ -->
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
+  <div class="drawer-head">
+    <h2 id="cartTitle">Warenkorb</h2>
+    <button class="icon-btn" data-close aria-label="Warenkorb schließen">&times;</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+</aside>
+
+<div class="modal" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle" hidden>
+  <div class="modal-panel">
+    <button class="icon-btn modal-close" data-close aria-label="Details schließen">&times;</button>
+    <div class="detail-grid" id="detailContent"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

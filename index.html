@@ -476,7 +476,7 @@
         buehne.classList.add("geschichte", "logo-an", "ecke-da");
       }else{
         var PFAD = "assets/cat/";
-        var posen = ["sil-1","sil-2","sil-3","sil-4","sil-5","sil-6","sil-7"];
+        var posen = ["sil-1","sil-2","sil-3","sil-4","sil-5","sil-6","sil-7","sil-8","sil-9"];
         posen.forEach(function(n){ var v = new Image(); v.src = PFAD + n + ".png"; });
 
         var setze = function(pose, links, oben, breite, ubergang){
@@ -487,55 +487,58 @@
           katze.style.width = breite + "%";
         };
 
-        /* 1) reinkommen */
+        /* 1) reinkommen — groß wie der Katzenkopf im Logo */
         setTimeout(function(){
           buehne.classList.add("geschichte", "laeuft");
-          katze.style.left = "-14%";
+          katze.style.left = "-16%";
           katze.style.top = "51%";
-          katze.style.width = "24%";
+          katze.style.width = "30%";
           void katze.offsetWidth;
           katze.style.left = "7%";
         }, 250);
 
-        /* Laufwerk: Frame A/B im Wechsel */
+        /* Laufzyklus: 3 Fußstellungen als Ping-Pong (A → B → C → B) */
+        var lauffolge = ["sil-1","sil-2","sil-3","sil-2"];
+        var laufFrame = 0;
         var laufwerk = setInterval(function(){
           if(!buehne.classList.contains("laeuft")){ clearInterval(laufwerk); return; }
-          katze.src = (katze.src.indexOf("sil-1") !== -1) ? PFAD + "sil-2.png" : PFAD + "sil-1.png";
-        }, 230);
+          laufFrame = (laufFrame + 1) % lauffolge.length;
+          katze.src = PFAD + lauffolge[laufFrame] + ".png";
+        }, 210);
 
         /* 2) sitzen und zum Stern hochschauen */
         setTimeout(function(){
           buehne.classList.remove("laeuft");
           buehne.classList.add("sitzt");
-          katze.src = PFAD + "sil-3.png";
+          setze("sil-5", 7, 51, 28, null);
         }, 2700);
 
         /* 3) Sprung ins Loch */
         setTimeout(function(){
           buehne.classList.remove("sitzt");
           buehne.classList.add("sprung");
-          setze("sil-4", 50, 41, 15, "sprung");
+          setze("sil-6", 50, 41, 26, "sprung");
         }, 3600);
 
         /* 4) im Loch, von hinten */
         setTimeout(function(){
           buehne.classList.remove("sprung");
           buehne.classList.add("im-loch");
-          setze("sil-5", 50, 41, 15, null);
+          setze("sil-7", 50, 41, 19, null);
         }, 4500);
 
         /* 5) die Drehung */
         setTimeout(function(){
           buehne.classList.remove("im-loch");
           buehne.classList.add("dreht");
-          setze("sil-6", 50, 41, 15, null);
+          setze("sil-8", 50, 41, 19, null);
         }, 5400);
 
         /* 6) frontal, den Stern anschauen */
         setTimeout(function(){
           buehne.classList.remove("dreht");
           buehne.classList.add("frontal");
-          setze("sil-7", 50, 41, 15, null);
+          setze("sil-9", 50, 41, 19, null);
         }, 6200);
 
         /* 7) Verwandlung: nur noch das schwarze Logo */

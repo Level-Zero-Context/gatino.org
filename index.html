@@ -24,9 +24,8 @@
       --smaragd:#0e8a68;
       --smaragd-leucht:#10b981;
       --smaragd-tief:#0a5b45;
-      --glas:rgba(251,247,238,.55);
+      --glas:rgba(251,247,238,.52);
       --glas-stark:rgba(251,247,238,.72);
-      --glas-linie:rgba(255,255,255,.66);
       --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
       --mono:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
     }
@@ -39,13 +38,11 @@
       overflow-x:hidden;
     }
     .visuell-verborgen{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+    :focus-visible{outline:2px solid var(--smaragd-leucht);outline-offset:3px;border-radius:8px}
 
-    /* ============ Reveal-Bühne: dichtes Illustrationsgewühl unterm Papier ============ */
+    /* ============ Reveal-Bühne: Illustrationen erscheinen nur im Cursor-Licht ============ */
     .buehne{position:fixed;inset:0;z-index:0;pointer-events:none}
-    /* blasse Grundsicht: das Papier ist immer voller Zeichnungen */
-    .buehnen-kunst.basis{opacity:.16}
-    /* scharfe Ebene: nur im Smaragd-Licht am Cursor */
-    .buehnen-kunst.scharf{
+    .buehnen-kunst{
       position:absolute;inset:0;
       --mx:50vw; --my:42vh;
       -webkit-mask-image:radial-gradient(circle 330px at var(--mx) var(--my), #000 0%, rgba(0,0,0,.5) 46%, transparent 78%);
@@ -89,26 +86,57 @@
     @media (pointer:coarse){ .cursor{display:none} }
     html.reduziert .cursor{display:none}
 
-    /* ============ Katzen-Vorhang: schwarze Katze, mittig, im Glas ============ */
+    /* ============ Katzen-Dialog: Benachrichtigung im Glas ============ */
     .katze{
-      position:fixed;inset:0;z-index:210;display:grid;place-items:center;
-      pointer-events:none;opacity:0;transition:opacity .5s ease;
+      position:fixed;inset:0;z-index:210;display:grid;place-items:center;padding:20px;
+      opacity:0;visibility:hidden;transition:opacity .4s ease, visibility .4s ease;
+      background:rgba(243,238,226,.25);
     }
-    .katze.an{opacity:1}
+    .katze.an{opacity:1;visibility:visible}
     .katzen-karte{
-      position:relative;width:min(56vmin,440px);aspect-ratio:1;border-radius:50%;
-      overflow:hidden;
-      background:var(--glas);border:1px solid var(--glas-linie);
-      -webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);
-      box-shadow:0 24px 80px rgba(28,24,19,.18), inset 0 0 60px rgba(255,255,255,.25);
-      transform:scale(.72);transition:transform .55s cubic-bezier(.2,.9,.25,1.2);
+      width:min(92vw,470px);border-radius:30px;
+      background:var(--glas);
+      -webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);
+      box-shadow:0 24px 80px rgba(28,24,19,.18);
+      padding:26px 26px 24px;text-align:center;
+      transform:scale(.8) translateY(14px);transition:transform .45s cubic-bezier(.2,.9,.25,1.2);
     }
-    .katze.an .katzen-karte{transform:scale(1)}
+    .katze.an .katzen-karte{transform:scale(1) translateY(0)}
+    .katzen-runder{
+      position:relative;width:min(48vw,230px);aspect-ratio:1;margin:0 auto;border-radius:50%;
+      overflow:hidden;background:var(--papier);
+      box-shadow:inset 0 0 0 1px rgba(28,24,19,.06), 0 10px 30px rgba(28,24,19,.1);
+    }
     .katze-bild{
       position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
       mix-blend-mode:multiply;opacity:0;
     }
     .katze-bild.sichtbar{opacity:1}
+    .katze h2{
+      margin:18px 0 4px;font-family:var(--serif);font-size:1.25rem;font-weight:500;color:var(--tinte);
+    }
+    .katze .zwischentext{font-size:.9rem;line-height:1.45;color:var(--weich);max-width:34ch;margin:0 auto}
+    .notify-form{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .mail{
+      flex:1 1 200px;min-width:0;
+      font-family:var(--mono);font-size:13px;color:var(--tinte);
+      padding:13px 16px;border-radius:14px;border:none;
+      background:rgba(251,247,238,.75);
+      box-shadow:inset 0 2px 8px rgba(28,24,19,.06);
+    }
+    .mail::placeholder{color:var(--grau)}
+    .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+    .katze-status{
+      margin-top:14px;min-height:1.3em;
+      font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--weich);
+    }
+    .katze-status.ok{color:var(--smaragd-tief)}
+    .katze-status.fehler{color:#a04b2e}
+    .katze-schliessen{
+      margin-top:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+      color:var(--grau);background:none;border:none;text-transform:uppercase;cursor:pointer;
+    }
+    .katze-schliessen:hover{color:var(--tinte)}
 
     /* ============ Inhalt ============ */
     .seite{
@@ -119,9 +147,9 @@
     .glas-karte{
       padding:clamp(2rem,5vw,3.2rem) clamp(1.5rem,6vw,4rem);
       border-radius:30px;
-      background:var(--glas);border:1px solid var(--glas-linie);
+      background:var(--glas);
       -webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);
-      box-shadow:0 18px 60px rgba(28,24,19,.12);
+      box-shadow:0 18px 60px rgba(28,24,19,.1);
     }
     .marke img{width:clamp(150px,19vw,225px);height:auto;display:block;margin:0 auto}
     .linie{width:52px;height:1px;background:var(--hairline);margin:30px auto 22px;position:relative}
@@ -137,7 +165,7 @@
     .status{
       display:inline-flex;align-items:center;gap:.5em;
       margin-top:30px;padding:10px 20px;border-radius:9999px;
-      background:var(--glas-stark);border:1px solid var(--glas-linie);
+      background:var(--glas-stark);
       -webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
       box-shadow:0 6px 24px rgba(28,24,19,.07);
       font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-indent:.3em;
@@ -148,47 +176,27 @@
     .aktionen{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
     .btn{
       font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-indent:.22em;text-transform:uppercase;
-      text-decoration:none;padding:14px 26px;border-radius:14px;
-      background:var(--glas-stark);border:1px solid var(--glas-linie);
+      text-decoration:none;padding:14px 26px;border-radius:14px;border:none;cursor:pointer;
+      background:var(--glas-stark);
       -webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
       box-shadow:0 6px 24px rgba(28,24,19,.07);
       color:var(--tinte);
-      transition:border-color .25s ease,background .25s ease,color .25s ease,transform .25s ease;
+      transition:background .25s ease,color .25s ease,transform .25s ease;
     }
-    .btn:hover{transform:translateY(-1px);border-color:rgba(14,138,104,.45)}
+    .btn:hover{transform:translateY(-1px)}
     .btn:active{transform:translateY(0)}
     .btn--smaragd{
-      background:rgba(14,138,104,.13);border-color:rgba(14,138,104,.4);color:var(--smaragd-tief);
+      background:rgba(14,138,104,.14);color:var(--smaragd-tief);
     }
-    .btn--smaragd:hover{background:rgba(14,138,104,.2);border-color:rgba(14,138,104,.6)}
-    .btn--leise{border-color:transparent;box-shadow:none;background:rgba(251,247,238,.4);color:var(--grau)}
-    .btn--leise:hover{color:var(--tinte);border-color:var(--hairline)}
+    .btn--smaragd:hover{background:rgba(14,138,104,.22)}
+    .btn--leise{box-shadow:none;background:rgba(251,247,238,.4);color:var(--grau)}
+    .btn--leise:hover{color:var(--tinte)}
     .hinweis{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--grau)}
-
-    .benachrichtigen{
-      display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:stretch;
-    }
-    .mail-feld{
-      font-family:var(--mono);font-size:12px;letter-spacing:.06em;
-      padding:14px 18px;border-radius:14px;width:min(250px,80vw);
-      background:var(--glas-stark);border:1px solid var(--glas-linie);color:var(--tinte);
-      box-shadow:0 6px 24px rgba(28,24,19,.07);outline:none;
-      -webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
-      transition:border-color .25s ease,box-shadow .25s ease;
-    }
-    .mail-feld::placeholder{color:var(--grau)}
-    .mail-feld:focus{border-color:rgba(14,138,104,.6);box-shadow:0 6px 24px rgba(16,185,129,.16)}
-    .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
-    .form-status{
-      margin:14px auto 0;min-height:1.2em;max-width:40ch;
-      font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--smaragd-tief);
-    }
-    .form-status.fehler{color:#8a3a26}
 
     .buehnen-hinweis{
       display:inline-flex;align-items:center;gap:.6em;
       margin-top:26px;padding:9px 18px;border-radius:9999px;
-      background:var(--glas);border:1px solid var(--glas-linie);
+      background:var(--glas);
       -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
       box-shadow:0 4px 18px rgba(28,24,19,.06);
       font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--weich);
@@ -219,6 +227,7 @@
       .spruch{max-width:26ch}
       .buehnen-hinweis{max-width:30ch}
       .glas-karte{margin:0 2px}
+      .katzen-karte{padding:22px 18px 20px}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -230,26 +239,10 @@
 </head>
 <body>
 
-  <!-- ============ Reveal-Bühne: der Cursor (das Gatinos-Emblem) legt die
-       Illustrationen frei, die dicht unter dem Papier liegen ============ -->
+  <!-- ============ Reveal-Bühne: der Emblem-Cursor legt die Illustrationen
+       frei, die unter dem Papier liegen — sonst bleiben sie verborgen ============ -->
   <div class="buehne" aria-hidden="true">
-    <div class="buehnen-kunst basis">
-      <img class="pa pa-1"  src="assets/web/stricher-orig-1.jpg"    alt="" loading="eager">
-      <img class="pa pa-2"  src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
-      <img class="pa pa-3"  src="assets/web/kauz-sanft-2.jpg"       alt="" loading="eager">
-      <img class="pa pa-4"  src="assets/web/herz-sanft-2.jpg"       alt="" loading="eager">
-      <img class="pa pa-5"  src="assets/web/stromlinien-sanft-1.jpg" alt="" loading="eager">
-      <img class="pa pa-6"  src="assets/web/kamera-sanft-1.jpg"     alt="" loading="eager">
-      <img class="pa pa-7"  src="assets/web/stricher-orig-2.jpg"    alt="" loading="eager">
-      <img class="pa pa-8"  src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
-      <img class="pa pa-9"  src="assets/web/kauz-sanft-2.jpg"       alt="" loading="eager">
-      <img class="pa pa-10" src="assets/web/herz-sanft-2.jpg"       alt="" loading="eager">
-      <img class="pa pa-11" src="assets/web/stricher-orig-1.jpg"    alt="" loading="eager">
-      <img class="pa pa-12" src="assets/web/stromlinien-sanft-1.jpg" alt="" loading="eager">
-      <img class="pa pa-13" src="assets/web/kamera-sanft-1.jpg"     alt="" loading="eager">
-      <img class="pa pa-14" src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
-    </div>
-    <div class="buehnen-kunst scharf">
+    <div class="buehnen-kunst">
       <img class="pa pa-1"  src="assets/web/stricher-orig-1.jpg"    alt="" loading="eager">
       <img class="pa pa-2"  src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
       <img class="pa pa-3"  src="assets/web/kauz-sanft-2.jpg"       alt="" loading="eager">
@@ -273,12 +266,23 @@
     <img class="cursor-logo" src="assets/logo/gatinos_emblem.png" alt="">
   </div>
 
-  <!-- ============ Katzen-Vorhang: erscheint bei Klick oder nach einer Weile ============ -->
-  <div class="katze" aria-hidden="true">
+  <!-- ============ Katzen-Dialog: öffnet nur über „Benachrichtigen“ ============ -->
+  <div class="katze" id="katze" role="dialog" aria-modal="true" aria-label="Shop-Benachrichtigung">
     <div class="katzen-karte">
-      <img class="katze-bild sichtbar" src="assets/cat/katze-zu.jpg"   alt="" loading="eager">
-      <img class="katze-bild"          src="assets/cat/katze-halb.jpg" alt="" loading="eager">
-      <img class="katze-bild"          src="assets/cat/katze-auf.jpg"  alt="" loading="eager">
+      <div class="katzen-runder" aria-hidden="true">
+        <img class="katze-bild sichtbar" src="assets/cat/katze-zu.jpg"   alt="" loading="eager">
+        <img class="katze-bild"          src="assets/cat/katze-halb.jpg" alt="" loading="eager">
+        <img class="katze-bild"          src="assets/cat/katze-auf.jpg"  alt="" loading="eager">
+      </div>
+      <h2>Der Shop öffnet in Kürze.</h2>
+      <p class="zwischentext">Trag deine Mail ein — wir schreiben dir genau einmal, wenn die Art Edition 01 online ist.</p>
+      <form class="notify-form" id="notify-form" novalidate>
+        <input class="mail" id="notify-mail" type="email" name="email" placeholder="deine@mail.de" autocomplete="email" required>
+        <input class="hp" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn btn--smaragd" type="submit">Eintragen</button>
+      </form>
+      <p class="katze-status" id="notify-status" role="status"></p>
+      <button class="katze-schliessen" type="button" id="katze-zu">Schließen</button>
     </div>
   </div>
 
@@ -299,20 +303,13 @@
       <p class="status">Der Shop öffnet in Kürze<span class="caret"></span></p>
 
       <div class="aktionen">
-        <form class="benachrichtigen" id="benachrichtigen" action="/api/notify" method="POST" novalidate>
-          <label class="visuell-verborgen" for="mail">E-Mail-Adresse</label>
-          <input class="mail-feld" id="mail" name="email" type="email" inputmode="email"
-                 autocomplete="email" placeholder="deine@mail.de" required>
-          <input class="hp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="btn btn--smaragd" type="submit">Benachrichtigen</button>
-        </form>
+        <button class="btn btn--smaragd" id="benachrichtigen" type="button">Benachrichtigen</button>
         <a class="btn btn--leise" href="mailto:contact@gatino.org">Kontakt</a>
       </div>
-      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-      <p class="hinweis">Einmal benachrichtigt, wenn der Shop öffnet — kein Spam, jederzeit abbestellbar.</p>
+      <p class="hinweis">eine Mail, eine Antwort, kein Abo</p>
     </div>
 
-    <p class="buehnen-hinweis"><span class="blink-punkt"></span>Beweg die Maus über die Seite — unter dem Papier warten Illustrationen. Ein Klick lässt die Katze miauen.</p>
+    <p class="buehnen-hinweis"><span class="blink-punkt"></span>Beweg die Maus über die Seite — unter dem Papier warten Illustrationen.</p>
   </main>
 
   <footer class="fusz">
@@ -330,13 +327,13 @@
     var wurzel = document.documentElement;
     wurzel.classList.add(reduziert ? "reduziert" : "nicht-REDUZIERT");
 
-    var kunst = document.querySelector(".buehnen-kunst.scharf");
+    /* — Cursor: Emblem folgt der Maus, Maske legt die Illustrationen frei — */
+    var kunst = document.querySelector(".buehnen-kunst");
     var glanz = document.querySelector(".glanz");
     var logo  = document.querySelector(".cursor-logo");
     var hinweis = document.querySelector(".buehnen-hinweis");
     if(!kunst || !glanz || !logo){ return; }
 
-    /* — Cursor: Emblem folgt der Maus, Glanz + Maske legen Illustrationen frei — */
     var zielX = innerWidth / 2, zielY = innerHeight * 0.42;
     var curX = zielX, curY = zielY;
     var hatMaus = false, skala = 1, zielSkala = 1;
@@ -375,27 +372,23 @@
     }
     requestAnimationFrame(rahmen);
 
-    /* — Katze: Klick (oder eine Weile Stillstand) lässt sie mittig miauen — */
-    var vorhang = document.querySelector(".katze");
-    var bilder  = [].slice.call(document.querySelectorAll(".katze-bild"));
-    if(!vorhang || bilder.length < 3){ return; }
+    /* — Katzen-Dialog: öffnet nur über „Benachrichtigen“, miaut beim Öffnen — */
+    var vorhang = document.querySelector("#katze");
+    var oeffner = document.querySelector("#benachrichtigen");
+    var schliesser = document.querySelector("#katze-zu");
+    var formular = document.querySelector("#notify-form");
+    var mailfeld = document.querySelector("#notify-mail");
+    var statuszeile = document.querySelector("#notify-status");
+    var bilder = [].slice.call(document.querySelectorAll(".katze-bild"));
+    if(!vorhang || !oeffner || bilder.length < 3){ return; }
 
     var katzeAktiv = false;
-    function katzeZeigen(){
-      if(katzeAktiv){ return; }
-      katzeAktiv = true;
-      vorhang.classList.add("an");
-      /* Maul-Flow: zu → halb → auf → halb → auf → zu, dann verblasst der Vorhang */
-      var folge = [[0,650],[1,150],[2,260],[1,150],[2,260],[0,650]];
+    function miau(){
+      if(reduziert){ return; }
+      var folge = [[0,600],[1,150],[2,260],[1,150],[2,260],[0,600]];
       var i = 0;
       function schritt(){
-        if(i >= folge.length){
-          setTimeout(function(){
-            vorhang.classList.remove("an");
-            katzeAktiv = false;
-          }, 350);
-          return;
-        }
+        if(i >= folge.length){ return; }
         for(var b = 0; b < bilder.length; b++){
           bilder[b].classList.toggle("sichtbar", b === folge[i][0]);
         }
@@ -406,58 +399,68 @@
       schritt();
     }
 
-    addEventListener("pointerdown", function(){ katzeZeigen(); }, { passive:true });
-
-    var letzteAktivitaet = Date.now();
-    addEventListener("pointermove", function(){ letzteAktivitaet = Date.now(); }, { passive:true });
-    setInterval(function(){
-      if(Date.now() - letzteAktivitaet > 22000){ katzeZeigen(); letzteAktivitaet = Date.now(); }
-    }, 6000);
-  })();
-
-  /* ============ Benachrichtigen: Formular → /api/notify → Brevo ============ */
-  (function(){
-    "use strict";
-    var form = document.getElementById("benachrichtigen");
-    var statusEl = document.getElementById("form-status");
-    if(!form || !statusEl){ return; }
-
-    function zeige(text, fehler){
-      statusEl.textContent = text;
-      statusEl.classList.toggle("fehler", !!fehler);
+    function status(text, art){
+      statuszeile.textContent = text;
+      statuszeile.className = "katze-status" + (art ? " " + art : "");
     }
 
-    form.addEventListener("submit", function(e){
+    function oeffnen(){
+      vorhang.classList.add("an");
+      miau();
+      var gemerkt = "";
+      try{ gemerkt = localStorage.getItem("gatinos-notify") || ""; }catch(e){}
+      if(gemerkt){
+        mailfeld.value = gemerkt;
+        status("✓ schon auf der Liste: " + gemerkt, "ok");
+      }else{
+        status("");
+      }
+      setTimeout(function(){ mailfeld.focus(); }, reduziert ? 0 : 420);
+    }
+
+    function schliessen(){
+      vorhang.classList.remove("an");
+    }
+
+    oeffner.addEventListener("click", oeffnen);
+    schliesser.addEventListener("click", schliessen);
+    vorhang.addEventListener("click", function(e){ if(e.target === vorhang){ schliessen(); } });
+    addEventListener("keydown", function(e){ if(e.key === "Escape"){ schliessen(); } });
+
+    formular.addEventListener("submit", function(e){
       e.preventDefault();
-      var mail = form.email.value.trim();
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)){
-        zeige("Bitte gib eine gültige E-Mail-Adresse ein.", true);
-        form.email.focus();
+      var hp = formular.querySelector(".hp").value;
+      var mail = mailfeld.value.trim();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail) || mail.length > 254){
+        status("Hmm — das sieht nicht nach einer Mail-Adresse aus.", "fehler");
+        miau();
         return;
       }
-      var btn = form.querySelector("button");
-      btn.disabled = true;
-      zeige("Wird gesendet …");
-      fetch(form.action, {
+      var taste = formular.querySelector("button[type=submit]");
+      taste.disabled = true;
+      status("Trage dich ein …");
+      fetch("/api/notify", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email: mail, hp: form.hp.value })
+        body: JSON.stringify({ email: mail, hp: hp })
       }).then(function(r){
-        return r.json().catch(function(){ return {}; }).then(function(d){ return { status: r.status, data: d }; });
-      }).then(function(res){
-        if(res.status === 200 && res.data && res.data.ok){
-          form.style.display = "none";
-          zeige("Danke! Wir mailen dir, sobald der Shop öffnet.");
-        } else if(res.data && res.data.error === "config"){
-          zeige("Der Anmelde-Dienst wird gerade eingerichtet — schreib uns in der Zwischenzeit gern an contact@gatino.org.", true);
-          btn.disabled = false;
-        } else {
-          zeige("Das hat nicht geklappt — probier es gleich nochmal oder schreib an contact@gatino.org.", true);
-          btn.disabled = false;
+        return r.json().catch(function(){ return { ok:false, error:"brevo" }; });
+      }).then(function(d){
+        taste.disabled = false;
+        if(d && d.ok){
+          try{ localStorage.setItem("gatinos-notify", mail); }catch(e){}
+          status("✓ eingetragen: " + mail + " — bis bald!", "ok");
+          miau();
+        }else if(d && (d.error === "email" || d.error === "invalid")){
+          status("Hmm — das sieht nicht nach einer Mail-Adresse aus.", "fehler");
+        }else if(d && d.error === "config"){
+          status("Der Verteiler ist noch nicht verkabelt — schreib an contact@gatino.org", "fehler");
+        }else{
+          status("Das hat nicht geklappt — probier es gleich nochmal.", "fehler");
         }
       }).catch(function(){
-        zeige("Keine Verbindung — probier es gleich nochmal.", true);
-        btn.disabled = false;
+        taste.disabled = false;
+        status("Keine Verbindung — probier es gleich nochmal.", "fehler");
       });
     });
   })();

@@ -188,7 +188,9 @@
     .blick-bild{
       position:absolute;left:50%;bottom:-6%;width:118%;
       transform:translateX(-50%);opacity:0;
+      mix-blend-mode:multiply;
     }
+    .blick-bild.blick--eng{width:134%;bottom:-2%}
     .blick-bild.sichtbar{opacity:1}
     html.js .loch{display:block}
     html.js .marke-buehne.geschichte .loch{opacity:1}
@@ -399,6 +401,7 @@
       <div class="marke-buehne" id="marke-buehne">
         <div class="loch-blick" aria-hidden="true">
           <img class="blick-bild sichtbar" src="assets/cat/ruecken.png" alt="" loading="eager">
+          <img class="blick-bild blick--eng" src="assets/cat/quetsch.jpg" alt="" loading="eager">
           <img class="blick-bild" src="assets/cat/dreh.png" alt="" loading="eager">
           <img class="blick-bild" src="assets/cat/front.png" alt="" loading="eager">
         </div>
@@ -581,28 +584,34 @@
           blickPose(0);
         }, 7000);
 
-        /* 5) die Drehung im Ausschnitt */
+        /* 5) der Kopf quält sich durchs enge Loch — verstopft */
+        setTimeout(function(){
+          buehne.classList.add("quetscht");
+          blickPose(1);
+        }, 8000);
+
+        /* 6) durchgekommen — die Drehung im Ausschnitt */
         setTimeout(function(){
           buehne.classList.add("drehung");
-          blickPose(1);
-        }, 7900);
+          blickPose(2);
+        }, 9200);
 
-        /* 6) frontal, den Stern anschauen */
+        /* 7) frontal, den Stern anschauen */
         setTimeout(function(){
           buehne.classList.add("frontal");
-          blickPose(2);
-        }, 8700);
+          blickPose(3);
+        }, 10100);
 
         /* 7) Verwandlung: nur noch das schwarze Logo */
         setTimeout(function(){
           buehne.classList.add("logo-an");
           wandkatze.classList.remove("aktiv");
-        }, 9700);
+        }, 11200);
 
         /* 8) die kleine Katze mit der Blase neben MUSIC & ART */
         setTimeout(function(){
           buehne.classList.add("ecke-da");
-        }, 10800);
+        }, 12400);
       }
     }
 

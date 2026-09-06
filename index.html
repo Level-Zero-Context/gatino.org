@@ -2,164 +2,388 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <title>GATINOS SELECTION — Music &amp; Art. Der Shop ist online.</title>
+  <title>GATINOS SELECTION — Music &amp; Art. Der Shop öffnet in Kürze.</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Gatinos Selection ist eine kleine Kunst-Boutique: Motivdruck auf Shirts. Der erste Drop ist die Art Edition 01 — zwölf Motive, jetzt online.">
+  <meta name="description" content="Gatinos Selection — Music &amp; Art. Art Edition 01: zwölf Tinten-Zeichnungen als Motivdruck auf Shirts. Der Shop öffnet in Kürze.">
   <meta name="robots" content="index,follow">
-  <meta name="theme-color" content="#f5efe4">
+  <meta name="theme-color" content="#100f0d">
   <link rel="canonical" href="https://gatino.org/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="GATINOS SELECTION — Music &amp; Art">
-  <meta property="og:description" content="Art Edition 01 — zwölf Motive. Jetzt online.">
+  <meta property="og:description" content="Art Edition 01 — zwölf Tinten-Zeichnungen als Motivdruck auf Shirts. Der Shop öffnet in Kürze.">
   <meta property="og:url" content="https://gatino.org/">
   <meta property="og:image" content="https://gatino.org/assets/web/stricher-orig-1.jpg">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="styles.css?v=1">
-  <script src="script.js" defer></script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Gatinos Selection",
-    "url": "https://gatino.org",
-    "email": "contact@gatino.org",
-    "slogan": "Music & Art"
-  }
-  </script>
+  <style>
+    :root{
+      --tinte:#100f0d;          /* Samt-Schwarz, warm */
+      --papier:#efe9dc;         /* warmes Papierweiß */
+      --papier-weich:rgba(239,233,220,.62);
+      --papier-grau:rgba(239,233,220,.34);
+      --hairline:rgba(239,233,220,.14);
+      --akzent:#c96f4a;         /* gedecktes Terracotta, sparsam */
+      --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+      --mono:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+      --zyklus:48s;             /* eine volle Geschichte */
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      background:var(--tinte);
+      color:var(--papier);
+      font-family:var(--serif);
+      overflow-x:hidden;
+    }
+    .visuell-verborgen{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+    /* ============ Hintergrund-Bühne ============ */
+    .buehne{position:fixed;inset:0;z-index:0;pointer-events:none}
+    .buehne svg.szene{width:100%;height:100%;display:block}
+    #staub{position:absolute;inset:0;width:100%;height:100%}
+    .korn{
+      position:absolute;inset:-60px;opacity:.05;mix-blend-mode:screen;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+    }
+
+    /* — Grundzustand = Endbild der Geschichte; die Keyframes
+       erzählen von 0 % bis 100 % dorthin. — */
+
+    /* Meisterloop: sanftes Auf/Ab der ganzen Szene an der Schleifen-naht */
+    .meisterschleife{animation:meister var(--zyklus) linear infinite}
+    @keyframes meister{
+      0%{opacity:.3} 5%{opacity:.8} 46%{opacity:.85} 88%{opacity:.75} 96%{opacity:.35} 100%{opacity:.3}
+    }
+
+    /* Boden + Tunnel: früh da */
+    .boden{animation:boden var(--zyklus) linear infinite}
+    @keyframes boden{0%,2%{opacity:0} 9%{opacity:1} 100%{opacity:1}}
+
+    /* Figuren: lehnen sich in die Taue, richten sich auf */
+    .figuren-links{animation:lehnen-links var(--zyklus) ease-in-out infinite;transform-origin:210px 798px}
+    .figuren-rechts{animation:lehnen-rechts var(--zyklus) ease-in-out infinite;transform-origin:1360px 798px}
+    @keyframes lehnen-links{
+      0%,10%{transform:rotate(0deg)} 20%{transform:rotate(-9deg)}
+      48%{transform:rotate(-9deg)} 58%,100%{transform:rotate(0deg)}
+    }
+    @keyframes lehnen-rechts{
+      0%,10%{transform:rotate(0deg)} 20%{transform:rotate(9deg)}
+      48%{transform:rotate(9deg)} 58%,100%{transform:rotate(0deg)}
+    }
+
+    /* Taue: werden gezogen, dann losgelassen */
+    .taue{stroke-dasharray:620;animation:taue var(--zyklus) cubic-bezier(.5,0,.4,1) infinite}
+    @keyframes taue{
+      0%,9%{stroke-dashoffset:620;opacity:1}
+      26%{stroke-dashoffset:0;opacity:1}
+      50%{stroke-dashoffset:0;opacity:1}
+      60%{stroke-dashoffset:0;opacity:0}
+      100%{stroke-dashoffset:620;opacity:0}
+    }
+    /* Nachschwingende Bögen (losgelassen) */
+    .boegen{stroke-dasharray:520;animation:boegen var(--zyklus) cubic-bezier(.4,0,.3,1) infinite}
+    @keyframes boegen{
+      0%,52%{stroke-dashoffset:520;opacity:0}
+      54%{opacity:.9}
+      66%{stroke-dashoffset:0;opacity:.9}
+      82%{opacity:.5}
+      100%{stroke-dashoffset:0;opacity:0}
+    }
+
+    /* Schiff: steigt, schwingt, driftet höher */
+    .schiff-fahrt{animation:schiff var(--zyklus) cubic-bezier(.4,0,.3,1) infinite}
+    @keyframes schiff{
+      0%,20%{transform:translate(0,230px)}
+      40%{transform:translate(0,0)}
+      52%{transform:translate(0,0)}
+      56%{transform:translate(-7px,-4px)}
+      62%{transform:translate(7px,-8px)}
+      68%{transform:translate(-5px,-12px)}
+      74%,100%{transform:translate(0,-34px)}
+    }
+    .schiff-atem{animation:atem 7s ease-in-out infinite;transform-origin:760px 430px}
+    @keyframes atem{0%,100%{transform:rotate(0deg) translateY(0)} 50%{transform:rotate(.6deg) translateY(-5px)}}
+
+    /* Wolkenlampe: zieht herein, leuchtet */
+    .wolke-fahrt{animation:wolke var(--zyklus) cubic-bezier(.4,0,.3,1) infinite}
+    @keyframes wolke{
+      0%,56%{transform:translate(460px,26px);opacity:0}
+      70%{transform:translate(0,0);opacity:1}
+      100%{transform:translate(0,0);opacity:1}
+    }
+    .wolke-atem{animation:wolken-atem 9s ease-in-out infinite;transform-origin:1000px 300px}
+    @keyframes wolken-atem{0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)}}
+    .leuchten{animation:leuchten var(--zyklus) ease-in-out infinite}
+    @keyframes leuchten{
+      0%,68%{opacity:0} 76%{opacity:.95} 84%{opacity:.6} 90%{opacity:.9} 100%{opacity:.95}
+    }
+    .lampen-atem{animation:lampen-atem 5s ease-in-out infinite}
+    @keyframes lampen-atem{0%,100%{opacity:.75} 50%{opacity:1}}
+
+    /* Lichtbahn S: zeichnet sich zum Tunnel */
+    .lichtbahn{stroke-dasharray:900;animation:bahn var(--zyklus) cubic-bezier(.5,0,.4,1) infinite}
+    @keyframes bahn{
+      0%,70%{stroke-dashoffset:900;opacity:0}
+      73%{opacity:.85}
+      84%{stroke-dashoffset:0;opacity:.85}
+      100%{stroke-dashoffset:0;opacity:.85}
+    }
+    .tunnel-licht{animation:tunnel var(--zyklus) ease-in-out infinite}
+    @keyframes tunnel{
+      0%,80%{opacity:0} 86%{opacity:1} 100%{opacity:1}
+    }
+
+    /* Stern: blinkt immer wieder */
+    .stern{animation:stern 6s ease-in-out infinite;transform-origin:860px 170px}
+    @keyframes stern{0%,100%{opacity:.25;transform:scale(1)} 50%{opacity:.9;transform:scale(1.25)}}
+
+    /* Schmale Screens: die Szene wird mittig beschnitten — die Handlung
+       wird per Positions-Wrapper ins sichtbare Band geschoben. */
+    @media (max-width:700px){
+      .buehne{opacity:.62}
+      .pos-schiff{transform:translate(330px,46px)}
+      .pos-taue-links{transform:translateX(360px)}
+      .pos-boegen-links{transform:translateX(360px)}
+      .pos-figlinks{transform:translateX(540px)}
+      .pos-taue-rechts{transform:translateX(-420px)}
+      .pos-boegen-rechts{transform:translateX(-420px)}
+      .pos-figrechts{display:none}
+      .pos-wolke{transform:translateX(-260px)}
+      .pos-tunnel{transform:translateX(-380px)}
+      .pos-bahn{transform:translateX(-300px)}
+      .pos-stern{transform:translateX(420px)}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .meisterschleife,.boden,.figuren-links,.figuren-rechts,.taue,.boegen,
+      .schiff-fahrt,.schiff-atem,.wolke-fahrt,.wolke-atem,.leuchten,.lampen-atem,
+      .lichtbahn,.tunnel-licht,.stern{animation:none}
+    }
+
+    /* ============ Inhalt ============ */
+    .seite{
+      position:relative;z-index:1;min-height:100svh;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:24px;gap:0;
+    }
+    .marke img{width:clamp(150px,19vw,225px);height:auto;display:block;margin:0 auto}
+    .linie{width:52px;height:1px;background:var(--hairline);margin:30px auto 22px;position:relative}
+    .linie::after{content:"";position:absolute;left:50%;top:-2.5px;width:6px;height:6px;transform:translateX(-50%) rotate(45deg);background:var(--akzent)}
+    .kicker{
+      font-family:var(--mono);font-size:11px;letter-spacing:.42em;text-indent:.42em;
+      color:var(--papier-weich);text-transform:uppercase;
+    }
+    .spruch{
+      margin:22px auto 0;max-width:34ch;
+      font-size:clamp(19px,2.6vw,26px);line-height:1.5;font-style:italic;color:var(--papier);
+    }
+    .status{
+      margin-top:30px;font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-indent:.3em;
+      color:var(--papier-grau);text-transform:uppercase;
+    }
+    .status .caret{display:inline-block;width:.55em;height:1.05em;background:var(--akzent);vertical-align:-.16em;margin-left:.4em;animation:caret 1.2s steps(1) infinite}
+    @keyframes caret{50%{opacity:0}}
+    .aktionen{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+    .btn{
+      font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-indent:.22em;text-transform:uppercase;
+      color:var(--papier);text-decoration:none;padding:14px 26px;
+      border:1px solid rgba(239,233,220,.32);border-radius:2px;
+      transition:border-color .25s ease,background .25s ease,color .25s ease;
+    }
+    .btn:hover{border-color:var(--akzent);background:rgba(201,111,74,.1)}
+    .btn--leise{border-color:transparent;color:var(--papier-grau)}
+    .btn--leise:hover{color:var(--papier);background:rgba(239,233,220,.05)}
+    .hinweis{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--papier-grau)}
+
+    .fusz{
+      position:relative;z-index:1;margin-top:auto;padding:26px 24px 22px;width:100%;
+      display:flex;gap:18px;justify-content:center;flex-wrap:wrap;
+      font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--papier-grau);
+    }
+    .fusz a{color:var(--papier-grau);text-decoration:none;border-bottom:1px solid transparent;transition:color .25s}
+    .fusz a:hover{color:var(--papier)}
+
+    @media (max-width:560px){
+      .fusz{gap:12px;font-size:10px}
+      .spruch{max-width:26ch}
+    }
+  </style>
 </head>
 <body>
-  <a class="skip" href="#main">Zum Inhalt springen</a>
 
-  <nav class="nav-pill" aria-label="Hauptnavigation">
-    <a class="brand" href="#top">Gatinos<b>·</b>Selection</a>
-    <div class="nav-links">
-      <a href="#drop">Der Drop</a>
-      <a href="#motive">Die Motive</a>
+  <!-- ============ Stencil-Bühne: eine Geschichte in einem Zug ============
+       Staub steigt — Figuren ziehen die Taue straff — das Schiff steigt —
+       die Taue werden losgelassen, die Bögen schwingen nach — die Wolken-
+       lampe zieht auf und ihre Lichtbahn läuft zum Tunnel. Dann verweht
+       die Szene und beginnt von vorn. -->
+  <div class="buehne" aria-hidden="true">
+    <canvas id="staub"></canvas>
+    <svg class="szene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+      <g class="meisterschleife" fill="none" stroke="#efe9dc" stroke-linecap="round">
+
+        <!-- Boden -->
+        <g class="boden">
+          <line x1="70" y1="800" x2="1530" y2="800" stroke-width="2" opacity=".85"/>
+          <path d="M70 800 q60 -6 120 0 t120 0 t120 0" stroke-width="1.1" opacity=".35"/>
+          <!-- Tunnel mit Lichtpunkt (rechts) -->
+          <g stroke-width="2">
+            <path d="M1272 800 a30 30 0 0 1 60 0"/>
+            <circle class="tunnel-licht" cx="1302" cy="789" r="5" fill="#efe9dc" stroke="none"/>
+          </g>
+          <!-- Lichtbahn S: vom Tunnel hinauf zur Wolkenlampe -->
+          <path class="lichtbahn" d="M1302 788 C 1290 700 1220 660 1200 570 C 1182 490 1230 420 1180 360 C 1155 328 1145 316 1152 300"
+                stroke-width="2.6" opacity=".9"/>
+        </g>
+
+        <!-- Figuren, die ziehen (Schablonen) -->
+        <g class="figuren-links" stroke-width="2.2">
+          <path d="M180 798 v-17 l5 -8 5 8 v17 M185 772 a4 4 0 1 1 .1 0 M173 784 l-8 6"/>
+          <path d="M212 798 v-15 l4 -7 4 7 v15 M216 774 a3.4 3.4 0 1 1 .1 0"/>
+          <path d="M242 798 v-16 l5 -8 5 8 v16 M247 773 a4 4 0 1 1 .1 0 M253 785 l8 5"/>
+        </g>
+        <g class="figuren-rechts" stroke-width="2.2">
+          <path d="M1330 798 v-16 l5 -8 5 8 v16 M1335 773 a4 4 0 1 1 .1 0"/>
+          <path d="M1362 798 v-17 l5 -8 5 8 v17 M1367 772 a4 4 0 1 1 .1 0 M1377 784 l-8 5"/>
+          <path d="M1392 798 v-15 l4 -7 4 7 v15 M1396 774 a3.4 3.4 0 1 1 .1 0"/>
+        </g>
+
+        <!-- Taue: von den Figuren zum Schiff (links unten) -->
+        <g class="taue" stroke-width="2">
+          <line x1="206" y1="778" x2="392" y2="648"/>
+          <line x1="1340" y1="778" x2="568" y2="648"/>
+        </g>
+        <!-- Bögen nach dem Loslassen -->
+        <g class="boegen" stroke-width="1.8">
+          <path d="M206 778 C 300 720 380 680 452 596"/>
+          <path d="M1340 778 C 1000 720 720 680 588 596"/>
+        </g>
+
+        <!-- Schiff (Schablone): steigt aus dem Staub — links, unter der Marke -->
+        <g class="pos-schiff"><g class="schiff-fahrt">
+          <g class="schiff-atem">
+            <path d="M398 648 q84 30 168 0 l-20 28 q-64 18 -128 0 Z" fill="#efe9dc" stroke="none"/>
+            <g stroke-width="2.2">
+              <line x1="462" y1="646" x2="462" y2="528"/>
+              <line x1="518" y1="646" x2="518" y2="542"/>
+              <line x1="414" y1="646" x2="436" y2="576"/>
+            </g>
+            <path d="M464 532 q52 24 48 108 l-48 0 Z" fill="#efe9dc" stroke="none" opacity=".92"/>
+            <path d="M516 546 q40 20 36 92 l-36 0 Z" fill="#efe9dc" stroke="none" opacity=".7"/>
+            <path d="M462 524 l24 -7 v12 Z" fill="#c96f4a" stroke="none"/>
+            <g stroke-width="1.1" opacity=".55">
+              <line x1="436" y1="578" x2="464" y2="536"/>
+              <line x1="532" y1="598" x2="518" y2="546"/>
+              <line x1="414" y1="612" x2="462" y2="530"/>
+            </g>
+            <g stroke="none" fill="#efe9dc" opacity=".5">
+              <circle cx="404" cy="724" r="1.8"/><circle cx="432" cy="760" r="1.3"/>
+              <circle cx="392" cy="786" r="1.5"/><circle cx="420" cy="800" r="1.1"/>
+            </g>
+          </g>
+        </g></g>
+
+        <!-- Wolkenlampe: rechts oben -->
+        <g class="pos-wolke"><g class="wolke-fahrt">
+          <g class="wolke-atem">
+            <g stroke-width="2">
+              <line x1="1150" y1="368" x2="1150" y2="346"/>
+              <path d="M1126 346 h48 l-10 -22 h-28 Z" fill="#efe9dc" stroke="none"/>
+            </g>
+            <ellipse class="lampen-atem" cx="1150" cy="364" rx="52" ry="17" fill="#efe9dc" opacity=".45" stroke="none" style="filter:blur(8px)"/>
+            <g stroke-width="2.2">
+              <path d="M1082 330 q-15 -38 24 -45 q7 -29 45 -25 q29 -25 58 -5 q38 -9 45 25 q34 9 18 45 q-11 20 -38 18 l-118 0 q-29 2 -34 -13 Z"/>
+            </g>
+          </g>
+        </g></g>
+
+        <!-- Stern: links oben -->
+        <g class="stern" stroke-width="1.8">
+          <path d="M380 148 l4 12 12 4 -12 4 -4 12 -4 -12 -12 -4 12 -4 Z"/>
+        </g>
+      </g>
+    </svg>
+    <div class="korn"></div>
+  </div>
+
+  <!-- ============ Marke ============ -->
+  <main class="seite">
+    <h1 class="visuell-verborgen">Gatinos Selection — Music &amp; Art</h1>
+
+    <div class="marke">
+      <img src="assets/logo/gatinos_dark_alpha.png" alt="Gatinos Selection — Music &amp; Art" width="800" height="800">
     </div>
-    <a class="nav-cta" href="/selection/">Zum Shop</a>
-  </nav>
 
-  <main id="main">
-    <section class="hero" id="top">
-      <div class="wrap">
-        <p class="eyebrow reveal">Art Edition 01</p>
-        <h1 class="wordmark reveal" style="--d:100ms">
-          <span class="wm-main">Gatinos</span>
-          <span class="wm-sub">Selection</span>
-          <span class="wm-claim"><i></i>Music &amp; Art<i></i></span>
-        </h1>
-        <p class="hero-sub reveal" style="--d:200ms">Zwölf Tinten-Zeichnungen — als Motivdruck auf Shirts. Kuratiert und ausgewählt.</p>
-        <div class="hero-cta reveal" style="--d:300ms">
-          <a class="btn" href="/selection/">Zum Shop</a>
-        </div>
-        <p class="hero-proof reveal" style="--d:400ms">Alle Motive sind von Hand gezeichnete Tinten-Illustrationen.</p>
-      </div>
-    </section>
+    <div class="linie" role="presentation"></div>
+    <p class="kicker">Art Edition 01</p>
 
-    <section class="drop" id="drop">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow reveal">Der erste Drop</p>
-          <h2 class="reveal" style="--d:100ms">Wenige Motive. Jedes mit seiner Geschichte.</h2>
-        </div>
-        <div class="card-grid">
-          <article class="card reveal">
-            <h3>Kuratiert</h3>
-            <p>Zwölf Motive, von Hand ausgewählt. Kein Restebestand, keine Zufälle.</p>
-          </article>
-          <article class="card reveal" style="--d:100ms">
-            <h3>Unisex</h3>
-            <p>Ein Schnitt für alle: Unisex-Shirts in den Größen S–XXL.</p>
-          </article>
-          <article class="card reveal" style="--d:200ms">
-            <h3>Schwarz oder Natur</h3>
-            <p>Zeichnung und Farbe gehören zusammen: helle Motive auf Naturweiß und Sand, die weißen auf Schwarz.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+    <p class="spruch">Zwölf Tinten-Zeichnungen — als Motivdruck auf Shirts.</p>
 
-    <section class="motive" id="motive">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow reveal">Die Motive</p>
-          <h2 class="reveal" style="--d:100ms">Ein Vorgeschmack.</h2>
-        </div>
-        <div class="motiv-grid">
-          <figure class="motiv reveal">
-            <img src="assets/web/stricher-orig-1.jpg" alt="Tintenzeichnung: Segelschiff als Ballon, von winzigen Figuren an einem Seil hochgezogen" loading="lazy">
-            <figcaption>
-              <strong>Sich aus dem Staub gemacht</strong>
-              <span>Ein Schiff als Ballon, hochgezogen von einem Seil — während unten die Staubkörner diskutieren.</span>
-            </figcaption>
-          </figure>
-          <figure class="motiv reveal" style="--d:100ms">
-            <img src="assets/web/stromlinien-sanft-3.jpg" alt="Tintenzeichnung: Lampe in einer Wolke, eine S-förmige Lichtbahn führt aus einem Tunnel" loading="lazy">
-            <figcaption>
-              <strong>Wolkenlampe</strong>
-              <span>Eine Lampe in der Wolke, ihr Licht verlässt den Tunnel in einem sanften S.</span>
-            </figcaption>
-          </figure>
-          <figure class="motiv reveal" style="--d:200ms">
-            <img src="assets/web/kauz-sanft-2.jpg" alt="Tintenzeichnung: Eule mit Brille und Buch, dahinter ein Halbmond" loading="lazy">
-            <figcaption>
-              <strong>Der Kauz</strong>
-              <span>Eule mit Brille und Buch über der Statik der Psychologie. Halbmond inklusive.</span>
-            </figcaption>
-          </figure>
-          <figure class="motiv reveal" style="--d:300ms">
-            <img src="assets/web/herz-sanft-2.jpg" alt="Tintenzeichnung: Herz-Medallion in einer geöffneten, gravierten Schublade" loading="lazy">
-            <figcaption>
-              <strong>Found my heart</strong>
-              <span>Ein Herz-Medallion in der geöffneten Schublade — graviert, wie es sich gehört.</span>
-            </figcaption>
-          </figure>
-        </div>
-        <p class="motive-note reveal">Alle zwölf Motive sind in der <a href="/selection/">Selection</a> zu sehen.</p>
-      </div>
-    </section>
+    <p class="status">Der Shop öffnet in Kürze<span class="caret"></span></p>
 
-    <section class="music" aria-label="Ausblick auf die Music Edition">
-      <div class="wrap">
-        <p>
-          <span class="w">Eine</span>
-          <span class="w">Music</span>
-          <span class="w">Edition</span>
-          <span class="w">folgt.</span>
-          <span class="w">Bis</span>
-          <span class="w">sie</span>
-          <span class="w">singt,</span>
-          <span class="w">bleibt</span>
-          <span class="w">es</span>
-          <span class="w">still.</span>
-        </p>
-      </div>
-    </section>
-
-    <section class="opens" id="kontakt">
-      <div class="opens-art" aria-hidden="true">
-        <img src="assets/web/stromlinien-dram-1.jpg" alt="" loading="lazy">
-      </div>
-      <div class="opens-inner">
-        <h2 class="reveal">Der Shop ist online.</h2>
-        <p class="reveal" style="--d:100ms">Die Art Edition 01 liegt in der Selection bereit — zwölf Motive auf Naturweiß, Sand und Schwarz.</p>
-        <div class="reveal" style="--d:200ms">
-          <a class="btn" href="/selection/">Zum Shop</a>
-        </div>
-        <p class="note reveal" style="--d:300ms">contact@gatino.org — eine Mail, eine Antwort, kein Abo.</p>
-      </div>
-    </section>
+    <div class="aktionen">
+      <a class="btn" href="mailto:contact@gatino.org?subject=Art%20Edition%2001%20—%20Benachrichtigung">Benachrichtigen</a>
+      <a class="btn btn--leise" href="mailto:contact@gatino.org">Kontakt</a>
+    </div>
+    <p class="hinweis">eine Mail, eine Antwort, kein Abo</p>
   </main>
 
-  <footer class="site-foot">
-    <div class="wrap">
-      <p>© 2026 Gatinos Selection</p>
-      <p>Handgebaut. Keine Cookies, kein Tracking.</p>
-      <nav aria-label="Rechtliches">
-        <a href="imprint.html">Impressum</a>
-        <a href="privacy.html">Datenschutz</a>
-      </nav>
-    </div>
+  <footer class="fusz">
+    <span>© 2026 Gatinos Selection</span>
+    <a href="imprint.html">Impressum</a>
+    <a href="privacy.html">Datenschutz</a>
+    <span>Keine Cookies, kein Tracking</span>
   </footer>
+
+  <script>
+  (function(){
+    "use strict";
+    /* Staub: steigt langsam auf — dezent, immer da. */
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var canvas = document.getElementById("staub");
+    if(canvas && canvas.getContext){
+      var ctx = canvas.getContext("2d");
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var W = 0, H = 0, moten = [];
+
+      function baue(){
+        var r = canvas.getBoundingClientRect();
+        W = r.width; H = r.height;
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        moten = [];
+        var n = Math.max(18, Math.round(W / 46));
+        for(var i = 0; i < n; i++){
+          moten.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            r: .6 + Math.random() * 1.5,
+            s: 6 + Math.random() * 16,
+            wobble: Math.random() * Math.PI * 2,
+            ws: .3 + Math.random() * .8,
+            a: .05 + Math.random() * .11
+          });
+        }
+      }
+      function zeichne(){
+        ctx.clearRect(0, 0, W, H);
+        for(var i = 0; i < moten.length; i++){
+          var m = moten[i];
+          m.y -= m.s / 60;
+          m.wobble += m.ws / 60;
+          var x = m.x + Math.sin(m.wobble) * 9;
+          if(m.y < -6){ m.y = H + 6; m.x = Math.random() * W; }
+          ctx.beginPath();
+          ctx.fillStyle = "rgba(239,233,220," + m.a + ")";
+          ctx.arc(x, m.y, m.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      function loop(t){ zeichne(); requestAnimationFrame(loop); }
+      baue();
+      if(reduced){ zeichne(); }
+      else{ requestAnimationFrame(loop); }
+      window.addEventListener("resize", function(){ baue(); if(reduced) zeichne(); });
+    }
+  })();
+  </script>
 </body>
 </html>

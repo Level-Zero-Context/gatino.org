@@ -24,8 +24,8 @@
       --smaragd:#0e8a68;
       --smaragd-leucht:#10b981;
       --smaragd-tief:#0a5b45;
-      --glas:rgba(251,247,238,.52);
-      --glas-stark:rgba(251,247,238,.72);
+      --glas:rgba(251,247,238,.34);
+      --glas-stark:rgba(251,247,238,.5);
       --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
       --mono:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
     }
@@ -48,7 +48,13 @@
       -webkit-mask-image:radial-gradient(circle 330px at var(--mx) var(--my), #000 0%, rgba(0,0,0,.5) 46%, transparent 78%);
       mask-image:radial-gradient(circle 330px at var(--mx) var(--my), #000 0%, rgba(0,0,0,.5) 46%, transparent 78%);
     }
-    .pa{position:absolute;opacity:.95;mix-blend-mode:multiply;height:auto;rotate:var(--neig,0deg);animation:schweben var(--dauer,18s) ease-in-out infinite}
+    .pa{
+      position:absolute;opacity:.95;mix-blend-mode:multiply;height:auto;rotate:var(--neig,0deg);
+      animation:schweben var(--dauer,18s) ease-in-out infinite;
+      /* weicher Rand: kein Papier-Kasten um die Zeichnung */
+      -webkit-mask-image:radial-gradient(ellipse 74% 74% at 50% 50%, #000 48%, transparent 88%);
+      mask-image:radial-gradient(ellipse 74% 74% at 50% 50%, #000 48%, transparent 88%);
+    }
     .pa-1 {width:clamp(170px,19vw,300px);right:1vw;  top:4vh;   --neig:5deg;  --dauer:17s}
     .pa-2 {width:clamp(150px,16vw,260px);left:2vw;   top:6vh;   --neig:-7deg; --dauer:21s}
     .pa-3 {width:clamp(140px,15vw,240px);left:1vw;   top:44vh;  --neig:4deg;  --dauer:19s}
@@ -56,13 +62,15 @@
     .pa-5 {width:clamp(160px,17vw,270px);left:20vw;  bottom:3vh;--neig:3deg;  --dauer:25s}
     .pa-6 {width:clamp(130px,13vw,210px);right:22vw; bottom:6vh;--neig:8deg;  --dauer:18s}
     .pa-7 {width:clamp(150px,16vw,250px);left:28vw;  top:1vh;   --neig:-3deg; --dauer:22s}
-    .pa-8 {width:clamp(120px,12vw,200px);right:28vw; top:24vh;  --neig:6deg;  --dauer:20s}
+    .pa-8 {width:clamp(120px,12vw,200px);right:28vw; top:22vh;  --neig:6deg;  --dauer:20s}
     .pa-9 {width:clamp(120px,12vw,190px);right:12vw; bottom:1vh;--neig:-6deg; --dauer:24s}
     .pa-10{width:clamp(120px,12vw,190px);left:11vw;  bottom:20vh;--neig:6deg; --dauer:26s}
-    .pa-11{width:clamp(140px,14vw,220px);left:42vw;  top:36vh;  --neig:-5deg; --dauer:28s}
+    .pa-11{width:clamp(140px,14vw,220px);left:43vw;  top:38vh;  --neig:-5deg; --dauer:28s}
     .pa-12{width:clamp(130px,13vw,210px);right:38vw; top:62vh; --neig:5deg;  --dauer:20s}
     .pa-13{width:clamp(120px,12vw,190px);left:2vw;   top:70vh;  --neig:-8deg; --dauer:22s}
     .pa-14{width:clamp(150px,15vw,240px);right:1vw;  top:70vh;  --neig:7deg;  --dauer:19s}
+    .pa-15{width:clamp(160px,16vw,260px);left:45vw;  bottom:30vh;--neig:-4deg;--dauer:27s}
+    .pa-16{width:clamp(140px,14vw,230px);right:20vw; top:3vh;   --neig:-6deg; --dauer:23s}
     @keyframes schweben{0%,100%{translate:0 0}50%{translate:0 -16px}}
     .glanz{
       position:absolute;left:0;top:0;width:560px;height:560px;border-radius:50%;
@@ -95,7 +103,7 @@
     .katze.an{opacity:1;visibility:visible}
     .katzen-karte{
       width:min(92vw,470px);border-radius:30px;
-      background:var(--glas);
+      background:rgba(251,247,238,.66);
       -webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);
       box-shadow:0 24px 80px rgba(28,24,19,.18);
       padding:26px 26px 24px;text-align:center;
@@ -250,13 +258,15 @@
       <img class="pa pa-5"  src="assets/web/stromlinien-sanft-1.jpg" alt="" loading="eager">
       <img class="pa pa-6"  src="assets/web/kamera-sanft-1.jpg"     alt="" loading="eager">
       <img class="pa pa-7"  src="assets/web/stricher-orig-2.jpg"    alt="" loading="eager">
-      <img class="pa pa-8"  src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
-      <img class="pa pa-9"  src="assets/web/kauz-sanft-2.jpg"       alt="" loading="eager">
-      <img class="pa pa-10" src="assets/web/herz-sanft-2.jpg"       alt="" loading="eager">
-      <img class="pa pa-11" src="assets/web/stricher-orig-1.jpg"    alt="" loading="eager">
-      <img class="pa pa-12" src="assets/web/stromlinien-sanft-1.jpg" alt="" loading="eager">
+      <img class="pa pa-8"  src="assets/web/augen-sanft-1.jpg"      alt="" loading="eager">
+      <img class="pa pa-9"  src="assets/web/kauz-sanft-1.jpg"       alt="" loading="eager">
+      <img class="pa pa-10" src="assets/web/wachsend-sanft-1.jpg"   alt="" loading="eager">
+      <img class="pa pa-11" src="assets/web/stricher-orig-3.jpg"    alt="" loading="eager">
+      <img class="pa pa-12" src="assets/web/herz-sanft-1.jpg"       alt="" loading="eager">
       <img class="pa pa-13" src="assets/web/kamera-sanft-1.jpg"     alt="" loading="eager">
       <img class="pa pa-14" src="assets/web/stromlinien-sanft-3.jpg" alt="" loading="eager">
+      <img class="pa pa-15" src="assets/web/stromlinien-sanft-1.jpg" alt="" loading="eager">
+      <img class="pa pa-16" src="assets/web/kauz-sanft-2.jpg"       alt="" loading="eager">
     </div>
     <div class="glanz"></div>
     <div class="korn"></div>

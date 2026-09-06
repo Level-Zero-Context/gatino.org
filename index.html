@@ -166,8 +166,7 @@
     .ring{
       position:fixed;z-index:140;pointer-events:none;
       width:min(64vmin,600px);aspect-ratio:1;border-radius:50%;
-      border:24px solid #333d4a;overflow:hidden;
-      background:rgba(243,238,226,.4);
+      border:3px solid #333d4a;overflow:hidden;
       opacity:0;transform:scale(.96);display:none;
     }
     html.js .ring{display:block}
@@ -176,26 +175,13 @@
     html.js .ring.weg{display:none}
     .ring-stern{position:absolute;left:50%;top:21%;width:11%;transform:translateX(-50%)}
     .ring-katze{
-      position:absolute;left:50%;bottom:-3%;width:60%;
+      position:absolute;left:14%;bottom:5%;width:30%;
       transform:translateX(-50%);height:auto;display:block;mix-blend-mode:multiply;
     }
-    html.js .ring.katze-da .ring-katze{animation:katzehoch .9s ease both}
-    @keyframes katzehoch{from{opacity:0;translate:0 7%}to{opacity:1;translate:0 0}}
-    .ring-blase{
-      position:absolute;right:3%;top:36%;max-width:56%;
-      padding:10px 14px;border-radius:18px 18px 18px 5px;
-      background:rgba(251,247,238,.92);
-      box-shadow:0 8px 26px rgba(28,24,19,.12);
-      font-family:var(--serif);font-style:italic;
-      font-size:clamp(.78rem,1.5vw,.98rem);line-height:1.5;
-      color:var(--tinte);text-align:left;
-      opacity:0;transform:scale(.7) translateY(8px);
-      transition:opacity .5s ease, transform .6s cubic-bezier(.2,.9,.25,1.2);
-    }
-    html.js .ring.blase-da .ring-blase{opacity:1;transform:none}
+    html.js .ring.laeuft .ring-katze{transition:left 2.1s linear}
+    html.js .ring.sitzt .ring-katze{left:44%}
     html.js .ring.schrumpft .ring-stern,
-    html.js .ring.schrumpft .ring-katze,
-    html.js .ring.schrumpft .ring-blase{opacity:0;transition:opacity .9s ease .3s}
+    html.js .ring.schrumpft .ring-katze{opacity:0;transition:opacity .9s ease .3s}
     /* kleine Katze + Blase neben MUSIC & ART (Endzustand) */
     .miau-ecke{
       position:absolute;left:calc(100% - 8px);top:72%;
@@ -359,7 +345,6 @@
   <div class="ring" id="ring" aria-hidden="true">
     <svg class="ring-stern" viewBox="0 0 100 100"><path d="M50 2 L57 43 L98 50 L57 57 L50 98 L43 57 L2 50 L43 43 Z" fill="#333d4a"/></svg>
     <img class="ring-katze" src="assets/cat/sitz.png" alt="">
-    <div class="ring-blase">Ey, du bist cool — und gleich kriege ich was Tolles. Ich bin gespannt.</div>
   </div>
 
   <!-- ============ Katzen-Dialog: öffnet nur über „Benachrichtigen“ ============ -->
@@ -481,7 +466,9 @@
          der Endzustand. — */
     var buehne = document.querySelector("#marke-buehne");
     var ring = document.querySelector("#ring");
-    if(ring && buehne){
+    var katze = ring ? ring.querySelector(".ring-katze") : null;
+    var PFAD = "assets/cat/";
+    if(ring && buehne && katze){
       if(reduziert){
         buehne.classList.add("logo-an", "ecke-da");
         ring.classList.add("weg");
@@ -496,8 +483,22 @@
         ring.style.top = (z.y - ring.offsetHeight / 2) + "px";
 
         setTimeout(function(){ ring.classList.add("da"); }, 250);
-        setTimeout(function(){ ring.classList.add("katze-da"); }, 950);
-        setTimeout(function(){ ring.classList.add("blase-da"); }, 1800);
+        /* die Katze läuft im Kreis von links zur Mitte und setzt sich zum Stern */
+        setTimeout(function(){
+          ring.classList.add("laeuft");
+          katze.style.left = "42%";
+        }, 1100);
+        var laufFrame = 0;
+        var laufwerk = setInterval(function(){
+          if(!ring.classList.contains("laeuft")){ clearInterval(laufwerk); return; }
+          laufFrame = (laufFrame + 1) % 4;
+          katze.src = PFAD + "wand-" + (laufFrame + 1) + ".png";
+        }, 210);
+        setTimeout(function(){
+          ring.classList.remove("laeuft");
+          clearInterval(laufwerk);
+          katze.src = PFAD + "sitz.png";
+        }, 3400);
 
         /* der Kreis schrumpft — Position frisch messen, im kleinsten Moment
            wird er exakt zum Emblem und das echte Logo übernimmt */

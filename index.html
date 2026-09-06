@@ -162,71 +162,40 @@
     .marke-buehne{position:relative;width:clamp(150px,19vw,225px);margin:0 auto}
     .marke img{width:100%;height:auto;display:block}
     .marke{transition:opacity 1s ease .15s}
-    /* das Loch: der Kreis des Emblems mit dem Stern — während der Geschichte
-       ist die Katze im Logo noch nicht da */
-    .loch{
-      position:absolute;left:50%;top:36.4%;transform:translate(-50%,-50%);
-      width:27.6%;aspect-ratio:1;border-radius:50%;
-      border:3px solid #333d4a;
-      opacity:0;transition:opacity .7s ease;display:none;
-      z-index:2;
+    /* der große Kreis: die Bühne der Geschichte — er schrumpft und wird zum Logo */
+    .ring{
+      position:fixed;z-index:140;pointer-events:none;
+      width:min(64vmin,600px);aspect-ratio:1;border-radius:50%;
+      border:24px solid #333d4a;overflow:hidden;
+      background:rgba(243,238,226,.4);
+      opacity:0;transform:scale(.96);display:none;
     }
-    /* der kreisrunde Ausschnitt: nach dem Sprung ist die Katze nur hier drin sichtbar */
-    .loch-blick{
-      position:absolute;left:50%;top:36.4%;transform:translate(-50%,-50%);
-      width:27.6%;aspect-ratio:1;border-radius:50%;overflow:hidden;
-      opacity:0;transition:opacity .35s ease;display:none;
-      z-index:1;
+    html.js .ring{display:block}
+    html.js .ring.da{opacity:1;transform:scale(1);transition:opacity .8s ease, transform 1.8s cubic-bezier(.2,.8,.25,1)}
+    html.js .ring.schrumpft{transform:scale(.1);transition:transform 1.5s cubic-bezier(.55,0,.25,1), opacity .7s ease 1s}
+    html.js .ring.weg{display:none}
+    .ring-stern{position:absolute;left:50%;top:21%;width:11%;transform:translateX(-50%)}
+    .ring-katze{
+      position:absolute;left:50%;bottom:-3%;width:60%;
+      transform:translateX(-50%);height:auto;display:block;mix-blend-mode:multiply;
     }
-    html.js .loch-blick{display:block}
-    html.js .marke-buehne.blick .loch-blick{opacity:1}
-    html.js .marke-buehne.fall .blick-bild{animation:reinfallen .6s cubic-bezier(.25,.6,.4,1) backwards}
-    @keyframes reinfallen{
-      from{opacity:0;transform:translateX(-50%) translateY(-42%)}
-      to{opacity:1;transform:translateX(-50%) translateY(0)}
+    html.js .ring.katze-da .ring-katze{animation:katzehoch .9s ease both}
+    @keyframes katzehoch{from{opacity:0;translate:0 7%}to{opacity:1;translate:0 0}}
+    .ring-blase{
+      position:absolute;right:3%;top:36%;max-width:56%;
+      padding:10px 14px;border-radius:18px 18px 18px 5px;
+      background:rgba(251,247,238,.92);
+      box-shadow:0 8px 26px rgba(28,24,19,.12);
+      font-family:var(--serif);font-style:italic;
+      font-size:clamp(.78rem,1.5vw,.98rem);line-height:1.5;
+      color:var(--tinte);text-align:left;
+      opacity:0;transform:scale(.7) translateY(8px);
+      transition:opacity .5s ease, transform .6s cubic-bezier(.2,.9,.25,1.2);
     }
-    .blick-bild{
-      position:absolute;left:50%;bottom:-18%;width:168%;
-      transform:translateX(-50%);opacity:0;
-      mix-blend-mode:multiply;
-    }
-    .blick-bild.sichtbar{opacity:1}
-    /* die Vorder-Ebene: der Kopf quillt plastisch über den Ring hinaus */
-    .loch-vorn{
-      position:absolute;left:50%;top:36.4%;transform:translate(-50%,-50%);
-      width:27.6%;aspect-ratio:1;pointer-events:none;
-      opacity:0;transition:opacity .3s ease;display:none;
-      z-index:3;
-    }
-    html.js .loch-vorn{display:block}
-    html.js .marke-buehne.vorn .loch-vorn{opacity:1}
-    .loch-vorn img{
-      position:absolute;left:50%;bottom:-8%;width:118%;
-      transform:translateX(-50%);
-      height:auto;display:block;opacity:0;
-      mix-blend-mode:multiply;
-      filter:drop-shadow(0 12px 20px rgba(28,24,19,.38));
-    }
-    .loch-vorn img.vorn-quetsch{width:146%;bottom:-9%;transition:opacity .3s ease}
-    .loch-vorn img.sichtbar{opacity:1}
-    html.js .marke-buehne.quetscht .vorn-quetsch{opacity:1}
-    html.js .loch{display:block}
-    html.js .marke-buehne.geschichte .loch{opacity:1}
-    html.js .marke-buehne.logo-an .loch{opacity:0}
-    html.js .marke-buehne.logo-an .loch-blick{opacity:0}
-    .loch-stern{position:absolute;left:50%;top:27%;width:20%;transform:translate(-50%,-50%)}
-    /* die wandelnde Katze: läuft auf Bodenhöhe über den ganzen Bildschirm
-       zum Loch — groß und detailiert (Tinte mit Grau-Wash) */
-    .wandkatze{
-      position:fixed;left:0;top:0;z-index:150;pointer-events:none;
-      opacity:0;transition:opacity .5s ease;
-    }
-    .wandkatze.aktiv{opacity:1}
-    .wandkatze img{
-      width:100%;height:auto;display:block;mix-blend-mode:multiply;
-      -webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 50%, #000 50%, transparent 92%);
-      mask-image:radial-gradient(ellipse 72% 72% at 50% 50%, #000 50%, transparent 92%);
-    }
+    html.js .ring.blase-da .ring-blase{opacity:1;transform:none}
+    html.js .ring.schrumpft .ring-stern,
+    html.js .ring.schrumpft .ring-katze,
+    html.js .ring.schrumpft .ring-blase{opacity:0;transition:opacity .9s ease .3s}
     /* kleine Katze + Blase neben MUSIC & ART (Endzustand) */
     .miau-ecke{
       position:absolute;left:calc(100% - 8px);top:72%;
@@ -387,8 +356,10 @@
     <img class="cursor-logo" src="assets/logo/gatinos_emblem.png" alt="">
   </div>
 
-  <div class="wandkatze" id="wandkatze" aria-hidden="true">
-    <img id="wandkatze-bild" src="assets/cat/wand-1.png" alt="">
+  <div class="ring" id="ring" aria-hidden="true">
+    <svg class="ring-stern" viewBox="0 0 100 100"><path d="M50 2 L57 43 L98 50 L57 57 L50 98 L43 57 L2 50 L43 43 Z" fill="#333d4a"/></svg>
+    <img class="ring-katze" src="assets/cat/sitz.png" alt="">
+    <div class="ring-blase">Ey, du bist cool — und gleich kriege ich was Tolles. Ich bin gespannt.</div>
   </div>
 
   <!-- ============ Katzen-Dialog: öffnet nur über „Benachrichtigen“ ============ -->
@@ -417,17 +388,6 @@
       <h1 class="visuell-verborgen">Gatinos Selection — Music &amp; Art</h1>
 
       <div class="marke-buehne" id="marke-buehne">
-        <div class="loch-blick" aria-hidden="true">
-          <img class="blick-bild sichtbar" src="assets/cat/ruecken.png" alt="" loading="eager">
-        </div>
-        <div class="loch" aria-hidden="true">
-          <svg class="loch-stern" viewBox="0 0 100 100"><path d="M50 2 L57 43 L98 50 L57 57 L50 98 L43 57 L2 50 L43 43 Z" fill="#333d4a"/></svg>
-        </div>
-        <div class="loch-vorn" aria-hidden="true">
-          <img class="vorn-quetsch" src="assets/cat/quetsch.png" alt="" loading="eager">
-          <img class="vorn-dreh"  src="assets/cat/dreh.png"  alt="" loading="eager">
-          <img class="vorn-front" src="assets/cat/front.png" alt="" loading="eager">
-        </div>
         <div class="marke">
           <img src="assets/logo/gatinos_light_alpha.png" alt="Gatinos Selection — Music &amp; Art" width="800" height="800">
         </div>
@@ -515,130 +475,42 @@
     }
     requestAnimationFrame(rahmen);
 
-    /* — Logo-Geschichte: die große detailierte Katze kommt von außerhalb des
-         linken Bildschirmrands, läuft auf Bodenhöhe über den ganzen Screen,
-         setzt sich vor dem Loch, springt hinein (ihr Kopf passt gerade so
-         hindurch), schaut heraus — und wird zum schwarzen Logo. — */
+    /* — Logo-Geschichte: alles spielt sich im großen Kreis ab. Die Katze
+         sitzt drin, bewundert den Stern — und am Ende schrumpft der Kreis
+         und wird zum Logo. Ohne JS oder bei reduzierter Bewegung: direkt
+         der Endzustand. — */
     var buehne = document.querySelector("#marke-buehne");
-    var loch = document.querySelector(".loch");
-    var wandkatze = document.querySelector("#wandkatze");
-    var wandbild = document.querySelector("#wandkatze-bild");
-    if(buehne && loch && wandkatze && wandbild){
+    var ring = document.querySelector("#ring");
+    if(ring && buehne){
       if(reduziert){
-        buehne.classList.add("geschichte", "logo-an", "ecke-da");
+        buehne.classList.add("logo-an", "ecke-da");
+        ring.classList.add("weg");
       }else{
-        var PFAD = "assets/cat/";
-        var lauffolge = ["wand-1","wand-2","wand-3","wand-4"];
-        lauffolge.forEach(function(n){ var v = new Image(); v.src = PFAD + n + ".png"; });
-        ["sitz","sprung","ruecken","dreh","front"].forEach(function(n){
-          var v = new Image(); v.src = PFAD + n + ".png";
-        });
-
-        var setzeBild = function(pose){ wandbild.src = PFAD + pose + ".png"; };
-
-        /* Zustände: verstecke die Marke bis zur Verwandlung */
-        var lochZentrum = function(){
-          var r = loch.getBoundingClientRect();
-          return { x: r.left + r.width / 2, y: r.top + r.height / 2, d: r.width };
+        /* den Kreis exakt auf die Emblem-Position zentrieren */
+        var zentrum = function(){
+          var r = buehne.getBoundingClientRect();
+          return { x: r.left + r.width / 2, y: r.top + r.height * 0.364 };
         };
-        var z = lochZentrum();
-        var breite = Math.min(innerWidth * (innerWidth < 760 ? 0.5 : 0.24), 310);
-        var hoehe = breite * 1.35;                    /* Panels sind Hochformat */
-        var bodenY = Math.min(z.y + Math.min(innerHeight * 0.36, 330), innerHeight * 0.74);
-        var sitzX = z.x - breite * 0.42;              /* sitzt unterhalb-links vom Loch */
+        var z = zentrum();
+        ring.style.left = (z.x - ring.offsetWidth / 2) + "px";
+        ring.style.top = (z.y - ring.offsetHeight / 2) + "px";
 
-        var stelle = function(pose, x, y, b, dauerMs, easing){
-          setzeBild(pose);
-          wandkatze.style.width = b + "px";
-          wandkatze.style.transition = dauerMs
-            ? "left " + (dauerMs/1000) + "s " + easing + ", top " + (dauerMs/1000) + "s " + easing + ", width " + (dauerMs/1000) + "s ease"
-            : "none";
-          wandkatze.style.left = (x - b/2) + "px";
-          wandkatze.style.top = (y - b*1.35) + "px";
-        };
+        setTimeout(function(){ ring.classList.add("da"); }, 250);
+        setTimeout(function(){ ring.classList.add("katze-da"); }, 950);
+        setTimeout(function(){ ring.classList.add("blase-da"); }, 1800);
 
-        /* die drei Posen im kreisrunden Ausschnitt */
-        var rueckenBild = document.querySelector(".loch-blick .blick-bild");
-        var quetschBild = document.querySelector(".vorn-quetsch");
-        var drehBild    = document.querySelector(".vorn-dreh");
-        var frontBild   = document.querySelector(".vorn-front");
-        var blickPose = function(i){
-          /* 0 = Rücken (im Clip), 1 = Quetsch (vorn, plastisch), 2 = Drehung, 3 = Front */
-          buehne.classList.toggle("blick", i === 0);
-          buehne.classList.toggle("vorn", i !== 0);
-          rueckenBild.classList.toggle("sichtbar", i === 0);
-          quetschBild.classList.toggle("sichtbar", i === 1);
-          drehBild.classList.toggle("sichtbar", i === 2);
-          frontBild.classList.toggle("sichtbar", i === 3);
-        };
-
-        /* 1) reinkommen: von außerhalb des linken Rands bis unters Loch */
+        /* der Kreis schrumpft — Position frisch messen, im kleinsten Moment
+           wird er exakt zum Emblem und das echte Logo übernimmt */
         setTimeout(function(){
-          buehne.classList.add("geschichte");
-          wandkatze.classList.add("aktiv");
-          stelle("wand-1", -breite/2 - 60, bodenY, breite, 0, "linear");
-          void wandkatze.offsetWidth;
-          stelle("wand-1", sitzX, bodenY, breite, 4300, "linear");
-        }, 300);
-
-        /* Laufzyklus: 6 Fußstellungen */
-        var laufFrame = 0;
-        var laufwerk = setInterval(function(){
-          if(buehne.classList.contains("sitzt")){ return; }
-          laufFrame = (laufFrame + 1) % lauffolge.length;
-          setzeBild(lauffolge[laufFrame]);
-        }, 185);
-        setTimeout(function(){ clearInterval(laufwerk); }, 4600);
-
-        /* 2) sitzen und zum Stern hochschauen */
-        setTimeout(function(){
-          buehne.classList.add("sitzt");
-          setzeBild("sitz", sitzX, bodenY, breite * 0.9, 0, "linear");
-        }, 4600);
-
-        /* 3) Sprung — hinauf ins Loch, Kopf gerade so passend */
-        setTimeout(function(){
-          buehne.classList.add("sprung");
-          setzeBild("sprung", z.x, z.y + z.d * 0.35, z.d * 2.4, 950, "cubic-bezier(.3,.4,.4,1)");
-        }, 6000);
-
-        /* 4) durchgesprungen — die Katze ist nur noch im kreisrunden Ausschnitt
-             des Logos sichtbar (Rückenansicht, wie durch ein Katzentürchen) */
-        setTimeout(function(){
-          buehne.classList.remove("sprung");
-          buehne.classList.add("ruecken", "blick", "fall");
-          wandkatze.classList.remove("aktiv");
-          blickPose(0);
-        }, 7000);
-
-        /* 5) der Kopf quält sich durchs enge Loch — verstopft */
-        setTimeout(function(){
-          buehne.classList.add("quetscht");
-          blickPose(1);
-        }, 8100);
-
-        /* 6) durchgekommen — die Drehung im Ausschnitt */
-        setTimeout(function(){
-          buehne.classList.add("drehung");
-          blickPose(2);
-        }, 9200);
-
-        /* 7) frontal, den Stern anschauen */
-        setTimeout(function(){
-          buehne.classList.add("frontal");
-          blickPose(3);
-        }, 10100);
-
-        /* 7) Verwandlung: nur noch das schwarze Logo */
-        setTimeout(function(){
+          var zz = zentrum();
+          ring.style.left = (zz.x - ring.offsetWidth / 2) + "px";
+          ring.style.top = (zz.y - ring.offsetHeight / 2) + "px";
+          ring.classList.add("schrumpft");
           buehne.classList.add("logo-an");
-          wandkatze.classList.remove("aktiv");
-        }, 11200);
+        }, 5200);
+        setTimeout(function(){ ring.classList.add("weg"); }, 7600);
 
-        /* 8) die kleine Katze mit der Blase neben MUSIC & ART */
-        setTimeout(function(){
-          buehne.classList.add("ecke-da");
-        }, 12400);
+        setTimeout(function(){ buehne.classList.add("ecke-da"); }, 8800);
       }
     }
 

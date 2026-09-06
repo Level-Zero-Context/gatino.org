@@ -161,25 +161,33 @@
     }
     .marke-buehne{position:relative;width:clamp(150px,19vw,225px);margin:0 auto}
     .marke img{width:100%;height:auto;display:block}
-    .marke{transition:opacity 1.1s ease .1s}
-    /* Start der Geschichte: die sitzende Katze dort, wo das Emblem erscheint */
-    .marke-start{
+    .marke{transition:opacity 1s ease .15s}
+    /* das Loch: der Kreis des Emblems mit dem Stern — während der Geschichte
+       ist die Katze im Logo noch nicht da */
+    .loch{
       position:absolute;left:50%;top:36.4%;transform:translate(-50%,-50%);
-      width:clamp(60px,8vw,84px);
-      display:none;flex-direction:column;align-items:center;gap:2px;
-      transition:opacity .8s ease, transform 1s cubic-bezier(.4,0,.3,1);
+      width:27.6%;aspect-ratio:1;border-radius:50%;
+      border:3px solid #333d4a;
+      opacity:0;transition:opacity .7s ease;display:none;
     }
-    html.js .marke-start{display:flex}
-    .start-katze{
-      width:100%;height:auto;display:block;
-      animation:katzewippen 5.5s ease-in-out infinite;transform-origin:50% 90%;
+    html.js .loch{display:block}
+    html.js .marke-buehne.geschichte .loch{opacity:1}
+    html.js .marke-buehne.logo-an .loch{opacity:0}
+    .loch-stern{position:absolute;left:50%;top:27%;width:20%;transform:translate(-50%,-50%)}
+    /* die wandelnde Katze: Position/Größe steuert JS je Phase */
+    .story-katze{
+      position:absolute;transform:translate(-50%,-100%);height:auto;
+      opacity:0;display:none;
     }
-    .start-katze-wrap{transition:transform .35s cubic-bezier(.2,.9,.25,1.2)}
-    .start-stern{
-      width:24px;height:auto;
-      opacity:0;transform:scale(.3);
-      transition:opacity .5s ease, transform .5s cubic-bezier(.2,.9,.25,1.2);
-    }
+    html.js .story-katze{display:block}
+    html.js .marke-buehne.geschichte .story-katze{opacity:1}
+    html.js .marke-buehne.logo-an .story-katze{opacity:0}
+    html.js .marke-buehne.laeuft .story-katze{transition:left 2.4s linear}
+    html.js .marke-buehne.sitzt  .story-katze{transition:left .4s ease}
+    html.js .marke-buehne.sprung .story-katze{transition:left .8s cubic-bezier(.45,-.15,.6,1), top .8s cubic-bezier(.2,.5,.45,1), width .8s ease}
+    html.js .marke-buehne.im-loch .story-katze,
+    html.js .marke-buehne.dreht   .story-katze,
+    html.js .marke-buehne.frontal .story-katze{transition:left .35s ease, width .35s ease}
     /* kleine Katze + Blase neben MUSIC & ART (Endzustand) */
     .miau-ecke{
       position:absolute;left:calc(100% - 8px);top:72%;
@@ -201,13 +209,9 @@
       transition:opacity .6s ease .25s, transform .6s cubic-bezier(.2,.9,.25,1.2) .25s;
     }
     /* Zustände nur mit JS (ohne JS: fertiges Logo, alles statisch sichtbar) */
-    html.js .marke{opacity:0}
+    html.js .marke-buehne:not(.logo-an) .marke{opacity:0}
     html.js .miau-ecke{opacity:0}
     html.js .blase{opacity:0;transform:translateY(6px)}
-    html.js .marke-buehne.stern-da .start-stern{opacity:1;transform:scale(1)}
-    html.js .marke-buehne.huepft .start-katze-wrap{transform:translateY(-9%)}
-    html.js .marke-buehne.verwandelt .marke{opacity:1}
-    html.js .marke-buehne.verwandelt .marke-start{opacity:0;transform:translate(-50%,-50%) scale(.3)}
     html.js .marke-buehne.ecke-da .miau-ecke{opacity:1}
     html.js .marke-buehne.ecke-da .blase{opacity:1;transform:none}
     @keyframes katzewippen{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-2.5deg)}}
@@ -370,12 +374,10 @@
       <h1 class="visuell-verborgen">Gatinos Selection — Music &amp; Art</h1>
 
       <div class="marke-buehne" id="marke-buehne">
-        <div class="marke-start" aria-hidden="true">
-          <svg class="start-stern" viewBox="0 0 100 100"><path d="M50 2 L57 43 L98 50 L57 57 L50 98 L43 57 L2 50 L43 43 Z" fill="#a3722a"/></svg>
-          <div class="start-katze-wrap">
-            <img class="start-katze" src="assets/cat/katze-sitzend.png" alt="">
-          </div>
+        <div class="loch" aria-hidden="true">
+          <svg class="loch-stern" viewBox="0 0 100 100"><path d="M50 2 L57 43 L98 50 L57 57 L50 98 L43 57 L2 50 L43 43 Z" fill="#333d4a"/></svg>
         </div>
+        <img class="story-katze" id="story-katze" src="assets/cat/sil-1.png" alt="" aria-hidden="true">
         <div class="marke">
           <img src="assets/logo/gatinos_light_alpha.png" alt="Gatinos Selection — Music &amp; Art" width="800" height="800">
         </div>
@@ -463,20 +465,88 @@
     }
     requestAnimationFrame(rahmen);
 
-    /* — Logo-Geschichte: Katze sitzt, ein Stern beobachtet sie, sie hüpft auf,
-         wird zum Emblem — und neben MUSIC & ART sitzt fortan die kleine Katze
-         mit der „and love“-Blase. Ohne JS oder bei reduzierter Bewegung:
-         direkt der Endzustand. — */
+    /* — Logo-Geschichte: die Silhouette läuft herein, sitzt vor dem Loch mit
+         dem Stern, springt hinein, dreht sich, schaut heraus — und wird zum
+         schwarzen Logo. Ohne JS oder bei reduzierter Bewegung: direkt der
+         Endzustand. — */
     var buehne = document.querySelector("#marke-buehne");
-    if(buehne){
+    var katze = document.querySelector("#story-katze");
+    if(buehne && katze){
       if(reduziert){
-        buehne.classList.add("verwandelt", "ecke-da");
+        buehne.classList.add("geschichte", "logo-an", "ecke-da");
       }else{
-        setTimeout(function(){ buehne.classList.add("stern-da"); }, 500);
-        setTimeout(function(){ buehne.classList.add("huepft"); }, 1500);
-        setTimeout(function(){ buehne.classList.remove("huepft"); }, 1900);
-        setTimeout(function(){ buehne.classList.add("verwandelt"); }, 2600);
-        setTimeout(function(){ buehne.classList.add("ecke-da"); }, 4200);
+        var PFAD = "assets/cat/";
+        var posen = ["sil-1","sil-2","sil-3","sil-4","sil-5","sil-6","sil-7"];
+        posen.forEach(function(n){ var v = new Image(); v.src = PFAD + n + ".png"; });
+
+        var setze = function(pose, links, oben, breite, ubergang){
+          katze.src = PFAD + pose + ".png";
+          if(ubergang){ buehne.classList.add(ubergang); }
+          katze.style.left = links + "%";
+          katze.style.top = oben + "%";
+          katze.style.width = breite + "%";
+        };
+
+        /* 1) reinkommen */
+        setTimeout(function(){
+          buehne.classList.add("geschichte", "laeuft");
+          katze.style.left = "-14%";
+          katze.style.top = "51%";
+          katze.style.width = "24%";
+          void katze.offsetWidth;
+          katze.style.left = "7%";
+        }, 250);
+
+        /* Laufwerk: Frame A/B im Wechsel */
+        var laufwerk = setInterval(function(){
+          if(!buehne.classList.contains("laeuft")){ clearInterval(laufwerk); return; }
+          katze.src = (katze.src.indexOf("sil-1") !== -1) ? PFAD + "sil-2.png" : PFAD + "sil-1.png";
+        }, 230);
+
+        /* 2) sitzen und zum Stern hochschauen */
+        setTimeout(function(){
+          buehne.classList.remove("laeuft");
+          buehne.classList.add("sitzt");
+          katze.src = PFAD + "sil-3.png";
+        }, 2700);
+
+        /* 3) Sprung ins Loch */
+        setTimeout(function(){
+          buehne.classList.remove("sitzt");
+          buehne.classList.add("sprung");
+          setze("sil-4", 50, 41, 15, "sprung");
+        }, 3600);
+
+        /* 4) im Loch, von hinten */
+        setTimeout(function(){
+          buehne.classList.remove("sprung");
+          buehne.classList.add("im-loch");
+          setze("sil-5", 50, 41, 15, null);
+        }, 4500);
+
+        /* 5) die Drehung */
+        setTimeout(function(){
+          buehne.classList.remove("im-loch");
+          buehne.classList.add("dreht");
+          setze("sil-6", 50, 41, 15, null);
+        }, 5400);
+
+        /* 6) frontal, den Stern anschauen */
+        setTimeout(function(){
+          buehne.classList.remove("dreht");
+          buehne.classList.add("frontal");
+          setze("sil-7", 50, 41, 15, null);
+        }, 6200);
+
+        /* 7) Verwandlung: nur noch das schwarze Logo */
+        setTimeout(function(){
+          buehne.classList.add("logo-an");
+        }, 7400);
+
+        /* 8) die kleine Katze mit der Blase neben MUSIC & ART */
+        setTimeout(function(){
+          buehne.classList.add("ecke-da");
+        }, 8600);
       }
     }
 

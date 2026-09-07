@@ -154,27 +154,27 @@
     }
     .glas-karte{
       padding:clamp(2rem,5vw,3.2rem) clamp(1.5rem,6vw,4rem);
-      border-radius:30px;
-      background:var(--glas);
-      -webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);
-      box-shadow:0 18px 60px rgba(28,24,19,.1);
+      background:var(--glas-stark);
+      -webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);
+      /* freischwebend: weiche Ränder — ein Schleier statt eines Kastens */
+      -webkit-mask-image:radial-gradient(ellipse 62% 56% at 50% 46%, #000 40%, transparent 80%);
+      mask-image:radial-gradient(ellipse 62% 56% at 50% 46%, #000 40%, transparent 80%);
     }
     .marke-buehne{position:relative;width:clamp(150px,19vw,225px);margin:0 auto}
     .marke img{width:100%;height:auto;display:block}
     .marke{animation:marke-ein 1.2s ease .25s both}
-    /* das kleine Haustier: spaziert langsam über den Screen, miaut ab und zu */
+    /* das kleine Haustier: spaziert langsam über den Screen und legt Nummern hin */
     .pet{
-      position:fixed;left:0;bottom:2.5vh;z-index:1;pointer-events:none;
-      height:clamp(92px,13vh,128px);
+      position:fixed;left:0;bottom:3.5vh;z-index:1;pointer-events:none;
+      height:clamp(100px,14vh,150px);
     }
     .pet img{
       height:100%;width:auto;display:block;position:absolute;bottom:0;left:50%;
+      transform:translateX(-50%);
       mix-blend-mode:multiply;
+      filter:drop-shadow(0 6px 12px rgba(28,24,19,.16));
     }
-    .pet-lauf{transform:translateX(-50%)}
-    .pet-miau{opacity:0;transition:opacity .28s ease;width:auto}
-    .pet-miau.sichtbar{opacity:1}
-    .pet-rtl .pet-lauf{transform:translateX(-50%) scaleX(-1)}
+    .pet-rtl img{transform:translateX(-50%) scaleX(-1)}
     html.reduziert .pet{display:none}
     /* kleine Katze + Blase neben MUSIC & ART (Endzustand) */    /* kleine Katze + Blase neben MUSIC & ART (Endzustand) */
     .miau-ecke{
@@ -335,8 +335,7 @@
   </div>
 
   <div class="pet" id="pet" aria-hidden="true">
-    <img class="pet-lauf" src="assets/cat/wand-1.png" alt="" loading="eager">
-    <img class="pet-miau" src="assets/cat/katze-auf.jpg" alt="" loading="eager">
+    <img class="pet-bild" src="assets/cat/wand-1.png" alt="" loading="eager">
   </div>
 
   <!-- ============ Katzen-Dialog: öffnet nur über „Benachrichtigen“ ============ -->
@@ -452,64 +451,82 @@
     }
     requestAnimationFrame(rahmen);
 
-    /* — das kleine Haustier: läuft langsam über den Screen (hin und her),
-         stoppt ab und zu, dreht sich zum Betrachter und miaut. Ohne JS oder
-         bei reduzierter Bewegung: die Katze sitzt still. — */
+    /* — das kleine Haustier: läuft langsam über den Screen (hin und her) und
+         legt dazwischen Nummern hin — miauen, sitzen, durchs enge Loch
+         quetschen, hüpfen. Ohne JS oder bei reduzierter Bewegung: die Katze
+         sitzt still. — */
     var pet = document.querySelector("#pet");
-    var laufBild = document.querySelector(".pet-lauf");
-    var miauBild = document.querySelector(".pet-miau");
-    if(pet && laufBild && miauBild && !reduziert){
+    var petBild = document.querySelector(".pet-bild");
+    if(pet && petBild && !reduziert){
       var PFAD = "assets/cat/";
-      ["wand-1","wand-2","wand-3","wand-4","katze-auf","katze-halb","katze-zu"].forEach(function(n){
-        var v = new Image(); v.src = PFAD + n + ".jpg";
+      var alles = ["wand-1","wand-2","wand-3","wand-4","wand-5","wand-6","sitz","sprung","quetsch","katze-zu","katze-halb","katze-auf"];
+      alles.forEach(function(n){
+        var v = new Image(); v.src = PFAD + n + ".png";
+        var w = new Image(); w.src = PFAD + n + ".jpg";
       });
 
-      var px = -170;                /* startet außerhalb links */
+      var px = -160;                /* startet außerhalb links */
       var richtung = 1;             /* 1 = nach rechts, -1 = nach links */
-      var tempo = 42;               /* px/s — gemütlich */
+      var tempo = 46;               /* px/s — gemütlich */
       var lauft = true;
       var letzteBewegung = performance.now();
+      var laufFrame = 0, laufZeit = 0;
+      var nummer = 0, nummerSchritt = 0, nummerRest = 0;
+      var aktiveNummer = null;
+
+      var repertoire = [
+        { name:"miauen", schritte:[["katze-zu.jpg",460],["katze-halb.jpg",180],["katze-auf.jpg",320],["katze-halb.jpg",180],["katze-auf.jpg",320],["katze-zu.jpg",680]] },
+        { name:"sitzen", schritte:[["sitz",2300]] },
+        { name:"quetschen", schritte:[["quetsch",1800]] },
+        { name:"hüpfen", schritte:[["sprung",360],["wand-2",320],["sprung",360]] }
+      ];
 
       function petRahmen(now){
         var dt = Math.min((now - letzteBewegung) / 1000, .05);
         letzteBewegung = now;
         if(lauft){
           px += tempo * richtung * dt;
-          if(px > innerWidth + 40){ richtung = -1; pet.classList.add("pet-rtl"); }
-          if(px < -180){ richtung = 1; pet.classList.remove("pet-rtl"); }
+          if(px > innerWidth + 60){ richtung = -1; pet.classList.add("pet-rtl"); }
+          if(px < -170){ richtung = 1; pet.classList.remove("pet-rtl"); }
           pet.style.transform = "translate3d(" + px + "px,0,0)";
+          laufZeit += dt * 1000;
+          if(laufZeit > 165){
+            laufZeit = 0;
+            laufFrame = (laufFrame + 1) % 6;
+            petBild.src = PFAD + "wand-" + (laufFrame + 1) + ".png";
+          }
+        }
+        if(aktiveNummer){
+          nummerRest -= dt * 1000;
+          if(nummerRest <= 0){
+            nummerSchritt++;
+            if(nummerSchritt >= aktiveNummer.schritte.length){
+              aktiveNummer = null;
+              lauft = true;
+              petBild.src = PFAD + "wand-1.png";
+            }else{
+              petBild.src = PFAD + aktiveNummer.schritte[nummerSchritt][0] + ".png";
+              nummerRest = aktiveNummer.schritte[nummerSchritt][1];
+            }
+          }
         }
         requestAnimationFrame(petRahmen);
       }
       requestAnimationFrame(petRahmen);
 
-      /* Miau-Pause: anhalten, den Betrachter anschauen, weiterlaufen */
-      var mieutGerade = false;
-      function miauPause(dauer){
-        if(mieutGerade){ return; }
-        mieutGerade = true;
+      /* Nummern: runde Folge durch das Repertoire, erste nach einer Weile */
+      function naechsteNummer(){
+        if(aktiveNummer || !lauft){ return; }
+        aktiveNummer = repertoire[nummer % repertoire.length];
+        nummer++;
+        nummerSchritt = 0;
         lauft = false;
-        var folge = ["katze-zu","katze-halb","katze-auf","katze-halb","katze-auf","katze-zu"];
-        var dauerPro = [420,170,300,170,300,620];
-        var i = 0;
-        (function schritt(){
-          if(i >= folge.length){
-            miauBild.classList.remove("sichtbar");
-            laufBild.classList.add("sichtbar");
-            setTimeout(function(){ mieutGerade = false; }, 400);
-            return;
-          }
-          miauBild.src = PFAD + folge[i] + ".jpg";
-          var d = dauerPro[i];
-          i++;
-          setTimeout(schritt, d);
-        })();
-        setTimeout(function(){ mieutGerade = false; }, dauer);
+        var erster = aktiveNummer.schritte[0][0];
+        petBild.src = PFAD + erster + (erster === "quetsch" ? ".png" : ".png");
+        nummerRest = aktiveNummer.schritte[0][1];
       }
-
-      /* ab und zu miauen — erst nach einer Weile, dann in unregelmäßigen Abständen */
-      setTimeout(function(){ miauPause(2200); }, 9000);
-      setInterval(function(){ if(Math.random() < .5){ miauPause(2200); } }, 17000);
+      setTimeout(naechsteNummer, 8500);
+      setInterval(function(){ naechsteNummer(); }, 16000);
     }
 
     /* — Katzen-Dialog: öffnet nur über „Benachrichtigen“, miaut beim Öffnen — */

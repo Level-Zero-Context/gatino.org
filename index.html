@@ -535,8 +535,7 @@
         nummer++;
         nummerSchritt = 0;
         lauft = false;
-        var erster = aktiveNummer.schritte[0][0];
-        petBild.src = PFAD + erster + (erster === "quetsch" ? ".png" : ".png");
+        petZeige(aktiveNummer.schritte[0][0]);
         nummerRest = aktiveNummer.schritte[0][1];
       }
       setTimeout(naechsteNummer, 8500);

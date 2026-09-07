@@ -161,28 +161,22 @@
     }
     .marke-buehne{position:relative;width:clamp(150px,19vw,225px);margin:0 auto}
     .marke img{width:100%;height:auto;display:block}
-    .marke{transition:opacity 1s ease .15s}
-    /* der große Kreis: die Bühne der Geschichte — er schrumpft und wird zum Logo */
-    .ring{
-      position:fixed;z-index:140;pointer-events:none;
-      width:min(64vmin,600px);aspect-ratio:1;border-radius:50%;
-      border:3px solid #333d4a;overflow:hidden;
-      opacity:0;transform:scale(.96);display:none;
+    .marke{animation:marke-ein 1.2s ease .25s both}
+    /* das kleine Haustier: spaziert langsam über den Screen, miaut ab und zu */
+    .pet{
+      position:fixed;left:0;bottom:2.5vh;z-index:1;pointer-events:none;
+      height:clamp(92px,13vh,128px);
     }
-    html.js .ring{display:block}
-    html.js .ring.da{opacity:1;transform:scale(1);transition:opacity .8s ease, transform 1.8s cubic-bezier(.2,.8,.25,1)}
-    html.js .ring.schrumpft{transform:scale(.1);transition:transform 1.5s cubic-bezier(.55,0,.25,1), opacity .7s ease 1s}
-    html.js .ring.weg{display:none}
-    .ring-stern{position:absolute;left:50%;top:21%;width:11%;transform:translateX(-50%)}
-    .ring-katze{
-      position:absolute;left:14%;bottom:5%;width:30%;
-      transform:translateX(-50%);height:auto;display:block;mix-blend-mode:multiply;
+    .pet img{
+      height:100%;width:auto;display:block;position:absolute;bottom:0;left:50%;
+      mix-blend-mode:multiply;
     }
-    html.js .ring.laeuft .ring-katze{transition:left 2.1s linear}
-    html.js .ring.sitzt .ring-katze{left:44%}
-    html.js .ring.schrumpft .ring-stern,
-    html.js .ring.schrumpft .ring-katze{opacity:0;transition:opacity .9s ease .3s}
-    /* kleine Katze + Blase neben MUSIC & ART (Endzustand) */
+    .pet-lauf{transform:translateX(-50%)}
+    .pet-miau{opacity:0;transition:opacity .28s ease;width:auto}
+    .pet-miau.sichtbar{opacity:1}
+    .pet-rtl .pet-lauf{transform:translateX(-50%) scaleX(-1)}
+    html.reduziert .pet{display:none}
+    /* kleine Katze + Blase neben MUSIC & ART (Endzustand) */    /* kleine Katze + Blase neben MUSIC & ART (Endzustand) */
     .miau-ecke{
       position:absolute;left:calc(100% - 8px);top:72%;
       display:flex;flex-direction:column;align-items:center;gap:2px;
@@ -203,11 +197,9 @@
       transition:opacity .6s ease .25s, transform .6s cubic-bezier(.2,.9,.25,1.2) .25s;
     }
     /* Zustände nur mit JS (ohne JS: fertiges Logo, alles statisch sichtbar) */
-    html.js .marke-buehne:not(.logo-an) .marke{opacity:0}
-    html.js .miau-ecke{opacity:0}
-    html.js .blase{opacity:0;transform:translateY(6px)}
-    html.js .marke-buehne.ecke-da .miau-ecke{opacity:1}
-    html.js .marke-buehne.ecke-da .blase{opacity:1;transform:none}
+    .miau-ecke{animation:ecke-ein .9s ease 2.4s both}
+    @keyframes ecke-ein{from{opacity:0}to{opacity:1}}
+    @keyframes marke-ein{from{opacity:0}to{opacity:1}}
     @keyframes katzewippen{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-2.5deg)}}
     .linie{width:52px;height:1px;background:var(--hairline);margin:30px auto 22px;position:relative}
     .linie::after{content:"";position:absolute;left:50%;top:-2.5px;width:6px;height:6px;transform:translateX(-50%) rotate(45deg);background:var(--smaragd)}
@@ -342,9 +334,9 @@
     <img class="cursor-logo" src="assets/logo/gatinos_emblem.png" alt="">
   </div>
 
-  <div class="ring" id="ring" aria-hidden="true">
-    <svg class="ring-stern" viewBox="0 0 100 100"><path d="M50 2 L57 43 L98 50 L57 57 L50 98 L43 57 L2 50 L43 43 Z" fill="#333d4a"/></svg>
-    <img class="ring-katze" src="assets/cat/sitz.png" alt="">
+  <div class="pet" id="pet" aria-hidden="true">
+    <img class="pet-lauf" src="assets/cat/wand-1.png" alt="" loading="eager">
+    <img class="pet-miau" src="assets/cat/katze-auf.jpg" alt="" loading="eager">
   </div>
 
   <!-- ============ Katzen-Dialog: öffnet nur über „Benachrichtigen“ ============ -->
@@ -460,59 +452,64 @@
     }
     requestAnimationFrame(rahmen);
 
-    /* — Logo-Geschichte: alles spielt sich im großen Kreis ab. Die Katze
-         sitzt drin, bewundert den Stern — und am Ende schrumpft der Kreis
-         und wird zum Logo. Ohne JS oder bei reduzierter Bewegung: direkt
-         der Endzustand. — */
-    var buehne = document.querySelector("#marke-buehne");
-    var ring = document.querySelector("#ring");
-    var katze = ring ? ring.querySelector(".ring-katze") : null;
-    var PFAD = "assets/cat/";
-    if(ring && buehne && katze){
-      if(reduziert){
-        buehne.classList.add("logo-an", "ecke-da");
-        ring.classList.add("weg");
-      }else{
-        /* den Kreis exakt auf die Emblem-Position zentrieren */
-        var zentrum = function(){
-          var r = buehne.getBoundingClientRect();
-          return { x: r.left + r.width / 2, y: r.top + r.height * 0.364 };
-        };
-        var z = zentrum();
-        ring.style.left = (z.x - ring.offsetWidth / 2) + "px";
-        ring.style.top = (z.y - ring.offsetHeight / 2) + "px";
+    /* — das kleine Haustier: läuft langsam über den Screen (hin und her),
+         stoppt ab und zu, dreht sich zum Betrachter und miaut. Ohne JS oder
+         bei reduzierter Bewegung: die Katze sitzt still. — */
+    var pet = document.querySelector("#pet");
+    var laufBild = document.querySelector(".pet-lauf");
+    var miauBild = document.querySelector(".pet-miau");
+    if(pet && laufBild && miauBild && !reduziert){
+      var PFAD = "assets/cat/";
+      ["wand-1","wand-2","wand-3","wand-4","katze-auf","katze-halb","katze-zu"].forEach(function(n){
+        var v = new Image(); v.src = PFAD + n + ".jpg";
+      });
 
-        setTimeout(function(){ ring.classList.add("da"); }, 250);
-        /* die Katze läuft im Kreis von links zur Mitte und setzt sich zum Stern */
-        setTimeout(function(){
-          ring.classList.add("laeuft");
-          katze.style.left = "42%";
-        }, 1100);
-        var laufFrame = 0;
-        var laufwerk = setInterval(function(){
-          if(!ring.classList.contains("laeuft")){ clearInterval(laufwerk); return; }
-          laufFrame = (laufFrame + 1) % 4;
-          katze.src = PFAD + "wand-" + (laufFrame + 1) + ".png";
-        }, 210);
-        setTimeout(function(){
-          ring.classList.remove("laeuft");
-          clearInterval(laufwerk);
-          katze.src = PFAD + "sitz.png";
-        }, 3400);
+      var px = -170;                /* startet außerhalb links */
+      var richtung = 1;             /* 1 = nach rechts, -1 = nach links */
+      var tempo = 42;               /* px/s — gemütlich */
+      var lauft = true;
+      var letzteBewegung = performance.now();
 
-        /* der Kreis schrumpft — Position frisch messen, im kleinsten Moment
-           wird er exakt zum Emblem und das echte Logo übernimmt */
-        setTimeout(function(){
-          var zz = zentrum();
-          ring.style.left = (zz.x - ring.offsetWidth / 2) + "px";
-          ring.style.top = (zz.y - ring.offsetHeight / 2) + "px";
-          ring.classList.add("schrumpft");
-          buehne.classList.add("logo-an");
-        }, 5200);
-        setTimeout(function(){ ring.classList.add("weg"); }, 7600);
-
-        setTimeout(function(){ buehne.classList.add("ecke-da"); }, 8800);
+      function petRahmen(now){
+        var dt = Math.min((now - letzteBewegung) / 1000, .05);
+        letzteBewegung = now;
+        if(lauft){
+          px += tempo * richtung * dt;
+          if(px > innerWidth + 40){ richtung = -1; pet.classList.add("pet-rtl"); }
+          if(px < -180){ richtung = 1; pet.classList.remove("pet-rtl"); }
+          pet.style.transform = "translate3d(" + px + "px,0,0)";
+        }
+        requestAnimationFrame(petRahmen);
       }
+      requestAnimationFrame(petRahmen);
+
+      /* Miau-Pause: anhalten, den Betrachter anschauen, weiterlaufen */
+      var mieutGerade = false;
+      function miauPause(dauer){
+        if(mieutGerade){ return; }
+        mieutGerade = true;
+        lauft = false;
+        var folge = ["katze-zu","katze-halb","katze-auf","katze-halb","katze-auf","katze-zu"];
+        var dauerPro = [420,170,300,170,300,620];
+        var i = 0;
+        (function schritt(){
+          if(i >= folge.length){
+            miauBild.classList.remove("sichtbar");
+            laufBild.classList.add("sichtbar");
+            setTimeout(function(){ mieutGerade = false; }, 400);
+            return;
+          }
+          miauBild.src = PFAD + folge[i] + ".jpg";
+          var d = dauerPro[i];
+          i++;
+          setTimeout(schritt, d);
+        })();
+        setTimeout(function(){ mieutGerade = false; }, dauer);
+      }
+
+      /* ab und zu miauen — erst nach einer Weile, dann in unregelmäßigen Abständen */
+      setTimeout(function(){ miauPause(2200); }, 9000);
+      setInterval(function(){ if(Math.random() < .5){ miauPause(2200); } }, 17000);
     }
 
     /* — Katzen-Dialog: öffnet nur über „Benachrichtigen“, miaut beim Öffnen — */

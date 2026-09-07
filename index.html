@@ -343,8 +343,6 @@
     <img class="pet-bild" data-pose="wand-2" src="assets/cat/wand-2.png" alt="" loading="eager">
     <img class="pet-bild" data-pose="wand-3" src="assets/cat/wand-3.png" alt="" loading="eager">
     <img class="pet-bild" data-pose="wand-4" src="assets/cat/wand-4.png" alt="" loading="eager">
-    <img class="pet-bild" data-pose="wand-5" src="assets/cat/wand-5.png" alt="" loading="eager">
-    <img class="pet-bild" data-pose="wand-6" src="assets/cat/wand-6.png" alt="" loading="eager">
     <img class="pet-bild" data-pose="sitz" src="assets/cat/sitz.png" alt="" loading="eager">
     <img class="pet-bild" data-pose="sprung" src="assets/cat/sprung.png" alt="" loading="eager">
     <img class="pet-bild" data-pose="quetsch" src="assets/cat/quetsch.png" alt="" loading="eager">
@@ -477,7 +475,7 @@
         petBilder[b].classList.toggle("sichtbar", petBilder[b].getAttribute("data-pose") === name);
       }
     };
-    if(pet && petBilder.length === 12 && !reduziert){
+    if(pet && petBilder.length === 10 && !reduziert){
 
       var px = -160;                /* startet außerhalb links */
       var richtung = 1;             /* 1 = nach rechts, -1 = nach links */

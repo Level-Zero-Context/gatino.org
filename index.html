@@ -49,11 +49,14 @@
       mask-image:radial-gradient(circle 330px at var(--mx) var(--my), #000 0%, rgba(0,0,0,.5) 46%, transparent 78%);
     }
     .pa{
-      position:absolute;opacity:.95;mix-blend-mode:multiply;height:auto;rotate:var(--neig,0deg);
+      position:absolute;opacity:.97;height:auto;rotate:var(--neig,0deg);
       animation:schweben var(--dauer,18s) ease-in-out infinite;
-      /* weicher Rand: kein Papier-Kasten um die Zeichnung */
-      -webkit-mask-image:radial-gradient(ellipse 74% 74% at 50% 50%, #000 48%, transparent 88%);
-      mask-image:radial-gradient(ellipse 74% 74% at 50% 50%, #000 48%, transparent 88%);
+      /* wie kleine gerahmte Poster: eigenes Papier, dünne Tinten-Linie, weicher Schatten */
+      background:#f4efe0;
+      border:1px solid rgba(28,24,19,.26);
+      box-shadow:0 12px 28px rgba(28,24,19,.13), 0 2px 6px rgba(28,24,19,.08);
+      border-radius:2px;
+      padding:8px 8px 24px;
     }
     .pa-1 {width:clamp(170px,19vw,300px);right:1vw;  top:4vh;   --neig:5deg;  --dauer:17s}
     .pa-2 {width:clamp(150px,16vw,260px);left:2vw;   top:6vh;   --neig:-7deg; --dauer:21s}
@@ -171,9 +174,10 @@
     .pet img{
       height:100%;width:auto;display:block;position:absolute;bottom:0;left:50%;
       transform:translateX(-50%);
-      mix-blend-mode:multiply;
+      mix-blend-mode:multiply;opacity:0;
       filter:drop-shadow(0 6px 12px rgba(28,24,19,.16));
     }
+    .pet img.sichtbar{opacity:1}
     .pet-rtl img{transform:translateX(-50%) scaleX(-1)}
     html.reduziert .pet{display:none}
     /* kleine Katze + Blase neben MUSIC & ART (Endzustand) */    /* kleine Katze + Blase neben MUSIC & ART (Endzustand) */
@@ -335,7 +339,18 @@
   </div>
 
   <div class="pet" id="pet" aria-hidden="true">
-    <img class="pet-bild" src="assets/cat/wand-1.png" alt="" loading="eager">
+    <img class="pet-bild sichtbar" data-pose="wand-1" src="assets/cat/wand-1.png" alt="" loading="eager">
+    <img class="pet-bild" data-pose="wand-2" src="assets/cat/wand-2.png" alt="" loading="eager">
+    <img class="pet-bild" data-pose="wand-3" src="assets/cat/wand-3.png" alt="" loading="eager">
+    <img class="pet-bild" data-pose="wand-4" src="assets/cat/wand-4.png" alt="" loading="eager">
+    <img class="pet-bild" data-pose="wand-5" src="assets/cat/wand-5.png" alt="" loading="eager">
+    <img class="pet-bild" data-pose="wand-6" src="assets/cat/wand-6.png" alt="" loading="eager">
+    <img class="pet-bild" data-pose="sitz" src="assets/cat/sitz.png" alt="" loading="eager">
+    <img class="pet-bild" data-pose="sprung" src="assets/cat/sprung.png" alt="" loading="eager">
+    <img class="pet-bild" data-pose="quetsch" src="assets/cat/quetsch.png" alt="" loading="eager">
+    <img class="pet-bild" data-pose="katze-zu" src="assets/cat/katze-zu.jpg" alt="" loading="eager">
+    <img class="pet-bild" data-pose="katze-halb" src="assets/cat/katze-halb.jpg" alt="" loading="eager">
+    <img class="pet-bild" data-pose="katze-auf" src="assets/cat/katze-auf.jpg" alt="" loading="eager">
   </div>
 
   <!-- ============ Katzen-Dialog: öffnet nur über „Benachrichtigen“ ============ -->
@@ -456,14 +471,13 @@
          quetschen, hüpfen. Ohne JS oder bei reduzierter Bewegung: die Katze
          sitzt still. — */
     var pet = document.querySelector("#pet");
-    var petBild = document.querySelector(".pet-bild");
-    if(pet && petBild && !reduziert){
-      var PFAD = "assets/cat/";
-      var alles = ["wand-1","wand-2","wand-3","wand-4","wand-5","wand-6","sitz","sprung","quetsch","katze-zu","katze-halb","katze-auf"];
-      alles.forEach(function(n){
-        var v = new Image(); v.src = PFAD + n + ".png";
-        var w = new Image(); w.src = PFAD + n + ".jpg";
-      });
+    var petBilder = [].slice.call(document.querySelectorAll(".pet-bild"));
+    var petZeige = function(name){
+      for(var b = 0; b < petBilder.length; b++){
+        petBilder[b].classList.toggle("sichtbar", petBilder[b].getAttribute("data-pose") === name);
+      }
+    };
+    if(pet && petBilder.length === 12 && !reduziert){
 
       var px = -160;                /* startet außerhalb links */
       var richtung = 1;             /* 1 = nach rechts, -1 = nach links */
@@ -493,7 +507,7 @@
           if(laufZeit > 165){
             laufZeit = 0;
             laufFrame = (laufFrame + 1) % 6;
-            petBild.src = PFAD + "wand-" + (laufFrame + 1) + ".png";
+            petZeige("wand-" + (laufFrame + 1));
           }
         }
         if(aktiveNummer){
@@ -503,9 +517,9 @@
             if(nummerSchritt >= aktiveNummer.schritte.length){
               aktiveNummer = null;
               lauft = true;
-              petBild.src = PFAD + "wand-1.png";
+              petZeige("wand-1");
             }else{
-              petBild.src = PFAD + aktiveNummer.schritte[nummerSchritt][0] + ".png";
+              petZeige(aktiveNummer.schritte[nummerSchritt][0]);
               nummerRest = aktiveNummer.schritte[nummerSchritt][1];
             }
           }
